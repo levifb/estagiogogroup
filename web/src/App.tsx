@@ -202,8 +202,8 @@ export default function App() {
                 </div>
                 {pendentes > 0 && (
                   <p className="nota" style={{ marginTop: 10 }}>
-                    {pendentes} casos ainda estão na fila do agente: o plano gratuito do modelo processa cerca de 66 decisões
-                    por dia. Use "Rodar o agente agora" para decidir um deles ao vivo.
+                    {pendentes} casos ainda estão na fila do agente: o plano gratuito do Groq limita os tokens por dia, então a
+                    fila é processada aos poucos. Use "Rodar o agente agora" para decidir um deles ao vivo.
                   </p>
                 )}
                 <ol className="lista">
@@ -382,6 +382,11 @@ function Detalhe({ orderId }: { orderId: string }) {
         </h3>
         <span className={`fonte fonte-${r.fonte}`}>{FONTE[r.fonte]}</span>
       </div>
+      {d && (
+        <p className="nota" style={{ marginTop: 6 }}>
+          Modelo: {(r.modelo ?? 'openai/gpt-oss-120b').replace('openai/', '')}, prompt v{r.versao_prompt}
+        </p>
+      )}
 
       <dl className="ficha">
         <div><dt>Produto</dt><dd>{f.pedido.produto} ({f.pedido.marca}), {reais(f.pedido.valor_pago, 2)}</dd></div>

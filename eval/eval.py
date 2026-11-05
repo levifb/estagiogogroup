@@ -47,6 +47,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--demo", action="store_true")
     ap.add_argument("--limite", type=int, default=None)
+    ap.add_argument("--sem-gravar", action="store_true", help="não grava o cache (para avaliar outro modelo sem sobrescrever)")
     args = ap.parse_args()
 
     gab = [json.loads(l) for l in (RAIZ / "eval" / "gabarito.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
@@ -58,7 +59,7 @@ def main():
 
     linhas, t0 = [], time.time()
     for i, g in enumerate(gab, 1):
-        r = processar(g["order_id"], modo="demo" if args.demo else "ao_vivo")
+        r = processar(g["order_id"], modo="demo" if args.demo else "ao_vivo", gravar=not args.sem_gravar)
         d = r.decisao_modelo
         base_acao, base_humano = linha_de_base(g)
         tokens = sum(x.get("tokens") or 0 for x in r.rastro if x.get("etapa", "").startswith("modelo"))
@@ -130,7 +131,8 @@ def main():
 
     pasta = RAIZ / "eval" / "resultados"
     pasta.mkdir(parents=True, exist_ok=True)
-    nome = f"{datetime.now():%Y-%m-%d_%H%M}_v{versao}{'_demo' if args.demo else ''}.json"
+    sufixo_modelo = "" if modelo() == "openai/gpt-oss-120b" else "_" + modelo().split("/")[-1]
+    nome = f"{datetime.now():%Y-%m-%d_%H%M}_v{versao}{sufixo_modelo}{'_demo' if args.demo else ''}.json"
     (pasta / nome).write_text(json.dumps({"versao_prompt": versao, "modelo": modelo(), "resumo": resumo, "casos": linhas},
                                          ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"\nsalvo em eval/resultados/{nome}")

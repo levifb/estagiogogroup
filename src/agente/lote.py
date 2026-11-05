@@ -19,11 +19,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dia", type=int, default=0)
     ap.add_argument("--limite", type=int, default=None)
+    ap.add_argument("--reverso", action="store_true", help="processa do fim da fila para o começo")
     ap.add_argument("--paciente", action="store_true",
                     help="no limite diário do Groq, espera e tenta de novo em vez de pular o caso")
     args = ap.parse_args()
     versao, _, _ = carregar_prompt("decisao")
     fila = fila_do_dia(args.dia)[: args.limite]
+    if args.reverso:
+        fila = fila[::-1]
     t0, feitos, falhas = time.time(), 0, 0
     for i, o in enumerate(fila, 1):
         tipo = montar_ficha(o)["excecao"]["tipo"]

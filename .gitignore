@@ -27,3 +27,4 @@ Thumbs.db
 .env*
 !.env.example
 demo/lote.log
+demo/*.log

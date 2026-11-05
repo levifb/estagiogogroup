@@ -64,4 +64,5 @@ class Resultado(BaseModel):
     ficha: dict[str, Any]
     rastro: list[dict[str, Any]] = Field(default_factory=list)
     versao_prompt: int
+    modelo: Optional[str] = None  # None em decisões antigas = openai/gpt-oss-120b
     erro: Optional[str] = None

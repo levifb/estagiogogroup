@@ -61,6 +61,7 @@ export interface Resultado {
   ficha: Ficha
   rastro: PassoRastro[]
   versao_prompt: number
+  modelo?: string | null
   erro: string | null
 }
 

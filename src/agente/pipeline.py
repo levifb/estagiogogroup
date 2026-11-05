@@ -109,7 +109,7 @@ def decidir(ficha: dict, modo: Literal["ao_vivo", "demo"] = "demo", gravar: bool
         erro = next((r.get("detalhe") or r.get("erro") for r in reversed(rastro) if r["etapa"] in ("erro", "json_invalido")), None)
         return _montar(order_id, ficha, None, rastro, "sem_modelo", versao, erro=erro)
 
-    r = _montar(order_id, ficha, decisao, rastro, "ao_vivo", versao)
+    r = _montar(order_id, ficha, decisao, rastro, "ao_vivo", versao).model_copy(update={"modelo": llm.modelo()})
     if gravar:
         try:
             gravar_cache(r)
