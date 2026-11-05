@@ -97,3 +97,8 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 - Correção de uma afirmação minha: eu tinha dito que, com o 20b, a fila terminaria no mesmo dia. A página de limites do Groq mostra o mesmo teto diário para os três modelos, então o 20b só adianta (eval + cerca de 33 casos hoje).
 - Eval do 20b antes de usá-lo (eval/resultados/2026-11-05_2016_v2_gpt-oss-20b.json, sem sobrescrever o cache do 120b): recall humano 4/4, ação 31/33, mensagens 31/31, padrão 11/11, JSON na 1ª tentativa 32/33. Os 2 erros mandaram para a pessoa reenvios que podiam ser automáticos: o modelo leu "7 dias do recebimento" como dias desde a abertura do caso. É erro no sentido seguro e fica documentado; corrigir exigiria um prompt v3 e um novo eval nos dois modelos.
 - O que mudou: cada decisão guarda o modelo que a tomou, e a tela mostra isso. O 20b processa a fila do começo e o 120b do fim, cada um com a sua cota.
+
+## 2026-11-05 20:36: erro da IA (eval errado na tela)
+- O que aconteceu: a exportação pegava o resultado de eval mais recente, que passou a ser o do gpt-oss-20b, e a seção "Como sabemos" do site mostrava esse eval como se fosse o principal.
+- Como percebemos: conferência do eval.json depois do deploy.
+- O que mudou: `src/exportar.py` usa só o eval do modelo principal, porque arquivos de outros modelos levam o nome do modelo no fim. A tela voltou a mostrar 2026-11-05_1907_v2.json (120b).
