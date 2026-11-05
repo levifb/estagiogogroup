@@ -280,6 +280,254 @@
    "definicao": "dias úteis médios além do SLA contratado nas demais entregas (base de comparação para N54)",
    "script": "analises/a03_padroes.py",
    "estimativa": false
+  },
+  "N60": {
+   "id": "N60",
+   "valor": 98462.22524955134,
+   "texto": "R$ 98.462",
+   "definicao": "perda esperada se todas as 2.000 exceções fossem tratadas hoje = reembolso esperado + recompra perdida + custo de resolução (SPEC.md S1–S6)",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": true
+  },
+  "N61": {
+   "id": "N61",
+   "valor": 60738.7804,
+   "texto": "R$ 60.739",
+   "definicao": "reembolso esperado hoje: soma de P(cancelamento pelos dias úteis de atraso contra o prometido) × valor pago",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": true
+  },
+  "N62": {
+   "id": "N62",
+   "valor": 11555.70323355133,
+   "texto": "R$ 11.556",
+   "definicao": "recompra perdida hoje: soma de P(cancelamento) × P(recompra 70% ou 28%) × 0,5 × ticket médio do cliente",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": true
+  },
+  "N63": {
+   "id": "N63",
+   "valor": 26167.741616,
+   "texto": "R$ 26.168",
+   "definicao": "custo de resolução hoje: soma de (1 − P(cancelamento)) × custo da ação padrão (reenvio = 24% do valor + frete)",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": true
+  },
+  "N64": {
+   "id": "N64",
+   "valor": 163,
+   "texto": "163",
+   "definicao": "exceções cuja perda esperada sobe se esperarem 1 dia útil (estão num degrau da tabela de cancelamento)",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": false
+  },
+  "N65": {
+   "id": "N65",
+   "valor": 1690.913600617021,
+   "texto": "R$ 1.691",
+   "definicao": "quanto a perda esperada total sobe se nenhuma exceção for tratada amanhã (1 dia útil a mais)",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": true
+  },
+  "N66": {
+   "id": "N66",
+   "valor": 10936.79941680044,
+   "texto": "R$ 10.937",
+   "definicao": "quanto a perda esperada total sobe se nenhuma exceção for tratada por 5 dias úteis",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": true
+  },
+  "N67": {
+   "id": "N67",
+   "valor": 234,
+   "texto": "234",
+   "definicao": "atrasos já entregues: o atraso parou de crescer, então tratar hoje ou depois não muda o risco",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": false
+  },
+  "N70": {
+   "id": "N70",
+   "valor": 118043.06453453067,
+   "texto": "R$ 118.043",
+   "definicao": "perda esperada tratando o estoque em ordem de chegada, 150/dia útil (processo atual)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N71": {
+   "id": "N71",
+   "valor": 99868.03074104094,
+   "texto": "R$ 99.868",
+   "definicao": "perda esperada com o plano otimizado (atribuição exata casos × dias), 150/dia útil",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N72": {
+   "id": "N72",
+   "valor": 18175.033793489725,
+   "texto": "R$ 18.175",
+   "definicao": "perda evitada pelo plano otimizado em relação à ordem de chegada (N70 − N71)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N73": {
+   "id": "N73",
+   "valor": 0.1539695183716029,
+   "texto": "15%",
+   "definicao": "redução da perda esperada em relação à ordem de chegada",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N74": {
+   "id": "N74",
+   "valor": 0.9282050441745868,
+   "texto": "93%",
+   "definicao": "parcela da perda evitável capturada pelo plano otimizado: (N70 − N71) / (N70 − N60); N60 seria tratar tudo hoje, o que não é possível",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N75": {
+   "id": "N75",
+   "valor": 106856.24942744893,
+   "texto": "R$ 106.856",
+   "definicao": "perda esperada priorizando o maior valor de pedido (comparação)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N76": {
+   "id": "N76",
+   "valor": 113985.44841080479,
+   "texto": "R$ 113.985",
+   "definicao": "perda esperada priorizando a maior perda atual (comparação)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N80": {
+   "id": "N80",
+   "valor": 161.0879163176127,
+   "texto": "161",
+   "definicao": "P01 (Rota Express | Nordeste): exceções por mês acima da taxa de base = excesso 311 × 30/58 dias",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N81": {
+   "id": "N81",
+   "valor": 4563.795616491505,
+   "texto": "R$ 4.564",
+   "definicao": "P01 (Rota Express | Nordeste): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 28)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N82": {
+   "id": "N82",
+   "valor": 98.23298195461855,
+   "texto": "98",
+   "definicao": "P02 (CD2 | noite): exceções por mês acima da taxa de base = excesso 190 × 30/58 dias",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N83": {
+   "id": "N83",
+   "valor": 6774.443675769588,
+   "texto": "R$ 6.774",
+   "definicao": "P02 (CD2 | noite): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 69)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N84": {
+   "id": "N84",
+   "valor": 41.36684669713337,
+   "texto": "41",
+   "definicao": "P03 (Carga Norte): exceções por mês acima da taxa de base = excesso 80 × 30/58 dias",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N85": {
+   "id": "N85",
+   "valor": 3599.296634469075,
+   "texto": "R$ 3.599",
+   "definicao": "P03 (Carga Norte): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 87)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N86": {
+   "id": "N86",
+   "valor": 37.53022839229736,
+   "texto": "38",
+   "definicao": "P04 (APC-1067 | L2607-B): exceções por mês acima da taxa de base = excesso 73 × 30/58 dias",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N87": {
+   "id": "N87",
+   "valor": 2649.0072322695196,
+   "texto": "R$ 2.649",
+   "definicao": "P04 (APC-1067 | L2607-B): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 71)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N88": {
+   "id": "N88",
+   "valor": 30.819402671889208,
+   "texto": "31",
+   "definicao": "P05 (IMP-02): exceções por mês acima da taxa de base = excesso 60 × 30/58 dias",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N89": {
+   "id": "N89",
+   "valor": 2223.8228897687154,
+   "texto": "R$ 2.224",
+   "definicao": "P05 (IMP-02): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 72)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N90": {
+   "id": "N90",
+   "valor": 25.788770846934536,
+   "texto": "26",
+   "definicao": "P06 (Kokeshi): exceções por mês acima da taxa de base = excesso 50 × 30/58 dias",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N91": {
+   "id": "N91",
+   "valor": 745.3712085468235,
+   "texto": "R$ 745",
+   "definicao": "P06 (Kokeshi): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 29)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N95": {
+   "id": "N95",
+   "valor": 76.0344827586207,
+   "texto": "76",
+   "definicao": "atrasos por mês que somem ao calcular o prazo prometido em dias úteis = N22 × 30/58 dias",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N96": {
+   "id": "N96",
+   "valor": 388.94235254826793,
+   "texto": "R$ 389",
+   "definicao": "perda esperada por mês desses atrasos (perda média hoje R$ 5)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N97": {
+   "id": "N97",
+   "valor": 429.9985606735892,
+   "texto": "430",
+   "definicao": "exceções por mês evitáveis mudando o processo: (excesso dos padrões 763 + 68 atrasos falsos fora dos padrões) × 30/58",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
+  },
+  "N98": {
+   "id": "N98",
+   "valor": 85.99971213471784,
+   "texto": "86 h",
+   "definicao": "horas do time por mês liberadas por N97, a 12 minutos por tratativa (parametros.md)",
+   "script": "analises/a05_simulacao.py",
+   "estimativa": true
   }
  }
 }

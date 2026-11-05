@@ -36,7 +36,7 @@ Cuidado com dupla contagem: um pedido reembolsado não gera também custo de ree
 
 ## Priorização (`src/negocio/priorizacao.py`)
 
-Ordene pelo **custo de espera**: quanto a perda esperada cresce se o caso for tratado amanhã em vez de hoje, e não pela perda atual. Um pedido com 12 dias úteis de atraso já está no teto de 40% e quase não piora; um com 2 dias está prestes a saltar de 4% para 10%. Como toda tratativa custa os mesmos 12 minutos, ordenar pelo custo de espera e pegar os 150 primeiros é guloso ótimo para um dia (argumento de troca: inverter dois casos fora dessa ordem nunca diminui a perda). Explique isso no SPEC.md em linguagem simples, porque o Levi vai defender essa escolha em entrevista.
+Ordene pelo **custo de espera**: quanto a perda esperada cresce se o caso for tratado amanhã em vez de hoje, e não pela perda atual. Um pedido com 12 dias úteis de atraso já está no teto de 40% e quase não piora; um com 2 dias está prestes a saltar de 4% para 10%. Como toda tratativa custa os mesmos 12 minutos, cada dia tem 150 vagas iguais, e escolher o dia de cada caso é um problema de atribuição (casos × vagas), resolvido de forma exata com `scipy.optimize.linear_sum_assignment`. O guloso de um dia (pegar os 150 que mais pioram amanhã) é míope com a tabela em degraus: um caso com 1 dia de atraso não piora amanhã, mas salta depois. Há um teste com esse contraexemplo em `tests/test_negocio.py`. O SPEC.md explica isso em linguagem simples, porque o Levi vai defender essa escolha em entrevista.
 
 Desempate e piso: casos de clientes acima de R$ 1.500 e casos parados há muitos dias não podem ficar presos para sempre. Defina uma regra de envelhecimento e registre como suposição.
 

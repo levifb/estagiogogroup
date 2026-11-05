@@ -40,3 +40,34 @@ Todo número que aparece no README, na interface ou no LOG é citado pelo id des
 | N53 | 36% | pedidos com brinde entre todas as exceções (base de comparação para N52) | `analises/a03_padroes.py` | 2026-11-05 |
 | N54 | 3,0 | dias úteis médios além do SLA contratado nas entregas da Rota Express no Nordeste | `analises/a03_padroes.py` | 2026-11-05 |
 | N55 | 0,8 | dias úteis médios além do SLA contratado nas demais entregas (base de comparação para N54) | `analises/a03_padroes.py` | 2026-11-05 |
+| N60 | R$ 98.462 | perda esperada se todas as 2.000 exceções fossem tratadas hoje = reembolso esperado + recompra perdida + custo de resolução (SPEC.md S1–S6) **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N61 | R$ 60.739 | reembolso esperado hoje: soma de P(cancelamento pelos dias úteis de atraso contra o prometido) × valor pago **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N62 | R$ 11.556 | recompra perdida hoje: soma de P(cancelamento) × P(recompra 70% ou 28%) × 0,5 × ticket médio do cliente **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N63 | R$ 26.168 | custo de resolução hoje: soma de (1 − P(cancelamento)) × custo da ação padrão (reenvio = 24% do valor + frete) **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N64 | 163 | exceções cuja perda esperada sobe se esperarem 1 dia útil (estão num degrau da tabela de cancelamento) | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N65 | R$ 1.691 | quanto a perda esperada total sobe se nenhuma exceção for tratada amanhã (1 dia útil a mais) **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N66 | R$ 10.937 | quanto a perda esperada total sobe se nenhuma exceção for tratada por 5 dias úteis **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N67 | 234 | atrasos já entregues: o atraso parou de crescer, então tratar hoje ou depois não muda o risco | `analises/a04_valor_em_risco.py` | 2026-11-05 |
+| N70 | R$ 118.043 | perda esperada tratando o estoque em ordem de chegada, 150/dia útil (processo atual) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N71 | R$ 99.868 | perda esperada com o plano otimizado (atribuição exata casos × dias), 150/dia útil **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N72 | R$ 18.175 | perda evitada pelo plano otimizado em relação à ordem de chegada (N70 − N71) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N73 | 15% | redução da perda esperada em relação à ordem de chegada **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N74 | 93% | parcela da perda evitável capturada pelo plano otimizado: (N70 − N71) / (N70 − N60); N60 seria tratar tudo hoje, o que não é possível **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N75 | R$ 106.856 | perda esperada priorizando o maior valor de pedido (comparação) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N76 | R$ 113.985 | perda esperada priorizando a maior perda atual (comparação) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N80 | 161 | P01 (Rota Express / Nordeste): exceções por mês acima da taxa de base = excesso 311 × 30/58 dias **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N81 | R$ 4.564 | P01 (Rota Express / Nordeste): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 28) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N82 | 98 | P02 (CD2 / noite): exceções por mês acima da taxa de base = excesso 190 × 30/58 dias **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N83 | R$ 6.774 | P02 (CD2 / noite): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 69) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N84 | 41 | P03 (Carga Norte): exceções por mês acima da taxa de base = excesso 80 × 30/58 dias **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N85 | R$ 3.599 | P03 (Carga Norte): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 87) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N86 | 38 | P04 (APC-1067 / L2607-B): exceções por mês acima da taxa de base = excesso 73 × 30/58 dias **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N87 | R$ 2.649 | P04 (APC-1067 / L2607-B): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 71) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N88 | 31 | P05 (IMP-02): exceções por mês acima da taxa de base = excesso 60 × 30/58 dias **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N89 | R$ 2.224 | P05 (IMP-02): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 72) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N90 | 26 | P06 (Kokeshi): exceções por mês acima da taxa de base = excesso 50 × 30/58 dias **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N91 | R$ 745 | P06 (Kokeshi): perda evitável por mês = exceções/mês acima da base × perda esperada média do padrão hoje (R$ 29) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N95 | 76 | atrasos por mês que somem ao calcular o prazo prometido em dias úteis = N22 × 30/58 dias **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N96 | R$ 389 | perda esperada por mês desses atrasos (perda média hoje R$ 5) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N97 | 430 | exceções por mês evitáveis mudando o processo: (excesso dos padrões 763 + 68 atrasos falsos fora dos padrões) × 30/58 **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |
+| N98 | 86 h | horas do time por mês liberadas por N97, a 12 minutos por tratativa (parametros.md) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-05 |

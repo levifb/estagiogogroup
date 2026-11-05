@@ -28,3 +28,15 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 - Causa: entrega no sábado ou domingo depois de um prazo de sexta contava 0 dia útil de atraso.
 - O que mudou: entrega depois do prazo conta pelo menos 1 dia de atraso (suposição S-cal-1, com teste). O cliente que esperava na sexta percebe o atraso.
 - Antes → depois: N22 157 → 147 (30% dos atrasos).
+
+## 2026-11-05 18:43: erro da IA (priorização)
+- O que aconteceu: a skill de negócio, escrita pelo Claude Code, dizia que ordenar pelo custo de espera de amanhã e pegar os 150 primeiros era ótimo.
+- Como percebemos: ao implementar o modelo. A tabela de cancelamento é em degraus, e um caso com 1 dia de atraso não piora amanhã, mas salta depois de amanhã. O guloso de um dia adia esse caso e paga o salto.
+- O que mudou: a priorização virou um problema de atribuição casos × vagas por dia, resolvido de forma exata pelo algoritmo húngaro (`src/negocio/priorizacao.py`). O teste `test_otimo_olha_alem_de_amanha` cobre o contraexemplo, e a skill e o SPEC foram corrigidos.
+- Resultado: perda esperada FIFO R$ 118.043 → otimizado R$ 99.868 (N70, N71); maior risco hoje primeiro R$ 113.985 (N76).
+
+## 2026-11-05 18:43: erro da IA (dupla contagem)
+- O que aconteceu: o primeiro total de exceções evitáveis por mês somava o excesso dos padrões com todos os 147 atrasos falsos.
+- Como percebemos: conferência de sobreposição. 79 dos 147 atrasos falsos já estavam dentro do padrão da Rota Express no Nordeste.
+- O que mudou: entram só os 68 atrasos falsos que estão fora dos padrões.
+- Antes → depois: N97 471 → 430 exceções/mês; N98 94 h → 86 h.
