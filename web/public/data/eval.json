@@ -1,0 +1,1 @@
+{"arquivo":"2026-11-05_1856_v1.json","versao_prompt":1,"modelo":"openai/gpt-oss-120b","resumo":{"acao_exata":33,"acao_aceitavel":33,"linha_de_base_aceitavel":26,"n":33,"recall_humano":[4,4],"precisao_humano":[4,4],"padrao_certo":[11,11],"padrao_falso":[0,22],"json_1a_tentativa":[33,33],"resolvidos_sozinhos":[29,33],"tokens_medio":2891,"segundos_total":464.1}}
