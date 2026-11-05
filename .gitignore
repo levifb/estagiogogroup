@@ -22,3 +22,7 @@ web/dist/
 Thumbs.db
 .vscode/
 .idea/
+
+.vercel
+.env*
+!.env.example
