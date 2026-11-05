@@ -82,3 +82,6 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 ## 2026-11-05 19:22: feedback (Levi)
 - O Levi pediu que a interface seguisse a linguagem visual da página de talentos do Gogroup, para a banca reconhecer a "cara" do grupo.
 - O que mudou: a captura de tela desse domínio foi bloqueada pela extensão, então os tokens saíram do CSS público da página (fundo #eef3fb com pontos, azul #2659a5, amarelo #d7d900 com sombra 3D #8e8f00, Poppins 800 e JetBrains Mono, painéis com cantos de 18 a 32 px, pílulas "Fase N", terminal escuro). Cada componente foi mapeado para o conteúdo do projeto: o terminal virou o registro do agente processando a fila, e os blocos coloridos viraram os números do dia. O logotipo do Gogroup não foi usado, e o rodapé diz que o projeto não é produto oficial.
+
+## 2026-11-05 19:23: feedback (Levi)
+- A persona deixou de se chamar Marina, porque o nome pode confundir com uma agente de IA que já existe no Gogroup. Primeiro troquei para Lívia, afirmando que o nome não aparecia nos dados. A conferência mostrou que a afirmação estava errada: "Lívia" aparece 5 vezes no case Atendimento, como nome pedido em capinhas personalizadas. O Levi escolheu Juliana, e a persona ficou Juliana (nome fictício). As entradas anteriores deste LOG não citavam o nome; a troca foi no SPEC, no README e na interface.

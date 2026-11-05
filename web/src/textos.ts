@@ -7,7 +7,7 @@ export const ACAO: Record<Acao, string> = {
   acionar_transportadora: 'Cobrar a transportadora',
   contatar_cliente: 'Falar com o cliente',
   aguardar: 'Aguardar',
-  escalar_humano: 'Aguarda a Marina',
+  escalar_humano: 'Aguarda a Juliana',
 }
 
 export const TIPO: Record<string, string> = {

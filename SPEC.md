@@ -4,7 +4,7 @@ Os números entre colchetes, como [N01], são ids de `docs/NUMEROS.md`, onde est
 
 ## Persona
 
-Marina, analista de exceções de operações do Gogroup (nome fictício). Ela recebe a fila de pedidos que saíram do fluxo normal (atraso, extravio, avaria, falha de personalização, pagamento pendente, ruptura, endereço divergente e outros) e decide o que fazer com cada um. O time dela dá conta de 150 tratativas por dia, de 12 minutos cada.
+Juliana, analista de exceções de operações do Gogroup (nome fictício). Ela recebe a fila de pedidos que saíram do fluxo normal (atraso, extravio, avaria, falha de personalização, pagamento pendente, ruptura, endereço divergente e outros) e decide o que fazer com cada um. O time dela dá conta de 150 tratativas por dia, de 12 minutos cada.
 
 ## Dor
 
@@ -25,9 +25,9 @@ Marina, analista de exceções de operações do Gogroup (nome fictício). Ela r
 
 1. Priorização, feita pelo código, sem IA. Todo dia o sistema calcula a perda esperada de cada caso em cada dia futuro e escolhe os 150 de hoje com um plano ótimo para o horizonte inteiro (ver "Priorização").
 2. Agente de decisão, com IA. Para cada caso da fila do dia, o agente lê a ficha (pedido, cliente, prazos, atraso em dias úteis, risco, padrão a que pertence), consulta ferramentas quando precisa e propõe ação, justificativa e mensagem ao cliente, em JSON validado.
-3. Regras em código. O que é caro, sensível ou incerto vai para a Marina, com o motivo. O sistema executa o resto de forma simulada: manda a mensagem, abre o reenvio, aciona a transportadora.
-4. Investigador de causa raiz. O código detecta os padrões e a IA redige um chamado para o dono do processo, com a evidência. A Marina aprova antes do envio.
-5. A Marina passa o dia na fila de aprovação e nos chamados. Juntar pedido, cliente e transportadora numa ficha fica com o sistema.
+3. Regras em código. O que é caro, sensível ou incerto vai para a Juliana, com o motivo. O sistema executa o resto de forma simulada: manda a mensagem, abre o reenvio, aciona a transportadora.
+4. Investigador de causa raiz. O código detecta os padrões e a IA redige um chamado para o dono do processo, com a evidência. A Juliana aprova antes do envio.
+5. A Juliana passa o dia na fila de aprovação e nos chamados. Juntar pedido, cliente e transportadora numa ficha fica com o sistema.
 
 ## Métricas
 
@@ -127,7 +127,7 @@ Estimativas por mês, contando só as exceções acima da taxa de base do grupo.
 
 ## Definição do pronto
 
-Quem abre o link público, sem login, vê a fila do dia priorizada com a decisão do agente para cada caso, os casos que foram para a Marina com o motivo e os chamados de causa raiz, e o README mostra o acerto do agente medido em gabarito e quanto a priorização evita de perda, com todos os números rastreáveis a `docs/NUMEROS.md`.
+Quem abre o link público, sem login, vê a fila do dia priorizada com a decisão do agente para cada caso, os casos que foram para a Juliana com o motivo e os chamados de causa raiz, e o README mostra o acerto do agente medido em gabarito e quanto a priorização evita de perda, com todos os números rastreáveis a `docs/NUMEROS.md`.
 
 ## Suposições
 

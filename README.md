@@ -3,9 +3,9 @@
 A Mesa de exceções é um agente de IA que escolhe quais 150 pedidos com problema tratar hoje e propõe o que fazer em cada um, para que a analista de exceções do Gogroup pare de trabalhar a fila por ordem de chegada e perca menos dinheiro com cancelamentos. No estoque de 30/09/2026, o plano do agente reduz a perda esperada em R$ 18.175 [N72] (15% [N73], estimativa) e manda para uma pessoa só o que é caro, sensível ou incerto.
 
 - App: https://mesa-de-excecoes.vercel.app (sem login)
-- Feito para o Desafio AI-First do Gogroup, case Operações, com os dados sintéticos do desafio. A persona (Marina) é fictícia, e as ações são simuladas: nada é enviado a clientes.
+- Feito para o Desafio AI-First do Gogroup, case Operações, com os dados sintéticos do desafio. A persona (Juliana) é fictícia, e as ações são simuladas: nada é enviado a clientes.
 
-**Como usar em 30 segundos:** abra o link, leia a régua do topo (ordem de chegada contra o plano do agente), clique num caso laranja da fila ("aguarda a Marina") para ver por que ele foi para uma pessoa, e num caso verde para ver a decisão e a mensagem que o agente escreveu. O botão "Rodar o agente agora" chama o modelo ao vivo.
+**Como usar em 30 segundos:** abra o link, leia a régua do topo (ordem de chegada contra o plano do agente), clique num caso laranja da fila ("aguarda a Juliana") para ver por que ele foi para uma pessoa, e num caso verde para ver a decisão e a mensagem que o agente escreveu. O botão "Rodar o agente agora" chama o modelo ao vivo.
 
 ## O problema
 
@@ -19,19 +19,19 @@ A ordem importa porque o risco de cancelamento cresce em degraus com os dias út
 dados (CSV)  ->  ficha do caso           código: prazos em dias úteis, risco, padrão
              ->  plano do dia            código: atribuição ótima casos x dias (150/dia)
              ->  decisão                 LLM: lê a ficha, consulta ferramentas, propõe ação + mensagem (JSON validado)
-             ->  regras H1-H7            código: caro, sensível ou incerto vai para a Marina, com o motivo
+             ->  regras H1-H7            código: caro, sensível ou incerto vai para a Juliana, com o motivo
              ->  execução simulada       mensagem, reenvio, cobrança da transportadora
-padrões      ->  chamado de causa raiz   código mede, LLM redige, a Marina aprova
+padrões      ->  chamado de causa raiz   código mede, LLM redige, a Juliana aprova
 ```
 
 1. Prioriza. O custo de cada caso depende do dia em que ele é tratado. Escolher o dia de cada um minimizando a perda total é um problema de atribuição (casos × vagas de 150 por dia), resolvido de forma exata pelo algoritmo húngaro (`src/negocio/priorizacao.py`). A primeira versão usava um guloso que olha só o dia seguinte, e ele não serve: um caso com 1 dia de atraso não piora amanhã, mas salta depois de amanhã (teste `test_otimo_olha_alem_de_amanha`).
 2. Decide. Para cada caso da fila, o modelo (`openai/gpt-oss-120b` no Groq) recebe a ficha montada pelo código e devolve ação, justificativa e mensagem ao cliente num JSON validado com pydantic. Ele pode consultar duas ferramentas (`historico_cliente` e `casos_parecidos`). Os números vêm todos da ficha: o modelo interpreta e não calcula.
-3. Pede ajuda. As regras de revisão humana ficam no código, não no prompt (`src/agente/regras.py`): registro incoerente, reembolso acima de R$ 228 [N13], reembolso para cliente acima de R$ 1.500, atraso sem entrega acima de 10 dias úteis, reclamação fora do prazo da política e confiança baixa do agente. O código pode mandar um caso para a Marina, mas nunca tira um caso dela.
+3. Pede ajuda. As regras de revisão humana ficam no código, não no prompt (`src/agente/regras.py`): registro incoerente, reembolso acima de R$ 228 [N13], reembolso para cliente acima de R$ 1.500, atraso sem entrega acima de 10 dias úteis, reclamação fora do prazo da política e confiança baixa do agente. O código pode mandar um caso para a Juliana, mas nunca tira um caso dela.
 4. Abre chamados. O código detecta onde as exceções se concentram, comparando com a taxa dos demais grupos, e o agente escreve um chamado para o dono do processo.
 
 Dois casos reais da fila:
 - **Resolvido sozinho:** um atraso que passou 2 dias da data prometida, mas está dentro do SLA contratado. Uma automação por tipo cobraria a transportadora. O agente percebe que quem errou foi a data prometida, e escreve ao cliente com o prazo correto.
-- **Foi para a Marina:** um pagamento pendente com status "aguardando transportadora". O registro está incoerente (regra H1), então o agente não age em cima dele.
+- **Foi para a Juliana:** um pagamento pendente com status "aguardando transportadora". O registro está incoerente (regra H1), então o agente não age em cima dele.
 
 ## Resultado
 
@@ -50,7 +50,7 @@ O plano captura 93% [N74] da perda que dá para evitar mudando só a ordem. A pe
 
 | Medida | Resultado |
 |---|---|
-| Casos de risco que foram para a Marina | 4 de 4 |
+| Casos de risco que foram para a Juliana | 4 de 4 |
 | Ação certa pela política | 33 de 33 |
 | Automação simples sem IA (ação fixa por tipo, mesmas regras) | 26 de 33 |
 | Padrão de causa raiz identificado | 11 de 11, nenhum inventado em 22 casos sem padrão |

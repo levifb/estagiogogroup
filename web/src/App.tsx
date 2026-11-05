@@ -88,7 +88,7 @@ export default function App() {
             <a href="#causas">Causas</a>
             <a href="#prova">Como sabemos</a>
           </nav>
-          <span className="progresso" title="Casos da fila de hoje resolvidos pelo agente sem precisar da Marina">
+          <span className="progresso" title="Casos da fila de hoje resolvidos pelo agente sem precisar da Juliana">
             <span className="progresso-barra" aria-hidden="true">
               <i style={{ width: `${casos.length ? (sozinhos / casos.length) * 100 : 0}%` }} />
             </span>
@@ -115,12 +115,12 @@ export default function App() {
               <p className="hero-vip">
                 <span>
                   Tratar na ordem certa, e não na ordem de chegada, evita <strong><N n={numeros} id="N72" /></strong> de perda
-                  esperada (<N n={numeros} id="N73" />). O que é caro, sensível ou incerto vai para a Marina, com o motivo.
+                  esperada (<N n={numeros} id="N73" />). O que é caro, sensível ou incerto vai para a Juliana, com o motivo.
                 </span>
               </p>
               <p className="hero-p">
                 Para cada pedido da fila, o agente lê a ficha, decide a ação (reenviar, cobrar a transportadora, falar com o
-                cliente) e escreve a mensagem. Marina é uma persona fictícia: a analista de exceções que aprova o que precisa de
+                cliente) e escreve a mensagem. Juliana é uma persona fictícia: a analista de exceções que aprova o que precisa de
                 uma pessoa.
               </p>
               <div className="hero-cta">
@@ -150,7 +150,7 @@ export default function App() {
             </div>
             <div className="stat s-orange">
               <b>{humanos}</b>
-              <span>aguardam a Marina, cada um com o motivo</span>
+              <span>aguardam a Juliana, cada um com o motivo</span>
             </div>
             <div className="stat s-pink">
               <b>
@@ -182,7 +182,7 @@ export default function App() {
             <h2>150 casos, uma decisão para cada.</h2>
             <p className="p">
               Os casos aparecem na ordem do plano. Clique num caso para ver a ficha, a decisão do agente e a mensagem ao cliente.
-              Os laranjas aguardam a Marina.
+              Os laranjas aguardam a Juliana.
             </p>
             <div className="mesa">
               <div>
@@ -190,7 +190,7 @@ export default function App() {
                   {(
                     [
                       ['todos', `Todos (${casos.length})`],
-                      ['humano', `Aguardam a Marina (${humanos})`],
+                      ['humano', `Aguardam a Juliana (${humanos})`],
                       ['sozinho', `Resolvidos (${sozinhos})`],
                     ] as const
                   ).map(([k, rotulo]) => (
@@ -260,7 +260,7 @@ function Terminal({ casos, chamados }: { casos: LinhaFila[]; chamados: number })
         {'\n'}
         <span className="c">› {chamados} chamados de causa raiz para revisar</span>
         {'\n'}
-        <span className="y">› aguardando a Marina em {humanos} casos</span>
+        <span className="y">› aguardando a Juliana em {humanos} casos</span>
       </div>
     </div>
   )
@@ -318,7 +318,7 @@ function ItemFila({ c, ativo, onClick }: { c: LinhaFila; ativo: boolean; onClick
             {c.padrao ? ` · ${c.padrao}` : ''}
           </span>
         </span>
-        <span className="selo">{c.humano ? 'Aguarda a Marina' : ACAO[c.acao]}</span>
+        <span className="selo">{c.humano ? 'Aguarda a Juliana' : ACAO[c.acao]}</span>
       </button>
     </li>
   )
@@ -408,7 +408,7 @@ function Detalhe({ orderId }: { orderId: string }) {
 
       {r.vai_para_humano ? (
         <div className="decisao decisao-humano">
-          <p className="titulo">Aguarda a Marina</p>
+          <p className="titulo">Aguarda a Juliana</p>
           <p>{r.motivo_humano}</p>
           {d && <p className="nota">Proposta do agente: {ACAO[d.acao].toLowerCase()}.</p>}
         </div>
@@ -440,7 +440,7 @@ function Detalhe({ orderId }: { orderId: string }) {
       {r.vai_para_humano && d && (
         <div className="botoes">
           {estado ? (
-            <p className="nota">{estado === 'aprovado' ? 'Aprovado' : 'Rejeitado'} pela Marina (simulado; nada foi enviado).</p>
+            <p className="nota">{estado === 'aprovado' ? 'Aprovado' : 'Rejeitado'} pela Juliana (simulado; nada foi enviado).</p>
           ) : (
             <>
               <button className="btn btn-cta btn-sm" onClick={() => setDecisaoHumana({ ...decisaoHumana, [orderId]: 'aprovado' })}>
@@ -469,7 +469,7 @@ function Detalhe({ orderId }: { orderId: string }) {
           <li>Devolveu a decisão em JSON{d ? `, com confiança ${d.confianca}` : ''}; o esquema foi validado.</li>
           <li>
             {r.regra_aplicada
-              ? `A regra ${r.regra_aplicada} do código mandou o caso para a Marina.`
+              ? `A regra ${r.regra_aplicada} do código mandou o caso para a Juliana.`
               : 'Nenhuma regra de revisão humana se aplicou.'}
           </li>
         </ol>
@@ -494,7 +494,7 @@ function Chamados({ chamados, numeros }: { chamados: Chamado[]; numeros: Numeros
         <h2>Metade das exceções tem dono fora da fila.</h2>
         <p className="p">
           O código mede onde as exceções se concentram, comparando com a taxa dos demais grupos, e o agente escreve um chamado
-          para o dono do processo. A Marina aprova antes do envio. Mudando esses processos, dá para evitar cerca de{' '}
+          para o dono do processo. A Juliana aprova antes do envio. Mudando esses processos, dá para evitar cerca de{' '}
           <N n={numeros} id="N97" /> exceções por mês (<N n={numeros} id="N98" /> do time).
         </p>
         <div className="chamados">
@@ -554,7 +554,7 @@ function Avaliacao({ ev }: { ev: EvalResumo | null }) {
         </div>
         <div className="destaque">
           <span className="grande">{frac(s.recall_humano)}</span>
-          <p>casos de risco do gabarito foram para a Marina. Esse é o erro caro: um caso de risco tratado sozinho.</p>
+          <p>casos de risco do gabarito foram para a Juliana. Esse é o erro caro: um caso de risco tratado sozinho.</p>
           <a className="btn btn-cta" href={REPO}>
             Ver o eval e o LOG
           </a>
