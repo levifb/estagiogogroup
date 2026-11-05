@@ -72,9 +72,10 @@ export default function App() {
 
   const casos = fila?.casos ?? []
   const humanos = casos.filter((c) => c.humano).length
-  const sozinhos = casos.length - humanos
+  const pendentes = casos.filter((c) => c.pendente).length
+  const sozinhos = casos.length - humanos - pendentes
   const visiveis = useMemo(
-    () => casos.filter((c) => (filtro === 'todos' ? true : filtro === 'humano' ? c.humano : !c.humano)),
+    () => casos.filter((c) => (filtro === 'todos' ? true : filtro === 'humano' ? c.humano : !c.humano && !c.pendente)),
     [casos, filtro],
   )
 
@@ -199,6 +200,12 @@ export default function App() {
                     </button>
                   ))}
                 </div>
+                {pendentes > 0 && (
+                  <p className="nota" style={{ marginTop: 10 }}>
+                    {pendentes} casos ainda estão na fila do agente: o plano gratuito do modelo processa cerca de 66 decisões
+                    por dia. Use "Rodar o agente agora" para decidir um deles ao vivo.
+                  </p>
+                )}
                 <ol className="lista">
                   {visiveis.map((c) => (
                     <ItemFila key={c.order_id} c={c} ativo={c.order_id === sel} onClick={() => setSel(c.order_id)} />
@@ -250,8 +257,8 @@ function Terminal({ casos, chamados }: { casos: LinhaFila[]; chamados: number })
         {'\n'}
         {primeiros.map((c) => (
           <span key={c.order_id}>
-            {c.humano ? <span className="p">! </span> : <span className="g">✓ </span>}
-            {c.order_id} {(TIPO[c.tipo] ?? c.tipo).toLowerCase()} → {ACAO[c.acao].toLowerCase()}
+            {c.pendente ? <span className="m">… </span> : c.humano ? <span className="p">! </span> : <span className="g">✓ </span>}
+            {c.order_id} {(TIPO[c.tipo] ?? c.tipo).toLowerCase()} → {c.pendente ? 'na fila do agente' : ACAO[c.acao].toLowerCase()}
             {c.regra ? <span className="m"> ({c.regra})</span> : null}
             {'\n'}
           </span>
@@ -309,7 +316,7 @@ function Regua({ numeros }: { numeros: Numeros }) {
 function ItemFila({ c, ativo, onClick }: { c: LinhaFila; ativo: boolean; onClick: () => void }) {
   return (
     <li>
-      <button className={`item ${ativo ? 'ativo' : ''} ${c.humano ? 'eh-humano' : ''}`} onClick={onClick} aria-current={ativo}>
+      <button className={`item ${ativo ? 'ativo' : ''} ${c.humano ? 'eh-humano' : ''} ${c.pendente ? 'eh-pendente' : ''}`} onClick={onClick} aria-current={ativo}>
         <span className="num-tile">{c.prioridade}</span>
         <span className="item-corpo">
           <span className="item-tipo">{TIPO[c.tipo] ?? c.tipo}</span>
@@ -318,7 +325,7 @@ function ItemFila({ c, ativo, onClick }: { c: LinhaFila; ativo: boolean; onClick
             {c.padrao ? ` · ${c.padrao}` : ''}
           </span>
         </span>
-        <span className="selo">{c.humano ? 'Aguarda a Juliana' : ACAO[c.acao]}</span>
+        <span className="selo">{c.pendente ? 'Na fila do agente' : c.humano ? 'Aguarda a Juliana' : ACAO[c.acao]}</span>
       </button>
     </li>
   )

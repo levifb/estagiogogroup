@@ -159,6 +159,7 @@ button { font: inherit; cursor: pointer; }
 .item-meta { color: var(--muted); font-size: 0.78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: var(--f-mono); }
 .selo { font-family: var(--f-mono); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.04em; padding: 5px 10px; border-radius: 999px; white-space: nowrap; background: var(--cyan); color: var(--ink); }
 .eh-humano .selo { background: var(--orange); }
+.eh-pendente .selo { background: var(--panel); color: var(--muted); border: 1px dashed var(--line); }
 
 .detalhe { position: sticky; top: 96px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 22px; }
 .det-cabeca { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; flex-wrap: wrap; }

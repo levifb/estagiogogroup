@@ -23,6 +23,10 @@ WEB = RAIZ / "web" / "public" / "data"
 API = RAIZ / "api" / "_dados"
 
 
+def _pendente(r) -> bool:
+    return r.fonte == "sem_modelo" and r.regra_aplicada == "H6"
+
+
 def _grava(caminho: Path, obj) -> None:
     caminho.parent.mkdir(parents=True, exist_ok=True)
     caminho.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":"), default=str), encoding="utf-8")
@@ -31,8 +35,8 @@ def _grava(caminho: Path, obj) -> None:
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     versao, _, _ = carregar_prompt("decisao")
-    if (WEB / "casos").exists():
-        shutil.rmtree(WEB / "casos")
+    # Sobrescreve em vez de apagar a pasta (o OneDrive pode travar a pasta); remove só casos que saíram da fila.
+    (WEB / "casos").mkdir(parents=True, exist_ok=True)
 
     p = plano().reset_index(drop=True)
     p["prioridade"] = range(1, len(p) + 1)
@@ -48,10 +52,15 @@ def main():
             "status": f["excecao"]["status"], "marca": f["pedido"]["marca"], "valor": f["pedido"]["valor_pago"],
             "perda_hoje": round(float(linha["perda_hoje"]), 2), "custo_espera_1d": round(float(linha["custo_espera_1d"]), 2),
             "padrao": (f["padrao_causa_raiz"] or {}).get("id"),
-            "acao": r.acao_final.value, "humano": r.vai_para_humano, "motivo_humano": r.motivo_humano,
+            # Sem decisão do modelo e sem regra de dados (H1–H5): o caso ainda não foi processado.
+            "acao": r.acao_final.value, "humano": r.vai_para_humano and not _pendente(r),
+            "pendente": _pendente(r), "motivo_humano": r.motivo_humano,
             "regra": r.regra_aplicada, "fonte": r.fonte,
         })
         _grava(WEB / "casos" / f"{o}.json", r.model_dump(mode="json"))
+    for antigo in (WEB / "casos").glob("*.json"):
+        if antigo.stem not in fichas:
+            antigo.unlink(missing_ok=True)
 
     sim = simular()
     _grava(WEB / "fila.json", {"data_referencia": "30/09/2026", "versao_prompt": versao, "casos": fila})
@@ -72,7 +81,7 @@ def main():
     _grava(API / "fichas.json", fichas)
     _grava(API / "ferramentas.json", ferramentas.precalcular(hoje, [f["cliente"]["customer_id"] for f in fichas.values()]))
 
-    em_cache = sum(c["fonte"] == "cache" for c in fila)
+    em_cache = sum(not c["pendente"] for c in fila)
     print(f"fila: {len(fila)} casos ({em_cache} com decisão em cache); chamados: {len(chamados)}; arquivos em {WEB.relative_to(RAIZ)} e {API.relative_to(RAIZ)}")
 
 

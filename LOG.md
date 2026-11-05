@@ -85,3 +85,9 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 
 ## 2026-11-05 19:23: feedback (Levi)
 - A persona deixou de se chamar Marina, porque o nome pode confundir com uma agente de IA que já existe no Gogroup. Primeiro troquei para Lívia, afirmando que o nome não aparecia nos dados. A conferência mostrou que a afirmação estava errada: "Lívia" aparece 5 vezes no case Atendimento, como nome pedido em capinhas personalizadas. O Levi escolheu Juliana, e a persona ficou Juliana (nome fictício). As entradas anteriores deste LOG não citavam o nome; a troca foi no SPEC, no README e na interface.
+
+## 2026-11-05 20:03: mudança de rota (limite diário do modelo)
+- O que aconteceu: o lote da fila do dia praticamente parou depois de 37 casos.
+- Como percebemos: o Levi perguntou do progresso. A medição mostrou 1 decisão a cada 10 minutos e, numa chamada isolada, o erro 429 do Groq por tokens POR DIA (TPD): limite de 200.000 tokens, 199.304 usados. O limite por minuto (8.000) não era o problema.
+- Conta: cada decisão gasta uns 3.000 tokens, o que dá cerca de 66 decisões por dia no plano gratuito. Eval v1 + eval v2 + adversariais + o início do lote consumiram a cota do dia.
+- O que mudou: (1) o cliente desiste na hora quando o Groq manda esperar mais de 65 s, em vez de gastar uns 40 s insistindo à toa; (2) o lote ganhou o modo `--paciente`, que espera a janela liberar e continua, e no fim gera os chamados que faltarem; (3) a interface separa "na fila do agente" (sem decisão ainda) de "aguarda a Juliana" (decisão de mandar para a pessoa), porque antes os casos não processados inflavam o contador de revisão humana; (4) o README explica o limite e o que muda em produção.

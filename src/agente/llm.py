@@ -35,11 +35,14 @@ def _cliente():
     return Groq(api_key=os.getenv("GROQ_API_KEY"), timeout=TIMEOUT_S, max_retries=0)
 
 
+ESPERA_MAX_S = 65.0  # espera maior que isso (ex.: limite DIÁRIO de tokens) não vale a pena: desiste na hora
+
+
 def _espera_429(e) -> float:
     try:
         ra = e.response.headers.get("retry-after")
         if ra:
-            return min(float(ra) + 0.5, 65.0)
+            return float(ra) + 0.5
     except Exception:
         pass
     return 20.0
@@ -53,9 +56,10 @@ def _chamar(cli, **kw):
             return cli.chat.completions.create(**kw), None
         except RateLimitError as e:
             log.warning("429 do Groq: %s", e)
-            if tentativa == 2:
-                return None, "o modelo atingiu o limite de uso do plano gratuito; tente de novo em um minuto"
-            time.sleep(_espera_429(e))
+            espera = _espera_429(e)
+            if tentativa == 2 or espera > ESPERA_MAX_S:
+                return None, "o modelo atingiu o limite de uso do plano gratuito; a decisão exibida é a gravada"
+            time.sleep(espera)
         except (APIConnectionError, APITimeoutError) as e:
             log.warning("rede/timeout: %s", e)
             if tentativa == 2:

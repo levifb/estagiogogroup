@@ -21,6 +21,7 @@ export interface LinhaFila {
   padrao: string | null
   acao: Acao
   humano: boolean
+  pendente?: boolean
   motivo_humano: string | null
   regra: string | null
   fonte: Fonte
