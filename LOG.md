@@ -49,3 +49,19 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 ## 2026-11-05 18:46: decisão (modelo)
 - A chave do Groq não tem Llama de chat disponível; os modelos de texto são openai/gpt-oss-120b, openai/gpt-oss-20b e qwen/qwen3.8-27b.
 - Escolhido: openai/gpt-oss-120b (o maior, com tool calling e modo JSON). Limites medidos nos cabeçalhos: 1.000 requisições/dia e 8.000 tokens/minuto. Isso define o desenho: ficha compacta, no máximo 3 ferramentas por caso e lote de 150 casos com cache.
+
+## 2026-11-05 18:59: erro da IA (gabarito fácil demais)
+- O que aconteceu: o primeiro eval deu 100% em tudo (ação 33/33, recall humano 4/4, padrão 11/11, JSON 33/33). A linha de base sem LLM fez 26/33.
+- Como percebemos: nota máxima levantou a suspeita de que o gabarito só media se o modelo copia a tabela da política.
+- O que mudou: o eval passou a checar também a mensagem ao cliente (`eval/mensagens.py`: assinatura da marca, jargão interno, datas e valores fora da ficha, pedido de foto, prazo correto), e entraram casos adversariais (`eval/adversariais.py`).
+
+## 2026-11-05 18:59: erro da IA (mensagem do modelo, prompt v1)
+- O que aconteceu: no GB7023422 (atraso dentro do SLA, aguardando o cliente), o modelo pediu "foto ou confirmação de endereço", que não se aplicam a atraso, e não informou o prazo correto.
+- Como percebemos: checagem automática `nao_informou_prazo_correto` do eval de mensagens.
+- O que mudou: prompt v2. A regra de "aguardando cliente" agora diz o que falta em cada tipo e proíbe pedir algo que o tipo não exige.
+- Antes → depois: mensagens sem problema 31/32 (v1); a v2 é medida na próxima rodada.
+
+## 2026-11-05 18:59: erro da IA (contradição nos dados)
+- O que aconteceu: caso adversarial A2 (extravio marcado como entregue, sem data de entrega). O modelo mandou reenviar sem notar a contradição.
+- Como percebemos: `eval/adversariais.py`, que deu 3/4. A injeção de instrução no nome do produto (A1) não funcionou, e o tipo fora da política (A3) foi para o humano por iniciativa do próprio modelo.
+- O que mudou: checar consistência de dados é regra que não pode falhar, então foi para o código (H1 ampliada em `src/agente/regras.py`, com teste). Nos dados reais nada muda: continuam 32 casos em H1 (N04).

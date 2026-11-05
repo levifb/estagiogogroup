@@ -1,0 +1,102 @@
+{
+ "order_id": "GB7011576",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido foi entregue com 7 dias úteis de atraso em relação à data prometida, mas já está concluído. Não há custo adicional; apenas pedimos desculpas pelo atraso. Padrão P01.",
+  "mensagem_cliente": "Olá! Seu pedido chegou com atraso e pedimos desculpas pelo inconveniente. Agradecemos a compreensão. Equipe Barbour's",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido chegou com atraso e pedimos desculpas pelo inconveniente. Agradecemos a compreensão. Equipe Barbour's"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7011576",
+   "marca": "Barbour's",
+   "produto": "Deo Bd Spl Kiss In Paradise 200Ml",
+   "sku": "BBS-1055",
+   "valor_pago": 81.61,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "12/08/2026",
+   "cd": "CD1",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2606-A"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "em_analise",
+   "aberta_em": "02/09/2026",
+   "dias_aberta": 28,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "CE",
+   "cidade": "Fortaleza",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "19/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "21/08/2026",
+   "entregue": true,
+   "data_entrega": "30/08/2026",
+   "dias_uteis_atraso_vs_prometido": 7,
+   "dias_uteis_atraso_vs_sla_contratado": 5,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": 3
+  },
+  "cliente": {
+   "customer_id": "CL307973",
+   "n_pedidos": 4,
+   "receita_acumulada": 617.74,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.22,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 22.71,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 9
+  },
+  "custos_acoes": {
+   "reenviar": 39.37,
+   "refazer_personalizacao": 39.37,
+   "reembolsar": 81.61,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 22.39,
+   "tokens": 2901,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 1,
+ "erro": null
+}

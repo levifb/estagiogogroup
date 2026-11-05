@@ -1,0 +1,103 @@
+{
+ "order_id": "GC7022106",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O pedido está atrasado 8 dias úteis em relação ao SLA contratado e ainda não foi entregue. Como o atraso ultrapassa o prazo acordado, a política determina acionar a transportadora.",
+  "mensagem_cliente": "Olá! Seu pedido está atrasado e vamos acionar a transportadora para resolver a situação o mais rápido possível. Pedimos desculpas pelo inconveniente. Equipe Gocase",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "acionar_transportadora",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido está atrasado e vamos acionar a transportadora para resolver a situação o mais rápido possível. Pedimos desculpas pelo inconveniente. Equipe Gocase",
+  "ordem": {
+   "tipo": "chamado_transportadora",
+   "transportadora": "Carga Norte",
+   "sla_contratado_dias_uteis": 6,
+   "dias_uteis_alem_do_sla": 8
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7022106",
+   "marca": "Gocase",
+   "produto": "Case Personalizado iPhone 16 Magsafe Foto",
+   "sku": "GOC-2002",
+   "valor_pago": 174.68,
+   "qtd_itens": 3,
+   "brinde_no_pedido": false,
+   "data_pedido": "09/09/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": "IMP-03",
+   "lote_produto": "L2608-A"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aberta",
+   "aberta_em": "19/09/2026",
+   "dias_aberta": 11,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Carga Norte",
+   "uf": "DF",
+   "cidade": "Brasília",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "16/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "18/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 10,
+   "dias_uteis_atraso_vs_sla_contratado": 8,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL309051",
+   "n_pedidos": 2,
+   "receita_acumulada": 268.77,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 1
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.22,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 42.57,
+   "custo_de_esperar_1_dia_util": 34.83,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 59.97,
+   "refazer_personalizacao": 59.97,
+   "reembolsar": 174.68,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 0.8,
+   "tokens": 2888,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 1,
+ "erro": null
+}

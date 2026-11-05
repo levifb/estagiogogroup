@@ -1,0 +1,102 @@
+{
+ "order_id": "GB7002783",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O pedido está com 13 dias úteis de atraso em relação à data prometida e 10 dias úteis além do SLA contratado, portanto está fora do SLA. A política determina acionar a transportadora nesses casos. Pertence ao padrão P01.",
+  "mensagem_cliente": "Olá! Seu pedido está atrasado e vamos acionar a transportadora para agilizar a entrega. Assim que tivermos uma atualização, retornaremos. Equipe Barbour's",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "escalar_humano",
+ "vai_para_humano": true,
+ "motivo_humano": "13 dias úteis de atraso sem entrega; decidir entre reenvio e reembolso",
+ "regra_aplicada": "H4",
+ "artefato": {
+  "proposta_do_agente": "acionar_transportadora",
+  "mensagem_rascunho": "Olá! Seu pedido está atrasado e vamos acionar a transportadora para agilizar a entrega. Assim que tivermos uma atualização, retornaremos. Equipe Barbour's"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7002783",
+   "marca": "Barbour's",
+   "produto": "Deo Hid Corp Essential Bd Crm My Sweet Delight 230G",
+   "sku": "BBS-1172",
+   "valor_pago": 71.01,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "04/09/2026",
+   "cd": "CD2",
+   "turno": "manhã",
+   "maquina": null,
+   "lote_produto": "L2605-B"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aguardando_transportadora",
+   "aberta_em": "13/09/2026",
+   "dias_aberta": 17,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "CE",
+   "cidade": "Fortaleza",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "11/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "16/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 13,
+   "dias_uteis_atraso_vs_sla_contratado": 10,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL304858",
+   "n_pedidos": 2,
+   "receita_acumulada": 196.44,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 33.9,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 11
+  },
+  "custos_acoes": {
+   "reenviar": 36.82,
+   "refazer_personalizacao": 36.82,
+   "reembolsar": 71.01,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 6.56,
+   "tokens": 2964,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 1,
+ "erro": null
+}

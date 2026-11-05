@@ -13,7 +13,7 @@ from src.agente.pipeline import carregar_prompt, processar
 FICHA = {
     "pedido": {"valor_pago": 100.0},
     "excecao": {"tipo": "avaria_transporte", "status": "aberta", "status_incoerente_com_tipo": False},
-    "entrega": {"entregue": True, "dias_uteis_atraso_vs_prometido": 3, "dias_entre_recebimento_e_reclamacao": 1},
+    "entrega": {"entregue": True, "data_entrega": "10/09/2026", "dias_uteis_atraso_vs_prometido": 3, "dias_entre_recebimento_e_reclamacao": 1},
     "cliente": {"alto_valor_acima_1500": False},
 }
 
@@ -37,6 +37,12 @@ def test_caso_comum_nao_vai_para_humano():
 
 def test_h1_status_incoerente():
     assert regras.regra_humano(ficha(excecao__status_incoerente_com_tipo=True), dec())[0] == "H1"
+
+
+def test_h1_registro_contraditorio():
+    assert regras.regra_humano(ficha(entrega__data_entrega=None), dec())[0] == "H1"
+    assert regras.regra_humano(ficha(excecao__tipo="extravio"), dec())[0] == "H1"  # extravio marcado como entregue
+    assert regras.regra_humano(ficha(excecao__tipo="extravio", entrega__entregue=False, entrega__data_entrega=None), dec()) is None
 
 
 def test_h2_reembolso_acima_do_limite():

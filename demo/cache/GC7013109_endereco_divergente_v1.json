@@ -1,0 +1,97 @@
+{
+ "order_id": "GC7013109",
+ "tipo_excecao": "endereco_divergente",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido apresenta divergência de endereço. A política determina confirmar o endereço com o cliente antes de prosseguir.",
+  "mensagem_cliente": "Olá! Detectamos que o endereço informado no seu pedido está divergente. Por favor, confirme o endereço de entrega para que possamos enviá‑lo corretamente. Equipe Gocase",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Detectamos que o endereço informado no seu pedido está divergente. Por favor, confirme o endereço de entrega para que possamos enviá‑lo corretamente. Equipe Gocase"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7013109",
+   "marca": "Gocase",
+   "produto": "Case Personalizado iPad 10ª Geração Nome",
+   "sku": "GOC-2010",
+   "valor_pago": 210.38,
+   "qtd_itens": 3,
+   "brinde_no_pedido": false,
+   "data_pedido": "24/08/2026",
+   "cd": "CD1",
+   "turno": "manhã",
+   "maquina": "IMP-02",
+   "lote_produto": "L2606-B"
+  },
+  "excecao": {
+   "tipo": "endereco_divergente",
+   "status": "em_analise",
+   "aberta_em": "26/08/2026",
+   "dias_aberta": 35,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "MG",
+   "cidade": "Uberlândia",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "28/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "28/08/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 22,
+   "dias_uteis_atraso_vs_sla_contratado": 22,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL312138",
+   "n_pedidos": 1,
+   "receita_acumulada": 210.38,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 1
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 95.93,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 8
+  },
+  "custos_acoes": {
+   "reenviar": 62.53,
+   "refazer_personalizacao": 62.53,
+   "reembolsar": 210.38,
+   "acao_padrao_do_tipo": "contatar_cliente",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 20.4,
+   "tokens": 2828,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 1,
+ "erro": null
+}

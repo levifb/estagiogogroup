@@ -1,0 +1,103 @@
+{
+ "order_id": "GB7004890",
+ "tipo_excecao": "devolvido_transportadora",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "reenviar",
+  "justificativa": "O pedido foi devolvido pela transportadora e ainda não foi entregue ao cliente. Conforme política, o reenvio sem custo é a ação correta.",
+  "mensagem_cliente": "Olá! Seu pedido foi devolvido pela transportadora. Podemos reenviá‑lo sem custo. Por favor, confirme se o endereço de entrega (Santos, SP) está correto ou informe o endereço atualizado. Equipe Yenzah",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "reenviar",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido foi devolvido pela transportadora. Podemos reenviá‑lo sem custo. Por favor, confirme se o endereço de entrega (Santos, SP) está correto ou informe o endereço atualizado. Equipe Yenzah",
+  "ordem": {
+   "tipo": "reenvio",
+   "sku": "YNZ-1014",
+   "transportadora": "Entrega Já",
+   "custo_estimado": 19.83
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7004890",
+   "marca": "Yenzah",
+   "produto": "Leave-In Cronograma Capilar 3 Em 1 240Ml",
+   "sku": "YNZ-1014",
+   "valor_pago": 15.53,
+   "qtd_itens": 1,
+   "brinde_no_pedido": false,
+   "data_pedido": "14/09/2026",
+   "cd": "CD1",
+   "turno": "manhã",
+   "maquina": null,
+   "lote_produto": "L2607-A"
+  },
+  "excecao": {
+   "tipo": "devolvido_transportadora",
+   "status": "aguardando_transportadora",
+   "aberta_em": "19/09/2026",
+   "dias_aberta": 11,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Entrega Já",
+   "uf": "SP",
+   "cidade": "Santos",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "18/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "18/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 8,
+   "dias_uteis_atraso_vs_sla_contratado": 8,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL311739",
+   "n_pedidos": 4,
+   "receita_acumulada": 654.44,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.22,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 21.01,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 12
+  },
+  "custos_acoes": {
+   "reenviar": 19.83,
+   "refazer_personalizacao": 19.83,
+   "reembolsar": 15.53,
+   "acao_padrao_do_tipo": "reenviar",
+   "custo_acao_padrao": 16.1
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.58,
+   "tokens": 2878,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 1,
+ "erro": null
+}

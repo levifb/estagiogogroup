@@ -1,9 +1,9 @@
 """Ferramentas que o modelo pode chamar para aprofundar um caso. Funções puras sobre src/dados/."""
 
 import json
+import os
 from functools import lru_cache
-
-from src.dados.base import base_trabalho
+from pathlib import Path
 
 _DIMENSOES = {
     "maquina": ["maquina"],
@@ -13,8 +13,19 @@ _DIMENSOES = {
 }
 
 
+# Na função publicada não há pandas: as respostas das ferramentas para os casos da fila
+# vêm pré-calculadas em JSON (src/exportar.py). Localmente, são calculadas na hora.
+PRECALC = os.getenv("FERRAMENTAS_PRECALC")
+
+
+@lru_cache(maxsize=1)
+def _precalc() -> dict:
+    return json.loads(Path(PRECALC).read_text(encoding="utf-8")) if PRECALC else {}
+
+
 @lru_cache(maxsize=1)
 def _df():
+    from src.dados.base import base_trabalho
     return base_trabalho().set_index("order_id", drop=False)
 
 
@@ -82,12 +93,28 @@ TOOLS = [
 _FUNCOES = {"historico_cliente": historico_cliente, "casos_parecidos": casos_parecidos}
 
 
+def chave_precalc(nome: str, args: dict) -> str:
+    return nome + "|" + "|".join(f"{k}={args[k]}" for k in sorted(args))
+
+
+def precalcular(order_ids: list[str], customer_ids: list[str]) -> dict:
+    out = {chave_precalc("historico_cliente", {"customer_id": c}): historico_cliente(c) for c in set(customer_ids)}
+    for o in order_ids:
+        for d in _DIMENSOES:
+            out[chave_precalc("casos_parecidos", {"order_id": o, "dimensao": d})] = casos_parecidos(o, d)
+    return json.loads(json.dumps(out, ensure_ascii=False, default=str))
+
+
 def executar(nome: str, argumentos: str) -> str:
     """Executa uma chamada do modelo. Erros voltam como texto legível para o modelo, nunca como exceção."""
     if nome not in _FUNCOES:
         return json.dumps({"erro": f"ferramenta '{nome}' não existe; use {sorted(_FUNCOES)}"}, ensure_ascii=False)
     try:
         args = json.loads(argumentos or "{}")
+        if PRECALC:
+            chave = chave_precalc(nome, args)
+            resp = _precalc().get(chave, {"erro": "consulta não disponível na versão publicada; use os dados da ficha"})
+            return json.dumps(resp, ensure_ascii=False)
         return json.dumps(_FUNCOES[nome](**args), ensure_ascii=False, default=str)
     except Exception as e:  # argumento inválido do modelo
         return json.dumps({"erro": f"argumentos inválidos para {nome}: {e}"}, ensure_ascii=False)

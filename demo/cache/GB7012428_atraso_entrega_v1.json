@@ -1,0 +1,97 @@
+{
+ "order_id": "GB7012428",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido está com 1 dia útil de atraso, mas ainda está dentro do SLA contratado. A data prometida ao cliente estava em dias corridos, por isso a entrega prevista correta é 01/10/2026.",
+  "mensagem_cliente": "Olá! Seu pedido está a caminho e a previsão de entrega é até 01/10/2026. Pedimos desculpas pela data mostrada na compra estar incorreta. Se não chegar até lá, responda esta mensagem que resolveremos. Equipe Barbour's",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido está a caminho e a previsão de entrega é até 01/10/2026. Pedimos desculpas pela data mostrada na compra estar incorreta. Se não chegar até lá, responda esta mensagem que resolveremos. Equipe Barbour's"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7012428",
+   "marca": "Barbour's",
+   "produto": "Deo Bd Spl Rich 200Ml",
+   "sku": "BBS-1100",
+   "valor_pago": 118.92,
+   "qtd_itens": 3,
+   "brinde_no_pedido": false,
+   "data_pedido": "23/09/2026",
+   "cd": "CD2",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2605-A"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aguardando_transportadora",
+   "aberta_em": "30/09/2026",
+   "dias_aberta": 0,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Postal Nacional",
+   "uf": "RJ",
+   "cidade": "Rio de Janeiro",
+   "sla_contratado_dias_uteis": 5,
+   "data_prometida_ao_cliente": "29/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "01/10/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 1,
+   "dias_uteis_atraso_vs_sla_contratado": 0,
+   "dentro_do_sla_contratado": true,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL302275",
+   "n_pedidos": 3,
+   "receita_acumulada": 312.69,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 1
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.04,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 5.34,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 4
+  },
+  "custos_acoes": {
+   "reenviar": 41.14,
+   "refazer_personalizacao": 41.14,
+   "reembolsar": 118.92,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.74,
+   "tokens": 2905,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 1,
+ "erro": null
+}

@@ -11,7 +11,6 @@ from typing import Literal
 
 from src.agente import ferramentas, llm, regras
 from src.agente.esquemas import Acao, Decisao, Resultado
-from src.agente.ficha import montar_ficha
 
 RAIZ = Path(__file__).resolve().parents[2]
 PASTA_CACHE = RAIZ / "demo" / "cache"
@@ -79,9 +78,15 @@ def _montar(order_id: str, ficha: dict, decisao, rastro, fonte, versao, erro=Non
 
 
 def processar(order_id: str, modo: Literal["ao_vivo", "demo"] = "demo", gravar: bool = True) -> Resultado:
-    """Nunca levanta exceção para quem chama (exceto pedido inexistente, que é erro de quem chamou)."""
+    """Monta a ficha a partir dos dados e decide. Nunca levanta exceção (exceto pedido inexistente)."""
+    from src.agente.ficha import montar_ficha  # importa pandas/scipy só quando há dados locais
+    return decidir(montar_ficha(order_id), modo=modo, gravar=gravar)
+
+
+def decidir(ficha: dict, modo: Literal["ao_vivo", "demo"] = "demo", gravar: bool = True) -> Resultado:
+    """Núcleo do agente a partir de uma ficha pronta. É o que a API publicada chama."""
     versao, _, sistema = carregar_prompt("decisao")
-    ficha = montar_ficha(order_id)
+    order_id = ficha["pedido"]["order_id"]
     tipo = ficha["excecao"]["tipo"]
 
     if modo == "demo":
@@ -106,5 +111,8 @@ def processar(order_id: str, modo: Literal["ao_vivo", "demo"] = "demo", gravar: 
 
     r = _montar(order_id, ficha, decisao, rastro, "ao_vivo", versao)
     if gravar:
-        gravar_cache(r)
+        try:
+            gravar_cache(r)
+        except OSError:  # sistema de arquivos somente leitura (ex.: função serverless)
+            pass
     return r

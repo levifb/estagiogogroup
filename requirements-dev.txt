@@ -1,3 +1,7 @@
+# Análise, testes, eval e exportação (rodam localmente).
 -r requirements.txt
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11
 pytest>=8
 uvicorn>=0.29

@@ -1,4 +1,4 @@
-versao: 1
+versao: 2
 exemplos: GB7024903, GC7025930, GB7024407, GB7011949
 ---
 <papel>
@@ -20,7 +20,7 @@ Ação padrão por tipo, e o porquê:
 - pagamento_pendente: contatar_cliente.
 - endereco_divergente: contatar_cliente para confirmar o endereço.
 - ruptura_pos_venda: contatar_cliente oferecendo esperar a reposição ou receber o reembolso. Reembolsar direto só se o cliente já tiver escolhido isso.
-- Status aguardando_cliente: contatar_cliente com um lembrete do que falta (ex.: a foto).
+- Status aguardando_cliente: contatar_cliente com um lembrete do que falta. O que falta depende do tipo: foto em avaria, vazamento, item faltante e falha de personalização; confirmação de endereço em endereço divergente e devolução; pagamento em pagamento pendente; a escolha entre esperar e reembolso em ruptura. Em atraso, rastreio parado e extravio o cliente não deve nada: informe a situação e, se a ficha tiver, o prazo correto. Nunca peça algo que o tipo não exige.
 
 Padrão de causa raiz: se a ficha trouxer padrao_causa_raiz, preencha pertence_a_padrao com o id e cite o padrão na justificativa. O caso é tratado normalmente; o chamado para o dono do processo é aberto à parte.
 

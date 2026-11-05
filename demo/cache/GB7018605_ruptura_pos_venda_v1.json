@@ -1,0 +1,102 @@
+{
+ "order_id": "GB7018605",
+ "tipo_excecao": "ruptura_pos_venda",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O produto entrou em ruptura após a venda e está aguardando a transportadora. Como a política, oferecemos a opção de aguardar reposição ou receber reembolso integral. Ruptura da Kokeshi segue o padrão P06.",
+  "mensagem_cliente": "Olá! O produto do seu pedido acabou no nosso estoque depois da sua compra, pedimos desculpas por isso. Você prefere aguardar a reposição ou receber o reembolso integral? É só responder esta mensagem com a sua escolha. Equipe Kokeshi",
+  "pertence_a_padrao": "P06",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! O produto do seu pedido acabou no nosso estoque depois da sua compra, pedimos desculpas por isso. Você prefere aguardar a reposição ou receber o reembolso integral? É só responder esta mensagem com a sua escolha. Equipe Kokeshi"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7018605",
+   "marca": "Kokeshi",
+   "produto": "Creme Gel Facial Gota De Colageno 45G",
+   "sku": "KSH-1004",
+   "valor_pago": 110.37,
+   "qtd_itens": 4,
+   "brinde_no_pedido": true,
+   "data_pedido": "01/09/2026",
+   "cd": "CD2",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2608-A"
+  },
+  "excecao": {
+   "tipo": "ruptura_pos_venda",
+   "status": "aguardando_transportadora",
+   "aberta_em": "02/09/2026",
+   "dias_aberta": 28,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Entrega Já",
+   "uf": "RJ",
+   "cidade": "Duque de Caxias",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "05/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "08/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 17,
+   "dias_uteis_atraso_vs_sla_contratado": 16,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL303738",
+   "n_pedidos": 10,
+   "receita_acumulada": 1903.45,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 70.8,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 1
+  },
+  "custos_acoes": {
+   "reenviar": 42.59,
+   "refazer_personalizacao": 42.59,
+   "reembolsar": 110.37,
+   "acao_padrao_do_tipo": "contatar_cliente",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P06",
+   "descricao": "marca = Kokeshi (ruptura_pos_venda)",
+   "casos": 59,
+   "dono": "Compras / planejamento"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 6.52,
+   "tokens": 2944,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 1,
+ "erro": null
+}

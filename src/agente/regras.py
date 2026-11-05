@@ -11,6 +11,7 @@ from src.agente.esquemas import Acao, Decisao
 LIMITE_REEMBOLSO = 228.0  # N13: percentil 95 do valor do pedido com exceção
 PRAZO_POLITICA_DIAS = 7   # reenvio de avaria/vazamento/faltante até 7 dias do recebimento (S9)
 TETO_ATRASO_DU = 10       # acima disso o risco está no teto (S8)
+NAO_ENTREGUE = {"extravio", "rastreio_parado", "devolvido_transportadora"}
 
 
 def regra_humano(ficha: dict, d: Optional[Decisao]) -> Optional[tuple[str, str]]:
@@ -19,6 +20,10 @@ def regra_humano(ficha: dict, d: Optional[Decisao]) -> Optional[tuple[str, str]]
 
     if exc["status_incoerente_com_tipo"]:
         return "H1", f"status '{exc['status']}' não combina com o tipo '{exc['tipo']}'; conferir o registro antes de agir"
+    if ent["entregue"] and not ent.get("data_entrega"):
+        return "H1", "o registro diz que o pedido foi entregue, mas não tem data de entrega; conferir antes de agir"
+    if ent["entregue"] and exc["tipo"] in NAO_ENTREGUE:
+        return "H1", f"o tipo '{exc['tipo']}' implica pedido não entregue, mas o registro diz que foi entregue; conferir antes de agir"
     if d is not None and d.acao == Acao.reembolsar and ped["valor_pago"] > LIMITE_REEMBOLSO:
         return "H2", f"reembolso de R$ {ped['valor_pago']:.2f}, acima do limite de R$ {LIMITE_REEMBOLSO:.0f}"
     if d is not None and d.acao == Acao.reembolsar and cli["alto_valor_acima_1500"]:

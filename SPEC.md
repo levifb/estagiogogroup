@@ -101,7 +101,7 @@ Em ordem de precedência, a primeira regra que se aplica decide:
 
 | Regra | Condição | Por quê |
 |---|---|---|
-| H1 | status incoerente com o tipo (ex.: pagamento pendente aguardando transportadora) [N04] | o registro está errado; agir em cima dele pode piorar |
+| H1 | registro incoerente: status que não combina com o tipo (ex.: pagamento pendente aguardando transportadora) [N04], ou pedido marcado como entregue sem data de entrega ou com tipo que implica não entrega (extravio, rastreio parado, devolução) | o registro está errado; agir em cima dele pode piorar |
 | H2 | ação `reembolsar` com valor acima de R$ 228 [N13] | os 5% de pedidos mais caros; reembolso é dinheiro que não volta |
 | H3 | ação `reembolsar` para cliente com receita acumulada acima de R$ 1.500 | o cliente que recompra em 70% dos casos merece uma pessoa |
 | H4 | atraso não entregue com mais de 10 dias úteis | risco no teto (40%); escolher entre reenvio e reembolso é decisão de negócio (S8) |
