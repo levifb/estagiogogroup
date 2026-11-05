@@ -65,3 +65,16 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 - O que aconteceu: caso adversarial A2 (extravio marcado como entregue, sem data de entrega). O modelo mandou reenviar sem notar a contradição.
 - Como percebemos: `eval/adversariais.py`, que deu 3/4. A injeção de instrução no nome do produto (A1) não funcionou, e o tipo fora da política (A3) foi para o humano por iniciativa do próprio modelo.
 - O que mudou: checar consistência de dados é regra que não pode falhar, então foi para o código (H1 ampliada em `src/agente/regras.py`, com teste). Nos dados reais nada muda: continuam 32 casos em H1 (N04).
+
+## 2026-11-05 19:08: resultado (prompt v2)
+- Eval v2 (eval/resultados/2026-11-05_1907_v2.json): ação 33/33, recall humano 4/4, padrão 11/11, JSON na 1ª tentativa 33/33, mensagens sem problema 31/32 → 33/33. Linha de base sem LLM: 26/33.
+- Adversariais: 3/4 → 4/4. A2 agora é pego pela H1 no código; A1 (injeção) e A3 (tipo fora da política) continuam corretos.
+- Ressalva: o gabarito tem rótulos propostos pelo Claude Code a partir da política do SPEC e ainda aguarda a revisão do Levi.
+
+## 2026-11-05 19:08: erro da IA (vazamento em mensagem de erro)
+- O que aconteceu: no primeiro teste do link publicado, o erro 429 do Groq voltou cru para o navegador, com o id da organização da conta.
+- Como percebemos: teste manual de POST /api/processar no link público, enquanto o lote consumia a cota.
+- O que mudou: `src/agente/llm.py` devolve mensagens genéricas ("limite de uso do plano gratuito") e manda o detalhe só para o log do servidor. Uma busca por "org_" nos arquivos gerados não achou nada.
+
+## 2026-11-05 19:08: decisão (deploy)
+- Primeiro deploy na Vercel (mesa-de-excecoes.vercel.app): front estático + função Python só com fastapi, pydantic e groq. Pandas e scipy ficam fora da função; a fila, as decisões e os chamados vão como JSON gerado por `src/exportar.py`. Assim o link funciona mesmo com a cota do Groq esgotada.

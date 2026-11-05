@@ -4,6 +4,7 @@ Nunca levanta exceção para quem chama: devolve (objeto validado ou None, rastr
 """
 
 import json
+import logging
 import os
 import re
 import time
@@ -15,6 +16,7 @@ from pydantic import BaseModel, ValidationError
 
 load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
+log = logging.getLogger("agente.llm")
 MODELO_PADRAO = "openai/gpt-oss-120b"  # escolha registrada no LOG.md (2026-11-05)
 MAX_FERRAMENTAS = 3
 TIMEOUT_S = 60
@@ -50,15 +52,18 @@ def _chamar(cli, **kw):
         try:
             return cli.chat.completions.create(**kw), None
         except RateLimitError as e:
+            log.warning("429 do Groq: %s", e)
             if tentativa == 2:
-                return None, f"limite de requisições: {e}"
+                return None, "o modelo atingiu o limite de uso do plano gratuito; tente de novo em um minuto"
             time.sleep(_espera_429(e))
         except (APIConnectionError, APITimeoutError) as e:
+            log.warning("rede/timeout: %s", e)
             if tentativa == 2:
-                return None, f"rede: {e}"
+                return None, "não foi possível falar com o modelo (rede ou tempo esgotado)"
             time.sleep(2 ** (tentativa + 1))
         except Exception as e:  # erro da API (ex.: 400) não melhora com nova tentativa
-            return None, f"{type(e).__name__}: {e}"
+            log.warning("erro da API: %s", e)
+            return None, f"o modelo devolveu um erro ({type(e).__name__})"
     return None, "falha desconhecida"
 
 
