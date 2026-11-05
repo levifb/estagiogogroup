@@ -36,6 +36,10 @@ Cada skill é dona de uma parte do repositório. Antes de mexer numa parte, carr
 
 Fluxo entre elas: `dados` produz fatos e números → `negocio` transforma em regra de prioridade e política (SPEC.md) → `agente` executa a política com o LLM → `avaliacao` mede contra o gabarito e registra erros → `app` mostra tudo. Achado novo de uma skill que afeta outra vai para o arquivo compartilhado certo (abaixo), nunca só para a conversa.
 
+## Avaliador cego
+
+`.claude/agents/recrutador-gogroup.md` simula o recrutador do Gogroup. Ele avalia só o link público, o repositório e o enunciado, sem o contexto das sessões, e decide se contrataria. Rode quando o Levi pedir ("roda o recrutador") e transforme o relatório em melhorias priorizadas. Não passe a ele dicas sobre o projeto: o valor dele está em ser cego.
+
 ## Arquivos compartilhados (fonte única de verdade)
 
 - `SPEC.md`: persona, dor, fluxos atual e novo, métricas, definição do pronto, **política de ações** e **suposições**. Regra de negócio que não está aqui nem em `dados/operacoes/parametros.md` não existe.
