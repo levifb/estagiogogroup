@@ -30,8 +30,8 @@ padrões      ->  chamado de causa raiz   código mede, LLM redige, a Juliana ap
 4. Abre chamados. O código detecta onde as exceções se concentram, comparando com a taxa dos demais grupos, e o agente escreve um chamado para o dono do processo.
 
 Dois casos reais da fila:
-- **Resolvido sozinho:** um atraso que passou 2 dias da data prometida, mas está dentro do SLA contratado. Uma automação por tipo cobraria a transportadora. O agente percebe que quem errou foi a data prometida, e escreve ao cliente com o prazo correto.
-- **Foi para a Juliana:** um pagamento pendente com status "aguardando transportadora". O registro está incoerente (regra H1), então o agente não age em cima dele.
+- **Resolvido sozinho (GC7003305, prioridade 18):** um atraso que passou da data prometida, mas está dentro do SLA contratado. Uma automação por tipo cobraria a transportadora. O agente percebe que quem errou foi a data prometida, e escreve ao cliente com o prazo correto.
+- **Foi para a Juliana (GB7005077, prioridade 23):** um pagamento pendente com status "aguardando transportadora". O registro está incoerente (regra H1), então o agente não age em cima dele.
 
 ## Resultado
 
@@ -46,7 +46,7 @@ Dois casos reais da fila:
 
 O plano captura 93% [N74] da perda que dá para evitar mudando só a ordem. A perda soma reembolso esperado, recompra perdida e custo de reenvio; o modelo e as suposições estão no [SPEC.md](SPEC.md).
 
-**Agente** (`python -m eval.eval`, prompt v2, resultado em `eval/resultados/2026-11-05_1907_v2.json`):
+**Agente** (`python -m eval.eval`, prompt v2, `openai/gpt-oss-120b`, resultado em `eval/resultados/2026-11-05_1907_v2.json`):
 
 | Medida | Resultado |
 |---|---|
@@ -117,4 +117,6 @@ Cada número entre colchetes neste README, como [N01], está em [docs/NUMEROS.md
 - Ações simuladas: falta integrar com o envio de mensagens e com a abertura de reenvio.
 - O ganho em R$ é estimativa de modelo (tabela de cancelamento e recompra do `parametros.md`), não medição.
 - O gabarito precisa da minha revisão e de mais casos difíceis vindos de exceções reais.
+- Os dois modelos às vezes confundem "7 dias do recebimento" com dias desde a abertura do caso e mandam para a Juliana um reenvio que poderia ser automático. O erro vai no sentido seguro. A correção é tirar essa regra do prompt, porque o código já a verifica (regra H5), e rodar o eval de novo.
+- Fila com dois modelos: o limite diário do plano gratuito acabou no meio do lote, e parte da fila foi decidida pelo `openai/gpt-oss-20b`. Antes de usá-lo, ele passou pelo mesmo eval (`eval/resultados/2026-11-05_2016_v2_gpt-oss-20b.json`): mandou para a pessoa os 4 de 4 casos de risco e acertou a ação em 31 de 33, e os 2 erros foram envios desnecessários à pessoa. A tela mostra qual modelo decidiu cada caso.
 - Próximo passo: replanejar a cada dia com as exceções novas e medir o acerto do agente contra a decisão final da analista.
