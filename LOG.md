@@ -40,3 +40,12 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 - Como percebemos: conferência de sobreposição. 79 dos 147 atrasos falsos já estavam dentro do padrão da Rota Express no Nordeste.
 - O que mudou: entram só os 68 atrasos falsos que estão fora dos padrões.
 - Antes → depois: N97 471 → 430 exceções/mês; N98 94 h → 86 h.
+
+## 2026-11-05 18:46: erro da IA (exemplos do prompt)
+- O que aconteceu: ao escrever os 4 exemplos do prompt de decisão, o Claude Code preencheu fatos de memória: prazo correto 01/10 (o certo é 30/09), receita de R$ 1.900 (é R$ 1.752,81), marcas erradas em 2 exemplos, "25 dias aberta" (são 43) e o padrão P06 ausente num caso que pertence a ele.
+- Como percebemos: conferência de cada exemplo com `montar_ficha()` antes da primeira chamada ao modelo.
+- O que mudou: os exemplos foram reescritos com os valores da ficha real. Regra daqui em diante: exemplo de prompt só entra depois de ser conferido contra a ficha gerada pelo código.
+
+## 2026-11-05 18:46: decisão (modelo)
+- A chave do Groq não tem Llama de chat disponível; os modelos de texto são openai/gpt-oss-120b, openai/gpt-oss-20b e qwen/qwen3.8-27b.
+- Escolhido: openai/gpt-oss-120b (o maior, com tool calling e modo JSON). Limites medidos nos cabeçalhos: 1.000 requisições/dia e 8.000 tokens/minuto. Isso define o desenho: ficha compacta, no máximo 3 ferramentas por caso e lote de 150 casos com cache.
