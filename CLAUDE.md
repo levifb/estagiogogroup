@@ -7,7 +7,7 @@ Projeto do Levi (estudante de CC na UFC) para a etapa 3 do processo seletivo de 
 - **Case:** Operações. **Recorte:** mesa de exceções do dia. O código prioriza a fila dentro da capacidade de 150 tratativas/dia; um agente de IA investiga cada caso da fila, propõe a ação e redige a mensagem; um investigador de causa raiz agrupa exceções com a mesma origem e redige o chamado para o dono do processo. Uma pessoa aprova o que é caro, arriscado ou incerto.
 - **Prazo:** 10/11/2026. Hoje é o que `date` disser; converta datas relativas em absolutas em todo registro.
 - **Dados fora do repositório:** o enunciado pede para não compartilhar o PDF nem os dados. Eles ficam em `dados/operacoes/` só localmente (no `.gitignore`); o repositório traz apenas os derivados que a interface usa.
-- **Modelo:** Groq gratuito (Llama), chave em `GROQ_API_KEY` no `.env` (no `.gitignore`). Nenhuma chave no código nem no front.
+- **Modelo:** Groq gratuito, `openai/gpt-oss-120b` (a chave não tem Llama de chat), com `openai/gpt-oss-20b` como segundo modelo avaliado. Chave em `GROQ_API_KEY` no `.env` (no `.gitignore`). Nenhuma chave no código nem no front.
 - **Entrega:** link público sem login (Vercel) + repositório público no GitHub.
 - **Stack:** núcleo em Python 3.12 (pandas, pydantic, SDK `groq`), API FastAPI como função Python da Vercel em `api/`, front React + TypeScript (Vite) em `web/`. Trocar de stack exige ok do Levi.
 

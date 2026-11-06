@@ -22,6 +22,7 @@ export interface LinhaFila {
   acao: Acao
   humano: boolean
   pendente?: boolean
+  aguarda_foto?: boolean
   motivo_humano: string | null
   regra: string | null
   fonte: Fonte

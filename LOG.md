@@ -125,3 +125,18 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 - O ganho de R$ 18.175 é de uma vez, sobre o estoque acumulado; o README agora diz isso e o que seria o ganho recorrente.
 - Chamados de causa raiz: a evidência passou a ir ao modelo com nomes legíveis e com o dado específico de cada padrão (brinde no CD2, dias além do SLA na transportadora). Prompt v2 → v3. O modelo errou no P00 (chamou de "geradas pela regra" as 497 exceções de atraso, quando são 147) e inventou uma meta no P02. O v3 pede só a direção da meta e proíbe mudar o sentido dos números. No v3 o P02 deixou de citar o brinde, então a interface mostra a evidência calculada pelo código em cada chamado.
 - Enunciado e dados: tirados do repositório e do histórico (ver próxima entrada).
+
+## 2026-11-06 10:01: decisão (enunciado e dados fora do repositório)
+- O que aconteceu: o PDF do enunciado e os CSVs estavam no repositório público, e o enunciado pede para não compartilhá-los. Eu tinha decidido versioná-los no começo; revi a decisão depois do avaliador cego.
+- O que mudou: os dois saíram do repositório e de todo o histórico (`git filter-branch` + push forçado). Ficam só locais, no `.gitignore`. O README explica onde colocar os arquivos do desafio, e os testes que precisam deles são pulados com aviso.
+- Erro da IA no caminho: a primeira reescrita do histórico (com `--all` e limpeza imediata) apagou do repositório local o commit das melhorias. Como percebemos: o `git log` mostrava o `main` no commit antigo. Recuperamos pelo backup feito antes (`git bundle`) e refizemos só na `main`, conferindo que a árvore final era idêntica. Nada errado chegou ao GitHub.
+
+## 2026-11-06 10:36: feedback (avaliador cego, segunda rodada)
+- Segunda avaliação cega: 7,2 → 7,8, mesmo veredito (avançaria com ressalvas), top 3 de 30. Corrigidas só as inconsistências apontadas, por decisão do Levi.
+- Modelo de perda contava reembolso em pagamento pendente, de dinheiro que não entrou. Corrigido em `src/negocio/risco.py`, com teste. Antes → depois: N72 R$ 18.175 → R$ 17.448; N70 R$ 118.043 → R$ 112.698; N71 R$ 99.868 → R$ 95.249. A fila do dia mudou em 7 casos, decididos de novo (3 pelo 120b e 4 pelo 20b, porque o 120b atingiu o limite diário). Fila: 150/150.
+- O chamado P01 dizia 3,6 dias além do SLA e o README 3,0 (N54), com definições diferentes. A evidência dos chamados agora usa a mesma definição de N54/N55, e o P01 foi gerado de novo (20b): 3,0. Ao gerar de novo o P03, o 20b escreveu "aumento de 29% de avarias" quando 29% é a proporção no grupo; mantivemos o texto anterior do 120b e só atualizamos a evidência calculada pelo código, que esse texto não cita. Os chamados registram o modelo.
+- O README dizia que o auditor conferia a interface, mas ele só lia README e SPEC. Agora confere também web/public/data/numeros.json e os ids citados em web/src, além dos valores em negrito; com isso pegou 10 valores desatualizados depois da correção do modelo de perda.
+- "141 resolvidos" misturava 40 reenvios que ainda esperam a foto. A tela agora diz "decididos sem a Juliana" e quantos deles esperam a foto, e o detalhe do caso mostra essa situação.
+- O título dizia que o agente escolhe as 150 de hoje; quem escolhe é o algoritmo de otimização. Título e frase de abertura do README corrigidos. CLAUDE.md dizia "Llama"; agora diz gpt-oss.
+- Gabarito: revisado caso a caso pelo Claude Code contra o texto do SPEC (marcado `claude_revisado`, não como revisão do Levi). Concordou com os 33 e apontou uma lacuna da política (rastreio parado há mais de 30 dias úteis).
+- Não corrigido (fora do escopo pedido) e agora documentado no README: o furo da H7 com paráfrases e a linha de base "mais novo primeiro", que já chega perto do plano ótimo.

@@ -1,6 +1,6 @@
 # Mesa de exceções
 
-A Mesa de exceções é um agente de IA que escolhe quais 150 pedidos com problema tratar hoje e propõe o que fazer em cada um, para que a analista de exceções do Gogroup pare de trabalhar a fila por ordem de chegada e perca menos dinheiro com cancelamentos. No estoque acumulado até 30/09/2026, o plano do agente reduz a perda esperada em R$ 18.175 [N72] (15% [N73], estimativa). Esse ganho é de uma vez, sobre a fila que já existe, e não mensal. Os casos caros, sensíveis ou incertos vão para uma pessoa.
+A Mesa de exceções separa, com um algoritmo de otimização, os 150 pedidos com problema que valem mais ser tratados hoje, e um agente de IA propõe o que fazer em cada um, para que a analista de exceções do Gogroup pare de trabalhar a fila por ordem de chegada e perca menos dinheiro com cancelamentos. No estoque acumulado até 30/09/2026, o plano do agente reduz a perda esperada em R$ 17.448 [N72] (15% [N73], estimativa). Esse ganho é de uma vez, sobre a fila que já existe, e não mensal. Os casos caros, sensíveis ou incertos vão para uma pessoa.
 
 - App: https://mesa-de-excecoes.vercel.app (sem login)
 - Feito para o Desafio AI-First do Gogroup, case Operações, com os dados sintéticos do desafio. A persona (Juliana) é fictícia, e as ações são simuladas: nada é enviado a clientes.
@@ -40,12 +40,12 @@ Dois casos reais da fila:
 
 | Política | Perda esperada |
 |---|---|
-| Ordem de chegada (hoje) | R$ 118.043 [N70] |
-| Maior perda atual primeiro | R$ 113.985 [N76] |
-| Maior valor de pedido primeiro | R$ 106.856 [N75] |
-| Plano do agente | R$ 99.868 [N71] |
+| Ordem de chegada (hoje) | R$ 112.698 [N70] |
+| Maior perda atual primeiro | R$ 108.322 [N76] |
+| Maior valor de pedido primeiro | R$ 101.908 [N75] |
+| Plano do agente | R$ 95.249 [N71] |
 
-O plano captura 93% [N74] da perda que dá para evitar mudando só a ordem. A perda soma reembolso esperado, recompra perdida e custo de reenvio; o modelo e as suposições estão no [SPEC.md](SPEC.md).
+O plano captura 93% [N74] da perda que dá para evitar mudando só a ordem. A perda soma reembolso esperado (exceto em pagamento pendente, em que o dinheiro não entrou), recompra perdida e custo de reenvio; o modelo e as suposições estão no [SPEC.md](SPEC.md).
 
 **Agente** (`python -m eval.eval`, prompt v2, `openai/gpt-oss-120b`; resultado ao vivo em `eval/resultados/2026-11-05_1907_v2.json` e, com as regras atuais reaplicadas às mesmas decisões, em `eval/resultados/2026-11-06_0955_v2_demo.json`):
 
@@ -59,7 +59,7 @@ O plano captura 93% [N74] da perda que dá para evitar mudando só a ordem. A pe
 | JSON válido na primeira tentativa | 33 de 33 | modelo |
 | Casos adversariais (`python -m eval.adversariais`) | 4 de 4 | modelo (3) e código (1) |
 
-O gabarito tem 33 casos sorteados com semente fixa, cobrindo os 11 tipos de exceção e os casos difíceis. Os rótulos foram propostos pela própria tabela de política (`eval/montar_gabarito.py`) e ainda aguardam minha revisão linha a linha. Por isso a tabela em código acerta 33 de 33 por construção, e acertar a ação não prova, sozinho, que o modelo é necessário: para os casos que a política já prevê, um `if` faz o mesmo trabalho.
+O gabarito tem 33 casos sorteados com semente fixa, cobrindo os 11 tipos de exceção e os casos difíceis. Os rótulos foram propostos pela própria tabela de política (`eval/montar_gabarito.py`) e depois revisados caso a caso, pelo Claude Code e não por mim, contra o texto do SPEC. A revisão concordou com os 33 e apontou uma lacuna da política: rastreio parado há mais de 30 dias úteis provavelmente é extravio, mas a regra manda só cobrar a transportadora. Por isso a tabela em código acerta 33 de 33 por construção, e acertar a ação não prova, sozinho, que o modelo é necessário: para os casos que a política já prevê, um `if` faz o mesmo trabalho.
 
 O que o modelo faz e o código não faz:
 - escreve a mensagem para o cliente de cada caso, com a data e o pedido certos (33 de 33 sem problema nas checagens);
@@ -67,7 +67,7 @@ O que o modelo faz e o código não faz:
 - ignora uma instrução injetada no nome do produto (caso A1);
 - escreve a justificativa e os chamados de causa raiz em linguagem que o dono do processo entende.
 
-Na fila do dia inteira, com 150 [N100] casos decididos, 144 [N101] decisões batem com a tabela de política, 147 [N103] das 149 mensagens passam nas checagens automáticas e 9 [N102] casos foram para a Juliana. Essa conferência é automática, contra a mesma tabela (`analises/a06_fila_do_dia.py`). Uma das 6 divergências é o GB7000254: a regra H7 mandou o caso para a Juliana porque o modelo tinha dispensado a foto do cliente.
+Na fila do dia inteira, com 150 [N100] casos decididos, 144 [N101] decisões batem com a tabela de política, 147 [N103] das 149 mensagens passam nas checagens automáticas e 8 [N102] casos foram para a Juliana. Essa conferência é automática, contra a mesma tabela (`analises/a06_fila_do_dia.py`). Uma das 6 divergências é o GB7000254: a regra H7 mandou o caso para a Juliana porque o modelo tinha dispensado a foto do cliente.
 
 ## O que está causando as exceções
 
@@ -127,8 +127,10 @@ Cada número entre colchetes neste README, como [N01], está em [docs/NUMEROS.md
 
 - Ações simuladas: falta integrar com o envio de mensagens e com a abertura de reenvio.
 - O ganho em R$ é estimativa de modelo (tabela de cancelamento e recompra do `parametros.md`), não medição. E ele é de uma vez, sobre a fila acumulada. Como abrem de 33 [N06] a 42 [N07] exceções por dia e o time trata 150, depois que o estoque zera a ordem pesa menos. O ganho recorrente viria do replanejamento diário e das mudanças de processo (430 [N97] exceções evitáveis por mês), e não foi estimado em R$.
+- A regra H7 reconhece a dispensa da foto por expressão regular, e paráfrases como "não é preciso enviar foto" passam. O conserto certo é o modelo devolver um campo `pede_foto` no JSON, conferido contra a mensagem.
+- Comparei o plano só com políticas ingênuas. Uma ordenação simples, "mais novo primeiro", já chega perto do plano ótimo, porque os casos mais antigos já estão no teto de risco; o algoritmo exato acrescenta pouco sobre uma boa regra de ordenação.
 - O plano é escolhido e avaliado pela mesma função de perda. O ganho depende da suposição S2 (tratar o caso trava o atraso), que só um piloto mede.
-- O gabarito precisa da minha revisão e de mais casos difíceis vindos de exceções reais.
+- O gabarito foi revisado por IA, não por uma pessoa da operação, e precisa de casos difíceis vindos de exceções reais. A revisão também achou uma lacuna na política: rastreio parado há mais de 30 dias úteis deveria virar extravio (reenvio) ou ir para a analista.
 - Os dois modelos às vezes confundem "7 dias do recebimento" com dias desde a abertura do caso. Na maioria das vezes isso manda para a Juliana um reenvio que poderia ser automático; no GB7000254 levou o modelo a dispensar a foto, e quem segurou foi a regra H7. A correção é tirar essa regra do prompt, porque o código já a verifica (regra H5), e rodar o eval de novo.
 - Fila com dois modelos: o limite diário do plano gratuito acabou no meio do lote, e parte da fila foi decidida pelo `openai/gpt-oss-20b`. Antes de usá-lo, ele passou pelo mesmo eval (`eval/resultados/2026-11-05_2016_v2_gpt-oss-20b.json`): mandou para a pessoa os 4 de 4 casos de risco e acertou a ação em 31 de 33, e os 2 erros foram envios desnecessários à pessoa. A tela mostra qual modelo decidiu cada caso.
 - Próximo passo: replanejar a cada dia com as exceções novas e medir o acerto do agente contra a decisão final da analista.

@@ -55,6 +55,7 @@ def main():
             # Sem decisão do modelo e sem regra de dados (H1–H5): o caso ainda não foi processado.
             "acao": r.acao_final.value, "humano": r.vai_para_humano and not _pendente(r),
             "pendente": _pendente(r), "motivo_humano": r.motivo_humano,
+            "aguarda_foto": (r.artefato.get("ordem") or {}).get("situacao") == "aguardando a foto do cliente",
             "regra": r.regra_aplicada, "fonte": r.fonte,
         })
         _grava(WEB / "casos" / f"{o}.json", r.model_dump(mode="json"))

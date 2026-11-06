@@ -98,8 +98,8 @@ def sortear() -> list[str]:
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    if ARQ.exists() and any('"anotado_por": "levi' in l or "revisado_por_levi" in l for l in ARQ.read_text(encoding="utf-8").splitlines()):
-        raise SystemExit("gabarito já tem linhas revisadas pelo Levi; não sobrescrevo")
+    if ARQ.exists() and any('"anotado_por": "levi' in l or "revisado" in l for l in ARQ.read_text(encoding="utf-8").splitlines()):
+        raise SystemExit("gabarito já tem linhas revisadas; não sobrescrevo")
     linhas = []
     for o in sortear():
         f = montar_ficha(o)

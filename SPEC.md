@@ -10,7 +10,7 @@ Juliana, analista de exceções de operações do Gogroup (nome fictício). Ela 
 
 - Há 2.000 exceções abertas [N01]. Na capacidade atual, são 13,3 dias de fila [N05].
 - A fila é tratada por ordem de chegada. Um pedido que vai cruzar uma faixa de risco de cancelamento amanhã espera atrás de outro que não muda nada se esperar uma semana.
-- A perda esperada do estoque atual, tratado em ordem de chegada, é de R$ 118.043 [N70] em reembolsos, recompras perdidas e custos de reenvio (estimativa).
+- A perda esperada do estoque atual, tratado em ordem de chegada, é de R$ 112.698 [N70] em reembolsos, recompras perdidas e custos de reenvio (estimativa).
 - 46% das exceções [N32] vêm de 6 causas de processo que se repetem [N30]: uma impressora, um turno de um CD, um lote, duas transportadoras e uma marca. Tratar caso a caso não faz essas causas pararem.
 - 30% dos "atrasos" [N23] não são atrasos da transportadora. O checkout calcula a data prometida em dias corridos [N20], enquanto o SLA contratado é em dias úteis.
 
@@ -38,7 +38,7 @@ Juliana, analista de exceções de operações do Gogroup (nome fictício). Ela 
 - Tempo e tokens por caso.
 
 **De negócio**
-- Perda esperada evitada pela priorização: R$ 18.175 [N72], ou 15% [N73] em relação à ordem de chegada (estimativa).
+- Perda esperada evitada pela priorização: R$ 17.448 [N72], ou 15% [N73] em relação à ordem de chegada (estimativa).
 - Exceções por mês evitáveis mudando processos: 430 [N97], ou 86 horas do time por mês [N98] (estimativa).
 
 ## Priorização
@@ -53,11 +53,11 @@ Comparação no estoque de 30/09 (estimativas):
 
 | Política | Perda esperada |
 |---|---|
-| Ordem de chegada (atual) | R$ 118.043 [N70] |
-| Maior perda hoje primeiro | R$ 113.985 [N76] |
-| Maior valor de pedido primeiro | R$ 106.856 [N75] |
-| **Plano otimizado** | **R$ 99.868** [N71] |
-| Piso teórico (tratar tudo hoje, impossível) | R$ 98.462 [N60] |
+| Ordem de chegada (atual) | R$ 112.698 [N70] |
+| Maior perda hoje primeiro | R$ 108.322 [N76] |
+| Maior valor de pedido primeiro | R$ 101.908 [N75] |
+| **Plano otimizado** | **R$ 95.249** [N71] |
+| Piso teórico (tratar tudo hoje, impossível) | R$ 94.009 [N60] |
 
 O plano otimizado captura 93% [N74] da perda que dá para evitar.
 

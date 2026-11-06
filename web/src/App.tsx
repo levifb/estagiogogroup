@@ -79,6 +79,7 @@ export default function App() {
   const humanos = casos.filter((c) => c.humano).length
   const pendentes = casos.filter((c) => c.pendente).length
   const sozinhos = casos.length - humanos - pendentes
+  const aguardaFoto = casos.filter((c) => c.aguarda_foto && !c.humano).length
   const visiveis = useMemo(
     () => casos.filter((c) => (filtro === 'todos' ? true : filtro === 'humano' ? c.humano : !c.humano && !c.pendente)),
     [casos, filtro],
@@ -99,7 +100,7 @@ export default function App() {
               <i style={{ width: `${casos.length ? (sozinhos / casos.length) * 100 : 0}%` }} />
             </span>
             <span>
-              <b>{sozinhos}</b>/{casos.length || 150} resolvidos
+              <b>{sozinhos}</b>/{casos.length || 150} decididos
             </span>
           </span>
           <a className="btn btn-cta btn-sm" href="#fila">
@@ -116,7 +117,7 @@ export default function App() {
                 <span className="dot" aria-hidden="true" /> Agente de IA · Operações · 30/09/2026
               </span>
               <h1 className="hero-title">
-                Das <N n={numeros} id="N01" /> exceções abertas, o agente escolhe as <span className="hl">150 de hoje</span>.
+                Das <N n={numeros} id="N01" /> exceções abertas, o plano separa as <span className="hl">150 de hoje</span> e o agente decide cada uma.
               </h1>
               <p className="hero-vip">
                 <span>
@@ -152,7 +153,10 @@ export default function App() {
             </div>
             <div className="stat s-cyan">
               <b>{sozinhos}</b>
-              <span>dos {casos.length} casos de hoje resolvidos pelo agente</span>
+              <span>
+                dos {casos.length} casos de hoje decididos pelo agente sem a Juliana
+                {aguardaFoto > 0 ? `; ${aguardaFoto} deles esperam a foto do cliente para o reenvio sair` : ''}
+              </span>
             </div>
             <div className="stat s-orange">
               <b>{humanos}</b>
@@ -432,7 +436,11 @@ function Detalhe({ orderId }: { orderId: string }) {
       ) : (
         <div className="decisao decisao-auto">
           <p className="titulo">{ACAO[r.acao_final]}</p>
-          <p className="nota">Executado pelo agente (simulado).</p>
+          <p className="nota">
+            {(r.artefato as { ordem?: { situacao?: string } }).ordem?.situacao === 'aguardando a foto do cliente'
+              ? 'Mensagem enviada; o reenvio sai quando a foto do cliente chegar (simulado).'
+              : 'Executado pelo agente (simulado).'}
+          </p>
         </div>
       )}
 

@@ -24,8 +24,9 @@
    "2026-09-14": 15,
    "2026-09-21": 7
   },
-  "dias úteis médios além do SLA nas entregas do grupo": "0,6",
+  "dias úteis médios além do SLA nas entregas do grupo": "0,8",
   "dias úteis médios além do SLA nas demais entregas": "1,3"
  },
- "precisa_humano": true
+ "precisa_humano": true,
+ "modelo": "openai/gpt-oss-120b"
 }

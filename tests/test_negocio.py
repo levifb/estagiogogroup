@@ -98,3 +98,10 @@ def test_otimo_nunca_perde_para_fifo_no_estoque_real():
     r = simular()
     assert r["otimizado"].perda_total <= r["fifo"].perda_total
     assert np.bincount(r["otimizado"].dia).max() <= pr.CAPACIDADE_DIA
+
+
+def test_pagamento_pendente_nao_gera_reembolso():
+    # o cliente não pagou: cancelar não devolve dinheiro, só perde a recompra
+    p = perda_esperada(caso(tipo="pagamento_pendente", entregue=False), 0)
+    assert p["reembolso"] == 0
+    assert p["recompra"] > 0

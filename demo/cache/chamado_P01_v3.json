@@ -1,8 +1,8 @@
 {
- "titulo": "Alto volume de atrasos e rastreio parado na Rota Express | Nordeste",
- "hipotese_causa": "É provável que a transportadora Rota Express esteja com problemas operacionais que geram atrasos e rastreio parado, refletindo 83% das exceções do grupo. Pode ser que a capacidade de entrega esteja abaixo da demanda, já que o grupo tem 4,7 vezes mais exceções que os demais. A confirmação viria de um relatório de performance da transportadora mostrando aumento de incidentes operacionais nas últimas semanas.",
- "acao_proposta": "Solicite à Rota Express um plano de ação corretivo focado em reduzir atrasos e regularizar o rastreio, com prazo de implementação até o fim da semana. Defina um monitoramento diário das exceções por semana e peça ajustes operacionais imediatos (revisão de rotas, reforço de equipe). Alinhe com a equipe de logística a priorização dos pedidos com valor total de R$ 44.164 afetados.",
- "como_medir": "Acompanhe a métrica \"exceções deste tipo no grupo\" (atual 396) e busque reduzi‑la para próximo da proporção dos demais grupos (18%) em 30 dias; também reduza os dias úteis além do SLA de 3,6 para próximo de 0,8.",
+ "titulo": "Rota Express Nordeste: 83% de exceções, 3 dias SLA excedido",
+ "hipotese_causa": "Provável que a rota Rota Express esteja sobrecarregada ou com falha de rastreio, pois 396 de 477 exceções (83%) são de atraso e rastreio parado, muito acima dos 18% dos demais grupos. Isso pode ser confirmado verificando a capacidade de transporte e a cobertura de rastreio na região.",
+ "acao_proposta": "Revisar a capacidade de transporte da Rota Express e aumentar a frequência de rastreio nos veículos. Se possível, realocar parte da carga para rotas alternativas ou fornecedores com melhor desempenho. Documentar as mudanças e monitorar a taxa de exceções semanalmente.",
+ "como_medir": "Acompanhar o número de exceções por semana do pedido; meta: reduzir de 75 para menos de 30 em 30 dias, e o SLA médio de 3,0 dias para 1,0 dia.",
  "padrao_id": "P01",
  "dono": "Gestão de transportadoras",
  "evidencia": {
@@ -24,8 +24,9 @@
    "2026-09-14": 60,
    "2026-09-21": 56
   },
-  "dias úteis médios além do SLA nas entregas do grupo": "3,6",
+  "dias úteis médios além do SLA nas entregas do grupo": "3,0",
   "dias úteis médios além do SLA nas demais entregas": "0,8"
  },
- "precisa_humano": true
+ "precisa_humano": true,
+ "modelo": "openai/gpt-oss-20b"
 }

@@ -283,16 +283,16 @@
   },
   "N60": {
    "id": "N60",
-   "valor": 98462.22524955134,
-   "texto": "R$ 98.462",
+   "valor": 94008.50604955133,
+   "texto": "R$ 94.009",
    "definicao": "perda esperada se todas as 2.000 exceções fossem tratadas hoje = reembolso esperado + recompra perdida + custo de resolução (SPEC.md S1–S6)",
    "script": "analises/a04_valor_em_risco.py",
    "estimativa": true
   },
   "N61": {
    "id": "N61",
-   "valor": 60738.7804,
-   "texto": "R$ 60.739",
+   "valor": 56285.061200000004,
+   "texto": "R$ 56.285",
    "definicao": "reembolso esperado hoje: soma de P(cancelamento pelos dias úteis de atraso contra o prometido) × valor pago",
    "script": "analises/a04_valor_em_risco.py",
    "estimativa": true
@@ -323,16 +323,16 @@
   },
   "N65": {
    "id": "N65",
-   "valor": 1690.913600617021,
-   "texto": "R$ 1.691",
+   "valor": 1551.6746006170208,
+   "texto": "R$ 1.552",
    "definicao": "quanto a perda esperada total sobe se nenhuma exceção for tratada amanhã (1 dia útil a mais)",
    "script": "analises/a04_valor_em_risco.py",
    "estimativa": true
   },
   "N66": {
    "id": "N66",
-   "valor": 10936.79941680044,
-   "texto": "R$ 10.937",
+   "valor": 10416.41261680044,
+   "texto": "R$ 10.416",
    "definicao": "quanto a perda esperada total sobe se nenhuma exceção for tratada por 5 dias úteis",
    "script": "analises/a04_valor_em_risco.py",
    "estimativa": true
@@ -355,31 +355,31 @@
   },
   "N70": {
    "id": "N70",
-   "valor": 118043.06453453067,
-   "texto": "R$ 118.043",
+   "valor": 112697.63413453067,
+   "texto": "R$ 112.698",
    "definicao": "perda esperada tratando o estoque em ordem de chegada, 150/dia útil (processo atual)",
    "script": "analises/a05_simulacao.py",
    "estimativa": true
   },
   "N71": {
    "id": "N71",
-   "valor": 99868.03074104094,
-   "texto": "R$ 99.868",
+   "valor": 95249.26255564095,
+   "texto": "R$ 95.249",
    "definicao": "perda esperada com o plano otimizado (atribuição exata casos × dias), 150/dia útil",
    "script": "analises/a05_simulacao.py",
    "estimativa": true
   },
   "N72": {
    "id": "N72",
-   "valor": 18175.033793489725,
-   "texto": "R$ 18.175",
+   "valor": 17448.371578889724,
+   "texto": "R$ 17.448",
    "definicao": "perda evitada pelo plano otimizado em relação à ordem de chegada (N70 − N71)",
    "script": "analises/a05_simulacao.py",
    "estimativa": true
   },
   "N73": {
    "id": "N73",
-   "valor": 0.1539695183716029,
+   "valor": 0.15482464838668272,
    "texto": "15%",
    "definicao": "redução da perda esperada em relação à ordem de chegada",
    "script": "analises/a05_simulacao.py",
@@ -387,7 +387,7 @@
   },
   "N74": {
    "id": "N74",
-   "valor": 0.9282050441745868,
+   "valor": 0.9336107869533611,
    "texto": "93%",
    "definicao": "parcela da perda evitável capturada pelo plano otimizado: (N70 − N71) / (N70 − N60); N60 seria tratar tudo hoje, o que não é possível",
    "script": "analises/a05_simulacao.py",
@@ -395,16 +395,16 @@
   },
   "N75": {
    "id": "N75",
-   "valor": 106856.24942744893,
-   "texto": "R$ 106.856",
+   "valor": 101908.00942744894,
+   "texto": "R$ 101.908",
    "definicao": "perda esperada priorizando o maior valor de pedido (comparação)",
    "script": "analises/a05_simulacao.py",
    "estimativa": true
   },
   "N76": {
    "id": "N76",
-   "valor": 113985.44841080479,
-   "texto": "R$ 113.985",
+   "valor": 108322.1905148048,
+   "texto": "R$ 108.322",
    "definicao": "perda esperada priorizando a maior perda atual (comparação)",
    "script": "analises/a05_simulacao.py",
    "estimativa": true
@@ -541,7 +541,7 @@
    "id": "N100",
    "valor": 150,
    "texto": "150",
-   "definicao": "casos da fila do dia com decisão do modelo (de 150); por modelo: gpt-oss-120b: 79, gpt-oss-20b: 71",
+   "definicao": "casos da fila do dia com decisão do modelo (de 150); por modelo: gpt-oss-120b: 76, gpt-oss-20b: 74",
    "script": "analises/a06_fila_do_dia.py",
    "estimativa": false
   },
@@ -555,8 +555,8 @@
   },
   "N102": {
    "id": "N102",
-   "valor": 9,
-   "texto": "9",
+   "valor": 8,
+   "texto": "8",
    "definicao": "casos da fila do dia enviados à analista pelas regras H1–H7",
    "script": "analises/a06_fila_do_dia.py",
    "estimativa": false

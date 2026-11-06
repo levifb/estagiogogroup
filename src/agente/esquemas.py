@@ -49,6 +49,7 @@ class Chamado(ChamadoTexto):
     dono: str
     evidencia: dict[str, Any]
     precisa_humano: bool = True  # H8: todo chamado passa por uma pessoa
+    modelo: Optional[str] = None  # None em chamados antigos = openai/gpt-oss-120b
 
 
 class Resultado(BaseModel):

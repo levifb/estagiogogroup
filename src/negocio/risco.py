@@ -99,9 +99,10 @@ def perda_esperada(c: CasoRisco, t: int) -> dict:
     S2: tratar o caso trava o atraso no dia do tratamento (cliente informado e solução em andamento).
     S3: o cliente que cancela é a exceção mal resolvida; ele recebe o reembolso e a recompra cai pela metade.
     Sem dupla contagem: quem cancela é reembolsado e não recebe reenvio.
+    Pagamento pendente: o dinheiro não entrou, então o cancelamento não gera reembolso (só a recompra perdida).
     """
     pc = prob_cancelamento(atraso_no_dia(c, t))
-    reembolso = pc * c.valor
+    reembolso = 0.0 if c.tipo == "pagamento_pendente" else pc * c.valor
     recompra = pc * recompra_perdida(c)
     resolucao = (1 - pc) * custo_acao(c.tipo, c.valor, c.frete)
     return {"p_cancelamento": pc, "reembolso": reembolso, "recompra": recompra,

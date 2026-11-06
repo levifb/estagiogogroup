@@ -50,11 +50,18 @@ def evidencias() -> list[dict]:
             ev["pedidos com brinde entre os itens faltantes do grupo"] = _pct(linhas["brinde_no_pedido"].mean())
             ev["pedidos com brinde entre todas as exceções"] = _pct(df["brinde_no_pedido"].mean())
         if p.dimensao.startswith("transportadora"):
+            # Mesma definição de N54/N55 (analises/a03_padroes.py): todas as entregas da transportadora
+            # no recorte do padrão, contra todas as demais entregas.
             ent = df[df["entregue"]]
-            grupo = ent[ent["order_id"].isin(p.order_ids)]
-            if len(grupo):
-                ev["dias úteis médios além do SLA nas entregas do grupo"] = f"{grupo['atraso_du_sla'].mean():.1f}".replace(".", ",")
-                ev["dias úteis médios além do SLA nas demais entregas"] = f"{ent[~ent['order_id'].isin(p.order_ids)]['atraso_du_sla'].mean():.1f}".replace(".", ",")
+            transp, *resto = p.valor.split(" | ")
+            no_grupo = ent["transportadora"].eq(transp)
+            if p.dimensao == "transportadora+regiao" and resto:
+                no_grupo &= ent["nordeste"].eq(resto[0] == "Nordeste")
+            if p.dimensao == "transportadora+uf" and resto:
+                no_grupo &= ent["uf"].eq(resto[0])
+            if no_grupo.any():
+                ev["dias úteis médios além do SLA nas entregas do grupo"] = f"{ent[no_grupo]['atraso_du_sla'].mean():.1f}".replace(".", ",")
+                ev["dias úteis médios além do SLA nas demais entregas"] = f"{ent[~no_grupo]['atraso_du_sla'].mean():.1f}".replace(".", ",")
         out.append({"padrao_id": p.id, "dono": DONOS.get(p.dimensao, "Operações"), "evidencia": ev})
     atraso = df[df["tipo_excecao"] == "atraso_entrega"]
     out.append({
@@ -83,7 +90,8 @@ def gerar_chamado(ev: dict) -> tuple[Chamado | None, list]:
     texto, rastro = llm.gerar(msgs, ChamadoTexto)
     if texto is None:
         return None, rastro
-    return Chamado(**texto.model_dump(), padrao_id=ev["padrao_id"], dono=ev["dono"], evidencia=ev["evidencia"]), rastro
+    return Chamado(**texto.model_dump(), padrao_id=ev["padrao_id"], dono=ev["dono"], evidencia=ev["evidencia"],
+                   modelo=llm.modelo()), rastro
 
 
 def chamados_em_cache() -> list[Chamado]:
@@ -100,7 +108,10 @@ def main():
     sys.stdout.reconfigure(encoding="utf-8")
     versao, _, _ = carregar_prompt("chamado")
     PASTA_CACHE.mkdir(parents=True, exist_ok=True)
+    so = set(sys.argv[1:])  # ex.: python -m src.agente.investigador P01 P03
     for ev in evidencias():
+        if so and ev["padrao_id"] not in so:
+            continue
         c, rastro = gerar_chamado(ev)
         if c is None:
             print(ev["padrao_id"], "FALHOU", rastro[-1])
