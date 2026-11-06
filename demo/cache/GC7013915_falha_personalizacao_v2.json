@@ -1,0 +1,103 @@
+{
+ "order_id": "GC7013915",
+ "tipo_excecao": "falha_personalizacao",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "Falha de personalização em máquina IMP-02, padrão P05. O pedido está aguardando sua foto para refazer a personalização sem custo.",
+  "mensagem_cliente": "Olá! Sentimos muito pela personalização com problema. Para refazer seu item sem custo, por favor envie uma foto do produto que recebeu. Assim que receber, daremos continuidade. Equipe Gocase",
+  "pertence_a_padrao": "P05",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Sentimos muito pela personalização com problema. Para refazer seu item sem custo, por favor envie uma foto do produto que recebeu. Assim que receber, daremos continuidade. Equipe Gocase"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7013915",
+   "marca": "Gocase",
+   "produto": "Case Personalizado Galaxy S24 Iniciais",
+   "sku": "GOC-2003",
+   "valor_pago": 129.78,
+   "qtd_itens": 2,
+   "brinde_no_pedido": true,
+   "data_pedido": "26/09/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": "IMP-02",
+   "lote_produto": "L2607-B"
+  },
+  "excecao": {
+   "tipo": "falha_personalizacao",
+   "status": "aguardando_cliente",
+   "aberta_em": "28/09/2026",
+   "dias_aberta": 2,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Veloz Log",
+   "uf": "SP",
+   "cidade": "Ribeirão Preto",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "30/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "01/10/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 0,
+   "dias_uteis_atraso_vs_sla_contratado": 0,
+   "dentro_do_sla_contratado": true,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL312603",
+   "n_pedidos": 3,
+   "receita_acumulada": 247.9,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.0,
+   "prob_cancelamento_em_5_dias_uteis": 0.1,
+   "perda_esperada_hoje": 45.15,
+   "custo_de_esperar_1_dia_util": 3.85,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 45.15,
+   "refazer_personalizacao": 45.15,
+   "reembolsar": 129.78,
+   "acao_padrao_do_tipo": "refazer_personalizacao",
+   "custo_acao_padrao": 45.15
+  },
+  "padrao_causa_raiz": {
+   "id": "P05",
+   "descricao": "maquina = IMP-02 (falha_personalizacao)",
+   "casos": 77,
+   "dono": "Manutenção"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 22.48,
+   "tokens": 2980,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
+ "erro": null
+}

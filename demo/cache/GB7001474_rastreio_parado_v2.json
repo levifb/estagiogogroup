@@ -1,0 +1,120 @@
+{
+ "order_id": "GB7001474",
+ "tipo_excecao": "rastreio_parado",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O rastreio do pedido está parado há 41 dias e a transportadora Rota Express não atualizou o status. A política exige acionar a transportadora para resolver a situação. O caso segue o padrão P01.",
+  "mensagem_cliente": "Olá! Notamos que o rastreio do seu pedido está parado há 41 dias. Já acionamos a transportadora para resolver a situação e você será informado assim que houver atualização. Equipe Kokeshi",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "acionar_transportadora",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Notamos que o rastreio do seu pedido está parado há 41 dias. Já acionamos a transportadora para resolver a situação e você será informado assim que houver atualização. Equipe Kokeshi",
+  "ordem": {
+   "tipo": "chamado_transportadora",
+   "transportadora": "Rota Express",
+   "sla_contratado_dias_uteis": 6,
+   "dias_uteis_alem_do_sla": 27
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7001474",
+   "marca": "Kokeshi",
+   "produto": "Bastão Multifuncional Sunshine Fps 60 11G",
+   "sku": "KSH-1055",
+   "valor_pago": 57.61,
+   "qtd_itens": 1,
+   "brinde_no_pedido": false,
+   "data_pedido": "12/08/2026",
+   "cd": "CD1",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2606-B"
+  },
+  "excecao": {
+   "tipo": "rastreio_parado",
+   "status": "aguardando_transportadora",
+   "aberta_em": "20/08/2026",
+   "dias_aberta": 41,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "PB",
+   "cidade": "Campina Grande",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "19/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "21/08/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 29,
+   "dias_uteis_atraso_vs_sla_contratado": 27,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL305915",
+   "n_pedidos": 31,
+   "receita_acumulada": 3361.53,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 6
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 38.23,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 33.61,
+   "refazer_personalizacao": 33.61,
+   "reembolsar": 57.61,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.34,
+   "tokens": 2945,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_invalido",
+   "tentativa": 1,
+   "erro": "1 validation error for Decisao\n  Value error, acao acionar_transportadora exige mensagem_cliente [type=value_error, input_value={'acao': 'acionar_transpo..., 'motivo_humano': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error",
+   "bruto": "{\"acao\":\"acionar_transportadora\",\"justificativa\":\"O rastreio do pedido está parado há 41 dias e a transportadora Rota Express não atualizou o status. A política exige acionar a transportadora para resolver a situação. O caso segue o padrão P01.\",\"mensagem_cliente\":null,\"pertence_a_padrao\":\"P01\",\"confianca\":\"alta\",\"precisa_humano\":false,\"motivo_humano\":null}"
+  },
+  {
+   "etapa": "modelo_json",
+   "segundos": 23.54,
+   "tokens": 3047
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 2
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

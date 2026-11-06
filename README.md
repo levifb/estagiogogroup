@@ -58,6 +58,8 @@ O plano captura 93% [N74] da perda que dá para evitar mudando só a ordem. A pe
 | JSON válido na primeira tentativa | 33 de 33 |
 | Casos adversariais (`python -m eval.adversariais`) | 4 de 4 |
 
+Na fila do dia inteira, com 150 [N100] casos decididos, 145 [N101] decisões batem com a tabela de política do SPEC, 148 [N103] das 149 mensagens passam nas checagens automáticas e 3 [N102] casos foram para a Juliana. Essa conferência é automática, contra a mesma tabela que propôs o gabarito (`analises/a06_fila_do_dia.py`).
+
 Leio esse 100% com cautela. O gabarito tem 33 casos sorteados com semente fixa, cobrindo os 11 tipos de exceção e os casos difíceis. Os rótulos foram propostos a partir da tabela de política do SPEC e ainda aguardam minha revisão linha a linha. A política é clara e o prompt a explica, então acertar a ação é o mínimo. Onde a IA faz diferença é nos 7 casos que a automação por tipo erra (atraso já entregue, atraso dentro do SLA, caso parado aguardando o cliente) e na mensagem ao cliente. Por isso o eval também confere a mensagem (datas e valores precisam estar na ficha, sem jargão interno, assinatura da marca certa, pedido de foto quando a política exige) e testa casos adversariais: uma instrução injetada no nome do produto, uma ficha contraditória e um tipo que a política não cobre.
 
 ## O que está causando as exceções
@@ -108,7 +110,7 @@ Cada número entre colchetes neste README, como [N01], está em [docs/NUMEROS.md
 
 - **Fonte:** só `src/dados/fonte.py` lê dados. Trocar os CSVs pelo OMS (pedidos e exceções), pelo CRM (clientes) e pelos contratos com as transportadoras exige mexer só nesse arquivo, mantendo as colunas.
 - **Taxas de padrão:** com o total de pedidos por máquina, turno e transportadora, as taxas passam a ser sobre todos os pedidos, e não só sobre as exceções (suposição S11).
-- **Volume:** a fila real tem a mesma ordem de grandeza (algumas centenas por dia). O plano roda em segundos. No plano gratuito do Groq, o modelo aceita 8.000 tokens por minuto e 200.000 por dia, o que dá cerca de 66 decisões por dia (cada uma gasta uns 3.000 tokens). Foi por isso que a fila de demonstração levou mais de um dia para ser processada. Em produção, um plano pago resolve 150 casos em poucos minutos.
+- **Volume:** a fila real tem a mesma ordem de grandeza (algumas centenas por dia). O plano roda em segundos. No plano gratuito do Groq, o modelo aceita 8.000 tokens por minuto e 200.000 por dia, o que dá cerca de 66 decisões por dia (cada uma gasta uns 3.000 tokens). Foi por isso que a fila de demonstração levou dois dias para ser processada. Em produção, um plano pago resolve 150 casos em poucos minutos.
 - **Validação:** a suposição mais importante é a S2 (tratar o caso trava o atraso). Eu mediria isso com um piloto A/B: metade da fila em ordem de chegada, metade pelo plano, comparando cancelamentos em 30 dias.
 - **LGPD:** a ficha que vai ao modelo não precisa de nome, CPF nem endereço completo do cliente, só cidade e UF. Com dados reais, manter assim e registrar a base legal do tratamento.
 

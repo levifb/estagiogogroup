@@ -1,0 +1,98 @@
+{
+ "order_id": "GB7001422",
+ "tipo_excecao": "pagamento_pendente",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido está com pagamento pendente há 36 dias e ainda não foi concluído. Não há custo adicional e a política indica contato para solicitar a regularização do pagamento.",
+  "mensagem_cliente": "Olá! Identificamos que o pagamento do seu pedido ainda está pendente. Por favor, regularize o pagamento para que possamos prosseguir com o envio. Se precisar de ajuda, responda esta mensagem. Equipe Barbour's",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Identificamos que o pagamento do seu pedido ainda está pendente. Por favor, regularize o pagamento para que possamos prosseguir com o envio. Se precisar de ajuda, responda esta mensagem. Equipe Barbour's"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7001422",
+   "marca": "Barbour's",
+   "produto": "Deo Bd Spl My Sweet Delight 200Ml",
+   "sku": "BBS-1001",
+   "valor_pago": 94.92,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "25/08/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": null,
+   "lote_produto": "L2605-B"
+  },
+  "excecao": {
+   "tipo": "pagamento_pendente",
+   "status": "em_analise",
+   "aberta_em": "25/08/2026",
+   "dias_aberta": 36,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Carga Norte",
+   "uf": "BA",
+   "cidade": "Salvador",
+   "sla_contratado_dias_uteis": 7,
+   "data_prometida_ao_cliente": "02/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "04/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 19,
+   "dias_uteis_atraso_vs_sla_contratado": 17,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL304557",
+   "n_pedidos": 15,
+   "receita_acumulada": 2029.79,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 7
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 56.91,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 44.63,
+   "refazer_personalizacao": 44.63,
+   "reembolsar": 94.92,
+   "acao_padrao_do_tipo": "contatar_cliente",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 7.48,
+   "tokens": 2940,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
+ "erro": null
+}

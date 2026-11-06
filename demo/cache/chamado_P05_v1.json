@@ -1,0 +1,32 @@
+{
+ "titulo": "Alta taxa de exceções de personalização na IMP-02",
+ "hipotese_causa": "É provável que a falha de personalização da máquina IMP-02 esteja gerando 162 exceções no grupo, 77 acima do padrão. Isso eleva a proporção para 0.475, 4,4 vezes acima da base. Confirmaria se houver registro de erro de personalização nos logs da máquina.",
+ "acao_proposta": "Revisar a configuração de personalização da IMP-02 e calibrar os parâmetros críticos ainda esta semana. Verificar e, se necessário, substituir o cabeçote de impressão responsável pela personalização. Treinar o operador da máquina para seguir o procedimento correto de setup.",
+ "como_medir": "Acompanhar a métrica \"excecoes_acima_do_esperado\"; sucesso será observar redução desse número nos próximos 30 dias, mantendo‑o abaixo do valor atual de 60.",
+ "padrao_id": "P05",
+ "dono": "Manutenção",
+ "evidencia": {
+  "grupo": "máquina de impressão: IMP-02",
+  "tipos_de_excecao": [
+   "falha_personalizacao"
+  ],
+  "excecoes_do_padrao": 77,
+  "excecoes_no_grupo": 162,
+  "proporcao_no_grupo": 0.475,
+  "proporcao_nos_demais": 0.108,
+  "vezes_acima_da_base": 4.4,
+  "excecoes_acima_do_esperado": 60,
+  "valor_pago_dos_pedidos": 9689.16,
+  "excecoes_por_semana_do_pedido": {
+   "2026-08-03": 3,
+   "2026-08-10": 3,
+   "2026-08-17": 1,
+   "2026-08-24": 11,
+   "2026-08-31": 11,
+   "2026-09-07": 16,
+   "2026-09-14": 14,
+   "2026-09-21": 18
+  }
+ },
+ "precisa_humano": true
+}

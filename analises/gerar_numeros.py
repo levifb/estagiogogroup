@@ -12,7 +12,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 
-MODULOS = ["a01_perfil", "a02_prazo_prometido", "a03_padroes", "a04_valor_em_risco", "a05_simulacao"]
+MODULOS = ["a01_perfil", "a02_prazo_prometido", "a03_padroes", "a04_valor_em_risco", "a05_simulacao", "a06_fila_do_dia"]
 
 
 def main() -> None:

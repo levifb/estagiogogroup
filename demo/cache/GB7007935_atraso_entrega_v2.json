@@ -1,0 +1,103 @@
+{
+ "order_id": "GB7007935",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido já foi entregue em 19/08/2026, portanto o atraso não continua. Pedimos desculpas pelo inconveniente.",
+  "mensagem_cliente": "Olá! Seu pedido já chegou, mas sentimos muito pelo atraso. Se houver qualquer outra dúvida ou necessidade, estamos à disposição. Equipe Barbour's",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido já chegou, mas sentimos muito pelo atraso. Se houver qualquer outra dúvida ou necessidade, estamos à disposição. Equipe Barbour's"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7007935",
+   "marca": "Barbour's",
+   "produto": "Deo Bd Spl Moonlight Shimmer 200Ml",
+   "sku": "BBS-1120",
+   "valor_pago": 96.12,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "03/08/2026",
+   "cd": "CD2",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2606-B"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aguardando_transportadora",
+   "aberta_em": "20/08/2026",
+   "dias_aberta": 41,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "RN",
+   "cidade": "Natal",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "10/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "12/08/2026",
+   "entregue": true,
+   "data_entrega": "19/08/2026",
+   "dias_uteis_atraso_vs_prometido": 7,
+   "dias_uteis_atraso_vs_sla_contratado": 5,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": 1
+  },
+  "cliente": {
+   "customer_id": "CL311319",
+   "n_pedidos": 20,
+   "receita_acumulada": 1693.89,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 5
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.22,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 27.67,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 42.85,
+   "refazer_personalizacao": 42.85,
+   "reembolsar": 96.12,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 22.39,
+   "tokens": 2997,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

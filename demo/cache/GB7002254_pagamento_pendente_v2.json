@@ -1,0 +1,98 @@
+{
+ "order_id": "GB7002254",
+ "tipo_excecao": "pagamento_pendente",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido está com pagamento pendente há 37 dias, status aberto. A política exige contato com o cliente para regularizar o pagamento.",
+  "mensagem_cliente": "Olá! Notamos que o pagamento do seu pedido ainda não foi concluído. Por favor, verifique sua fatura e finalize o pagamento para que possamos prosseguir com a entrega. Se precisar de ajuda, estamos à disposição. Equipe Auá",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Notamos que o pagamento do seu pedido ainda não foi concluído. Por favor, verifique sua fatura e finalize o pagamento para que possamos prosseguir com a entrega. Se precisar de ajuda, estamos à disposição. Equipe Auá"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7002254",
+   "marca": "Auá",
+   "produto": "Oleo Rejuvenescedor Clareador Roll-On",
+   "sku": "AUA-1011",
+   "valor_pago": 59.02,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "23/08/2026",
+   "cd": "CD1",
+   "turno": "manhã",
+   "maquina": null,
+   "lote_produto": "L2606-A"
+  },
+  "excecao": {
+   "tipo": "pagamento_pendente",
+   "status": "aberta",
+   "aberta_em": "24/08/2026",
+   "dias_aberta": 37,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Postal Nacional",
+   "uf": "DF",
+   "cidade": "Brasília",
+   "sla_contratado_dias_uteis": 7,
+   "data_prometida_ao_cliente": "31/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "02/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 21,
+   "dias_uteis_atraso_vs_sla_contratado": 19,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL308890",
+   "n_pedidos": 22,
+   "receita_acumulada": 3367.61,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 45.04,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 31.26,
+   "refazer_personalizacao": 31.26,
+   "reembolsar": 59.02,
+   "acao_padrao_do_tipo": "contatar_cliente",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 22.1,
+   "tokens": 2941,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

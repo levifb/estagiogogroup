@@ -1,0 +1,104 @@
+{
+ "order_id": "GC7025410",
+ "tipo_excecao": "devolvido_transportadora",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "reenviar",
+  "justificativa": "O pedido foi devolvido pela transportadora Postal Nacional. Conforme política, devemos reenviar o item sem custo, confirmando o endereço de entrega.",
+  "mensagem_cliente": "Olá! Seu pedido foi devolvido pela transportadora. Por favor, confirme se o endereço de entrega (Belo Horizonte, MG) está correto ou informe o endereço atualizado para enviarmos novamente sem custo. Equipe Gocase",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "reenviar",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido foi devolvido pela transportadora. Por favor, confirme se o endereço de entrega (Belo Horizonte, MG) está correto ou informe o endereço atualizado para enviarmos novamente sem custo. Equipe Gocase",
+  "ordem": {
+   "tipo": "reenvio",
+   "sku": "GOC-2001",
+   "transportadora": "Postal Nacional",
+   "custo_estimado": 32.18
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7025410",
+   "marca": "Gocase",
+   "produto": "Case Personalizado iPhone 15 Pro Nome Glitter",
+   "sku": "GOC-2001",
+   "valor_pago": 81.59,
+   "qtd_itens": 1,
+   "brinde_no_pedido": true,
+   "data_pedido": "19/08/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": "IMP-02",
+   "lote_produto": "L2605-A"
+  },
+  "excecao": {
+   "tipo": "devolvido_transportadora",
+   "status": "aberta",
+   "aberta_em": "26/08/2026",
+   "dias_aberta": 35,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Postal Nacional",
+   "uf": "MG",
+   "cidade": "Belo Horizonte",
+   "sla_contratado_dias_uteis": 5,
+   "data_prometida_ao_cliente": "25/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "27/08/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 25,
+   "dias_uteis_atraso_vs_sla_contratado": 23,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL308008",
+   "n_pedidos": 35,
+   "receita_acumulada": 8116.56,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 3
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 72.66,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 32.18,
+   "refazer_personalizacao": 32.18,
+   "reembolsar": 81.59,
+   "acao_padrao_do_tipo": "reenviar",
+   "custo_acao_padrao": 12.6
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 23.44,
+   "tokens": 2958,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
+ "erro": null
+}

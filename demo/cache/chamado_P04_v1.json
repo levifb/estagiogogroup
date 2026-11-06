@@ -1,0 +1,33 @@
+{
+ "titulo": "Alto número de vazamentos no lote APC-1067 | L2607-B",
+ "hipotese_causa": "É provável que o lote APC-1067 | L2607-B esteja com defeito de fabricação, já que 74 das 75 exceções são vazamento de produto (proporção no grupo 0.987). A hipótese seria confirmada por inspeção física e teste de integridade do lote.",
+ "acao_proposta": "Solicitar auditoria de qualidade imediata para o lote APC-1067 | L2607-B e suspender novos envios desse lote até a conclusão. Se necessário, recolher os produtos já enviados e treinar a equipe de embalagem sobre o procedimento correto.",
+ "como_medir": "Acompanhar o número de exceções do padrão (excecoes_do_padrao). Sucesso: reduzir esse número para 10 ou menos nos próximos 30 dias.",
+ "padrao_id": "P04",
+ "dono": "Qualidade / fornecedor",
+ "evidencia": {
+  "grupo": "SKU e lote de fabricação: APC-1067 | L2607-B",
+  "tipos_de_excecao": [
+   "vazamento_produto"
+  ],
+  "excecoes_do_padrao": 74,
+  "excecoes_no_grupo": 75,
+  "proporcao_no_grupo": 0.987,
+  "proporcao_nos_demais": 0.019,
+  "vezes_acima_da_base": 51.3,
+  "excecoes_acima_do_esperado": 73,
+  "valor_pago_dos_pedidos": 8361.0,
+  "excecoes_por_semana_do_pedido": {
+   "2026-07-27": 1,
+   "2026-08-03": 4,
+   "2026-08-10": 7,
+   "2026-08-17": 12,
+   "2026-08-24": 9,
+   "2026-08-31": 9,
+   "2026-09-07": 7,
+   "2026-09-14": 13,
+   "2026-09-21": 12
+  }
+ },
+ "precisa_humano": true
+}

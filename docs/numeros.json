@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-05",
+ "gerado_em": "2026-11-06",
  "numeros": {
   "N01": {
    "id": "N01",
@@ -528,6 +528,38 @@
    "definicao": "horas do time por mês liberadas por N97, a 12 minutos por tratativa (parametros.md)",
    "script": "analises/a05_simulacao.py",
    "estimativa": true
+  },
+  "N100": {
+   "id": "N100",
+   "valor": 150,
+   "texto": "150",
+   "definicao": "casos da fila do dia com decisão do modelo (de 150); por modelo: gpt-oss-120b: 79, gpt-oss-20b: 71",
+   "script": "analises/a06_fila_do_dia.py",
+   "estimativa": false
+  },
+  "N101": {
+   "id": "N101",
+   "valor": 145,
+   "texto": "145",
+   "definicao": "decisões da fila do dia que batem com a tabela de política do SPEC (checagem automática)",
+   "script": "analises/a06_fila_do_dia.py",
+   "estimativa": false
+  },
+  "N102": {
+   "id": "N102",
+   "valor": 3,
+   "texto": "3",
+   "definicao": "casos da fila do dia enviados à analista pelas regras H1–H6",
+   "script": "analises/a06_fila_do_dia.py",
+   "estimativa": false
+  },
+  "N103": {
+   "id": "N103",
+   "valor": 148,
+   "texto": "148",
+   "definicao": "mensagens ao cliente da fila do dia sem problema nas checagens automáticas (de 149)",
+   "script": "analises/a06_fila_do_dia.py",
+   "estimativa": false
   }
  }
 }

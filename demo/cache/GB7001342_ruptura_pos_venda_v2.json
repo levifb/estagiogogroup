@@ -1,0 +1,103 @@
+{
+ "order_id": "GB7001342",
+ "tipo_excecao": "ruptura_pos_venda",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O produto entrou em ruptura depois da venda e o pedido ainda está aguardando a transportadora. A política é oferecer ao cliente a opção de esperar a reposição ou receber o reembolso integral. O cliente tem alto valor acumulado, então a mensagem deve ser cuidadosa.",
+  "mensagem_cliente": "Olá! O produto do seu pedido acabou em nosso estoque depois da sua compra, e pedimos desculpas por isso. Você prefere aguardar a reposição ou receber o reembolso integral? É só responder esta mensagem com a sua escolha. Equipe Kokeshi",
+  "pertence_a_padrao": "P06",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! O produto do seu pedido acabou em nosso estoque depois da sua compra, e pedimos desculpas por isso. Você prefere aguardar a reposição ou receber o reembolso integral? É só responder esta mensagem com a sua escolha. Equipe Kokeshi"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7001342",
+   "marca": "Kokeshi",
+   "produto": "Hidratante Facial Pele De Porcelana",
+   "sku": "KSH-1003",
+   "valor_pago": 42.3,
+   "qtd_itens": 1,
+   "brinde_no_pedido": false,
+   "data_pedido": "24/08/2026",
+   "cd": "CD2",
+   "turno": "tarde",
+   "maquina": null,
+   "lote_produto": "L2606-A"
+  },
+  "excecao": {
+   "tipo": "ruptura_pos_venda",
+   "status": "aguardando_transportadora",
+   "aberta_em": "24/08/2026",
+   "dias_aberta": 37,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Veloz Log",
+   "uf": "RJ",
+   "cidade": "Duque de Caxias",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "28/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "28/08/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 22,
+   "dias_uteis_atraso_vs_sla_contratado": 22,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL307889",
+   "n_pedidos": 17,
+   "receita_acumulada": 2614.16,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 2
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 38.45,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 24.15,
+   "refazer_personalizacao": 24.15,
+   "reembolsar": 42.3,
+   "acao_padrao_do_tipo": "contatar_cliente",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P06",
+   "descricao": "marca = Kokeshi (ruptura_pos_venda)",
+   "casos": 59,
+   "dono": "Compras / planejamento"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.12,
+   "tokens": 3043,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

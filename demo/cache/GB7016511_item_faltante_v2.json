@@ -1,0 +1,103 @@
+{
+ "order_id": "GB7016511",
+ "tipo_excecao": "item_faltante",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "Item faltante aguardando o cliente há 42 dias. A política exige foto do que foi recebido para reenviar sem custo.",
+  "mensagem_cliente": "Olá! Ainda queremos enviar o item que faltou no seu pedido. Para isso, precisamos de uma foto do que você recebeu. É só responder esta mensagem com a foto que fazemos o envio sem custo. Equipe Ápice",
+  "pertence_a_padrao": "P02",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Ainda queremos enviar o item que faltou no seu pedido. Para isso, precisamos de uma foto do que você recebeu. É só responder esta mensagem com a foto que fazemos o envio sem custo. Equipe Ápice"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7016511",
+   "marca": "Ápice",
+   "produto": "Shampoo Cch Nutritivo 300Ml",
+   "sku": "APC-1035",
+   "valor_pago": 40.97,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "15/08/2026",
+   "cd": "CD2",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2605-C"
+  },
+  "excecao": {
+   "tipo": "item_faltante",
+   "status": "aguardando_cliente",
+   "aberta_em": "19/08/2026",
+   "dias_aberta": 42,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Entrega Já",
+   "uf": "PR",
+   "cidade": "Maringá",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "19/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "20/08/2026",
+   "entregue": true,
+   "data_entrega": "19/08/2026",
+   "dias_uteis_atraso_vs_prometido": 0,
+   "dias_uteis_atraso_vs_sla_contratado": 0,
+   "dentro_do_sla_contratado": true,
+   "dias_entre_recebimento_e_reclamacao": 0
+  },
+  "cliente": {
+   "customer_id": "CL303780",
+   "n_pedidos": 11,
+   "receita_acumulada": 1547.03,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 1
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 53.71,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 29.38,
+   "refazer_personalizacao": 29.38,
+   "reembolsar": 40.97,
+   "acao_padrao_do_tipo": "reenviar",
+   "custo_acao_padrao": 29.38
+  },
+  "padrao_causa_raiz": {
+   "id": "P02",
+   "descricao": "cd+turno = CD2 | noite (item_faltante)",
+   "casos": 210,
+   "dono": "Supervisão do CD"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.32,
+   "tokens": 2989,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

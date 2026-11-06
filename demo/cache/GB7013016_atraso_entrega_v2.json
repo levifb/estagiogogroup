@@ -1,0 +1,98 @@
+{
+ "order_id": "GB7013016",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido já foi entregue, mas houve atraso. Pedimos desculpas pelo inconveniente.",
+  "mensagem_cliente": "Olá! Seu pedido já chegou, mas demorou mais do que o esperado. Pedimos desculpas pelo transtorno. Se precisar de algo mais, estamos à disposição. Equipe Ápice",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido já chegou, mas demorou mais do que o esperado. Pedimos desculpas pelo transtorno. Se precisar de algo mais, estamos à disposição. Equipe Ápice"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7013016",
+   "marca": "Ápice",
+   "produto": "Shampoo Af Ba 300 Ml",
+   "sku": "APC-1183",
+   "valor_pago": 99.36,
+   "qtd_itens": 4,
+   "brinde_no_pedido": true,
+   "data_pedido": "04/08/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": null,
+   "lote_produto": "L2607-B"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aberta",
+   "aberta_em": "15/08/2026",
+   "dias_aberta": 46,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Entrega Já",
+   "uf": "PE",
+   "cidade": "Recife",
+   "sla_contratado_dias_uteis": 5,
+   "data_prometida_ao_cliente": "10/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "12/08/2026",
+   "entregue": true,
+   "data_entrega": "13/08/2026",
+   "dias_uteis_atraso_vs_prometido": 3,
+   "dias_uteis_atraso_vs_sla_contratado": 1,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": 2
+  },
+  "cliente": {
+   "customer_id": "CL301337",
+   "n_pedidos": 8,
+   "receita_acumulada": 1671.4,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 2
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.1,
+   "prob_cancelamento_em_5_dias_uteis": 0.1,
+   "perda_esperada_hoje": 17.25,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 50.3,
+   "refazer_personalizacao": 50.3,
+   "reembolsar": 99.36,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 22.39,
+   "tokens": 2893,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

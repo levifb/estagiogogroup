@@ -102,3 +102,16 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 - O que aconteceu: a exportação pegava o resultado de eval mais recente, que passou a ser o do gpt-oss-20b, e a seção "Como sabemos" do site mostrava esse eval como se fosse o principal.
 - Como percebemos: conferência do eval.json depois do deploy.
 - O que mudou: `src/exportar.py` usa só o eval do modelo principal, porque arquivos de outros modelos levam o nome do modelo no fim. A tela voltou a mostrar 2026-11-05_1907_v2.json (120b).
+
+## 2026-11-06 09:23: resultado (fila do dia completa)
+- Com a cota recarregada durante a noite, os dois lotes fecharam a fila: 150/150 decisões (gpt-oss-120b: 79, gpt-oss-20b: 71) e os 7 chamados de causa raiz. Nenhum limite diário foi atingido hoje.
+- Conferência automática contra a tabela de política (analises/a06_fila_do_dia.py): 145/150 decisões batem (N101), 148/149 mensagens sem problema (N103), 3 casos para a analista (N102). Das 5 divergências, 3 são a confusão dos "7 dias" já registrada, 1 é o GC7021341 (o 20b cobrou a transportadora num atraso dentro do SLA) e 1 é um rastreio parado aguardando o cliente (o 120b cobrou a transportadora em vez de lembrar o cliente).
+
+## 2026-11-06 09:23: erro da IA (auditor de números)
+- O que aconteceu: `eval/auditar_numeros.py` só reconhecia ids de 2 dígitos. As citações N100 a N103 passavam sem conferência, e "[N100]" era lido como N10, outro número.
+- Como percebemos: o auditor contou 47 citações depois de 4 novas entrarem no README.
+- O que mudou: o regex aceita ids de 2 e 3 dígitos; agora são 51 citações conferidas, todas batendo.
+
+## 2026-11-06 09:23: erro da IA (monitor dos lotes)
+- O que aconteceu: o monitor do lote declarou "lotes encerrados" quando eles ainda estavam rodando. No Git Bash do Windows, `ps` não mostra os argumentos do processo, então a checagem pelo nome do módulo falhava.
+- O que mudou: o fim do lote passou a ser detectado pela linha final do log.

@@ -1,0 +1,109 @@
+{
+ "order_id": "GB7023447",
+ "tipo_excecao": "rastreio_parado",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O rastreio do pedido está parado há 41 dias e a transportadora Rota Express está fora do prazo contratado. A política exige acionar a transportadora para resolver a situação. Padrão P01.",
+  "mensagem_cliente": "Olá! Notamos que o rastreamento do seu pedido está parado. Já acionamos a Rota Express para resolver o problema e garantir a entrega. Se houver qualquer novidade, entraremos em contato. Equipe Ápice",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "acionar_transportadora",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Notamos que o rastreamento do seu pedido está parado. Já acionamos a Rota Express para resolver o problema e garantir a entrega. Se houver qualquer novidade, entraremos em contato. Equipe Ápice",
+  "ordem": {
+   "tipo": "chamado_transportadora",
+   "transportadora": "Rota Express",
+   "sla_contratado_dias_uteis": 6,
+   "dias_uteis_alem_do_sla": 28
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7023447",
+   "marca": "Ápice",
+   "produto": "Shampoo Nutri Waves 1000Ml",
+   "sku": "APC-1109",
+   "valor_pago": 60.8,
+   "qtd_itens": 1,
+   "brinde_no_pedido": false,
+   "data_pedido": "11/08/2026",
+   "cd": "CD2",
+   "turno": "manhã",
+   "maquina": null,
+   "lote_produto": "L2608-A"
+  },
+  "excecao": {
+   "tipo": "rastreio_parado",
+   "status": "aberta",
+   "aberta_em": "20/08/2026",
+   "dias_aberta": 41,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "BA",
+   "cidade": "Feira de Santana",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "18/08/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "20/08/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 30,
+   "dias_uteis_atraso_vs_sla_contratado": 28,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL302548",
+   "n_pedidos": 19,
+   "receita_acumulada": 2861.57,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 2
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 45.41,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 34.37,
+   "refazer_personalizacao": 34.37,
+   "reembolsar": 60.8,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.36,
+   "tokens": 2981,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}
