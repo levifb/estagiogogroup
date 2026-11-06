@@ -41,3 +41,28 @@ export const reais = (v: number, casas = 0) =>
   v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: casas, maximumFractionDigits: casas })
 
 export const pct = (v: number) => `${Math.round(v * 100)}%`
+
+// Por que um caso foi para a pessoa, em linguagem de negócio. O código da regra (src/agente/regras.py) fica como detalhe.
+export const REGRA: Record<string, string> = {
+  H1: 'Registro contraditório',
+  H2: 'Reembolso acima do limite',
+  H2b: 'Reenvio caro',
+  H3: 'Cliente de alto valor',
+  H4: 'Atraso longo sem entrega',
+  H5: 'Fora do prazo da política',
+  H6: 'O agente pediu revisão',
+  H7: 'Mensagem sem pedir a foto',
+}
+
+// Nome curto de cada causa que se repete (padrões detectados em src/dados/padroes.py).
+export const CAUSA: Record<string, string> = {
+  P00: 'Prazo do checkout em dias corridos',
+  P01: 'Rota Express no Nordeste',
+  P02: 'CD2, turno da noite',
+  P03: 'Avaria na Carga Norte',
+  P04: 'Lote L2607-B vazando',
+  P05: 'Impressora IMP-02',
+  P06: 'Ruptura na Kokeshi',
+}
+
+export const nomeModelo = (m?: string | null) => (m ?? 'openai/gpt-oss-120b').replace(/^(openai|qwen)\//, '')

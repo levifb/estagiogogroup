@@ -1,21 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import type { Chamado, EvalResumo, Fila, LinhaFila, Numero, Resultado } from './tipos'
-import { ACAO, FONTE, STATUS, TIPO, pct, reais } from './textos'
+import { ACAO, CAUSA, FONTE, REGRA, STATUS, TIPO, nomeModelo, pct, reais } from './textos'
 
 const REPO = 'https://github.com/levifb/estagiogogroup'
-// Campos comuns a todo chamado; os específicos de cada padrão (ex.: brinde no CD2) aparecem primeiro.
+const LIMITACOES = `${REPO}#limitações-e-próximos-passos`
+const TEMPO_LIMITE_MS = 25_000
+// Campos comuns a todo chamado; os específicos de cada causa (ex.: brinde no CD2) aparecem primeiro.
 const GERAIS = new Set([
   'tipos de exceção', 'exceções deste tipo no grupo', 'mesma proporção nos demais grupos',
   'vezes acima dos demais', 'exceções além do esperado', 'valor pago dos pedidos afetados',
 ])
-const COR_DONO: Record<string, string> = {
-  'TI do checkout': 'var(--yellow)',
-  'Gestão de transportadoras': 'var(--cyan)',
-  'Supervisão do CD': 'var(--orange)',
-  'Qualidade / fornecedor': 'var(--pink)',
-  Manutenção: 'var(--blue)',
-  'Compras / planejamento': 'var(--ok)',
-}
 
 async function carregar<T>(arquivo: string): Promise<T | null> {
   try {
@@ -28,9 +23,10 @@ async function carregar<T>(arquivo: string): Promise<T | null> {
 
 type Numeros = Record<string, Numero>
 
+/** Número do registro (docs/numeros.json), nunca digitado. O título mostra a definição. */
 function N({ n, id }: { n: Numeros; id: string }) {
   const x = n[id]
-  if (!x) return <span>…</span>
+  if (!x) return <span className="num">…</span>
   return (
     <abbr className="num" title={`${x.definicao}${x.estimativa ? ' (estimativa)' : ''}. Fonte: ${id} em docs/NUMEROS.md`}>
       {x.texto}
@@ -38,22 +34,37 @@ function N({ n, id }: { n: Numeros; id: string }) {
   )
 }
 
-function Logo() {
+/** Balão com a definição dos números de um cartão. É um botão, então funciona no toque e no teclado. */
+function Definicao({ n, ids }: { n: Numeros; ids: string[] }) {
+  const [aberto, setAberto] = useState(false)
+  const idPainel = useId()
   return (
-    <a className="logo" href="#topo" aria-label="Mesa de exceções, início">
-      <span className="logo-mark" aria-hidden="true">
-        <svg viewBox="0 0 20 20" width="19" height="19">
-          <rect x="3" y="4" width="14" height="2.6" rx="1.3" fill="#070f26" />
-          <rect x="3" y="8.7" width="10" height="2.6" rx="1.3" fill="#070f26" />
-          <rect x="3" y="13.4" width="6" height="2.6" rx="1.3" fill="#070f26" />
-        </svg>
-      </span>
-      <span>
-        Mesa de exceções
-        <small>Operações · IA</small>
-      </span>
-    </a>
+    <div className="def">
+      <button type="button" className="def-botao" aria-expanded={aberto} aria-controls={idPainel} onClick={() => setAberto(!aberto)}>
+        {aberto ? 'Fechar a conta' : 'Como calculamos'}
+      </button>
+      <div id={idPainel} className="def-painel" hidden={!aberto}>
+        {ids.map((id) =>
+          n[id] ? (
+            <p key={id}>
+              <b className="mono">{n[id].texto}</b> {n[id].definicao}
+              {n[id].estimativa ? ' (estimativa)' : ''}. <span className="def-id">{id} em docs/NUMEROS.md</span>
+            </p>
+          ) : null,
+        )}
+      </div>
+    </div>
   )
+}
+
+function Passo({ n, children, id, comoTexto }: { n: number; children: ReactNode; id?: string; comoTexto?: boolean }) {
+  const conteudo = (
+    <>
+      <span className="passo-n mono">{n}.</span> {children}
+    </>
+  )
+  // O passo 1 fica como rótulo: o título da página (h1) é a frase do problema logo abaixo.
+  return comoTexto ? <p className="passo" id={id}>{conteudo}</p> : <h2 className="passo" id={id}>{conteudo}</h2>
 }
 
 export default function App() {
@@ -79,299 +90,302 @@ export default function App() {
   const humanos = casos.filter((c) => c.humano).length
   const pendentes = casos.filter((c) => c.pendente).length
   const sozinhos = casos.length - humanos - pendentes
-  const aguardaFoto = casos.filter((c) => c.aguarda_foto && !c.humano).length
   const visiveis = useMemo(
     () => casos.filter((c) => (filtro === 'todos' ? true : filtro === 'humano' ? c.humano : !c.humano && !c.pendente)),
     [casos, filtro],
   )
+  const dia = fila?.data_referencia ?? '30/09/2026'
+  const painel = useRef<HTMLDivElement>(null)
+
+  function escolher(id: string) {
+    setSel(id)
+    // Em tela estreita o detalhe fica abaixo da lista: leva a pessoa até ele.
+    if (window.matchMedia('(max-width: 960px)').matches) {
+      requestAnimationFrame(() => painel.current?.scrollIntoView({ block: 'start' }))
+    }
+  }
 
   return (
     <div id="topo">
+      <a className="pular" href="#fila">Pular para a fila de hoje</a>
       <header className="nav">
-        <div className="nav-in">
-          <Logo />
+        <div className="nav-in wrap">
+          <a className="marca" href="#topo">
+            <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+              <rect width="32" height="32" rx="6" fill="#0b1f3a" />
+              <rect x="7" y="9" width="18" height="3" fill="#fff" />
+              <rect x="7" y="15" width="13" height="3" fill="#fff" />
+              <rect x="7" y="21" width="8" height="3" fill="#c5e83a" />
+            </svg>
+            Mesa de exceções
+          </a>
           <nav className="nav-links" aria-label="Seções">
+            <a href="#impacto">Impacto</a>
             <a href="#fila">Fila de hoje</a>
             <a href="#causas">Causas</a>
-            <a href="#prova">Como sabemos</a>
           </nav>
-          <span className="progresso" title="Casos da fila de hoje resolvidos pelo agente sem precisar da Juliana">
-            <span className="progresso-barra" aria-hidden="true">
-              <i style={{ width: `${casos.length ? (sozinhos / casos.length) * 100 : 0}%` }} />
-            </span>
-            <span>
-              <b>{sozinhos}</b>/{casos.length || 150} decididos
-            </span>
-          </span>
-          <a className="btn btn-cta btn-sm" href="#fila">
-            Abrir a fila
-          </a>
+          <a className="nav-repo" href={REPO}>Código no GitHub</a>
         </div>
       </header>
 
       <main>
-        <section className="hero wrap">
-          <div className="hero-grid">
+        <section className="problema wrap" aria-labelledby="t-problema">
+          <Passo n={1} comoTexto>O problema</Passo>
+          <h1 className="manchete" id="t-problema">
+            Há <N n={numeros} id="N01" /> exceções de pedido abertas, o que dá <N n={numeros} id="N05" /> dias de fila para a
+            equipe. Tratadas por ordem de chegada, elas custam <N n={numeros} id="N70" /> em
+            perda esperada.
+          </h1>
+          <p className="lead">
+            A Mesa de exceções monta o plano do dia com os {casos.length || '…'} casos que mais pioram se esperarem. Um agente de
+            IA decide cada caso e escreve a mensagem ao cliente. A analista revisa só os casos que as regras mandam, e as causas
+            que se repetem viram chamados para quem pode corrigi-las.
+          </p>
+          <div className="acoes">
+            <a className="btn btn-primario" href="#fila">Abrir a fila de hoje</a>
+            <a className="btn btn-linha" href={REPO}>Ver o código</a>
+          </div>
+          <p className="contexto">
+            Juliana, a analista, é uma persona fictícia. Dados sintéticos do Desafio AI-First do Gogroup, fila de {dia}; as
+            ações são simuladas e nada é enviado a clientes.
+          </p>
+        </section>
+
+        <section className="impacto" id="impacto" aria-labelledby="t-impacto">
+          <div className="wrap">
+            <Passo n={2} id="t-impacto">Impacto</Passo>
+            <div className="cartoes">
+              <article className="cartao">
+                <p className="valor mono"><N n={numeros} id="N72" /></p>
+                <p className="frase">a menos de perda esperada com o plano do dia, contra a ordem de chegada.</p>
+                <p className="sub">
+                  Estimativa, de uma vez, sobre a fila acumulada até {dia}: <N n={numeros} id="N73" /> a menos. Não é um ganho
+                  mensal.
+                </p>
+                <Definicao n={numeros} ids={['N72', 'N70', 'N71']} />
+              </article>
+              <article className="cartao">
+                <p className="valor mono">
+                  <N n={numeros} id="N104" /> <span className="de">de <N n={numeros} id="N100" /></span>
+                </p>
+                <p className="frase">casos de hoje decididos pelo agente sem a analista.</p>
+                <p className="sub">
+                  São <N n={numeros} id="N105" /> de trabalho do time por dia que deixam de ser decisão e viram revisão
+                  (estimativa).
+                </p>
+                <Definicao n={numeros} ids={['N104', 'N105']} />
+              </article>
+              <article className="cartao">
+                <p className="valor mono"><N n={numeros} id="N97" /></p>
+                <p className="frase">exceções por mês que deixam de existir com mudanças de processo.</p>
+                <p className="sub">
+                  São <N n={numeros} id="N99" /> mudanças, cada uma com um dono (estimativa).
+                </p>
+                <Definicao n={numeros} ids={['N97', 'N99']} />
+              </article>
+              <article className="cartao">
+                <p className="valor mono"><N n={numeros} id="N23" /></p>
+                <p className="frase">dos “atrasos” são erro do checkout, e não da transportadora.</p>
+                <p className="sub">
+                  A data prometida ao cliente é calculada em dias corridos, mas o prazo contratado com a transportadora é em
+                  dias úteis.
+                </p>
+                <Definicao n={numeros} ids={['N23', 'N22', 'N20']} />
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="wrap bloco-sec" aria-labelledby="t-antes">
+          <Passo n={3} id="t-antes">Antes e depois</Passo>
+          <table className="antes">
+            <thead>
+              <tr>
+                <th scope="col"><span className="sr">Tema</span></th>
+                <th scope="col">Hoje</th>
+                <th scope="col">Com a Mesa de exceções</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Ordem</th>
+                <td>A fila anda por ordem de chegada. Um pedido que vai piorar amanhã espera atrás de outro que já não piora.</td>
+                <td>Um plano diário põe primeiro os casos que mais pioram se esperarem, dentro da capacidade do time.</td>
+              </tr>
+              <tr>
+                <th scope="row">Decisão</th>
+                <td>A analista decide todos os <span className="mono">{casos.length || '…'}</span> casos do dia, um por um, em telas diferentes.</td>
+                <td>
+                  O agente decide e escreve a mensagem. A analista revisa os <span className="mono">{humanos}</span> casos que as regras mandam, cada um com
+                  o motivo.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Causas</th>
+                <td>Causas que se repetem ficam invisíveis, porque cada caso é tratado sozinho.</td>
+                <td><span className="mono">{chamados.length || '…'}</span> chamados com dono e evidência, para a causa parar de gerar exceções.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section className="wrap bloco-sec" id="prova" aria-labelledby="t-prova">
+          <Passo n={4} id="t-prova">Como sabemos que é verdade</Passo>
+          <ul className="provas">
+            {ev && (
+              <li>
+                <b>Gabarito.</b> Em {ev.resumo.n} casos com a resposta certa pela política, o agente escolheu a ação certa em{' '}
+                <span className="mono">{ev.resumo.acao_aceitavel}</span> e mandou para a pessoa{' '}
+                <span className="mono">{ev.resumo.recall_humano[0]} de {ev.resumo.recall_humano[1]}</span> casos de risco. Uma
+                automação com ação fixa por tipo acerta <span className="mono">{ev.resumo.linha_de_base_aceitavel}</span>.
+              </li>
+            )}
+            <li>
+              <b>Fila de hoje.</b> <N n={numeros} id="N101" /> das <N n={numeros} id="N100" /> decisões batem com a tabela de
+              política, numa conferência automática.
+            </li>
+            <li>
+              <b>Testes.</b> Prazos em dias úteis, risco, plano do dia, regras de revisão e troca de modelo têm testes
+              automáticos (<code>python -m pytest</code>).
+            </li>
+            <li>
+              <b>Avaliador cego.</b> Um agente que vê só o link e o repositório, como a banca, revisou o projeto duas vezes. O
+              que ele achou foi corrigido e está no LOG.md.
+            </li>
+          </ul>
+          <p className="limites">
+            Limites: o ganho em R$ é estimativa de um modelo de perda, não medição; as ações são simuladas; o gabarito foi
+            revisado pelo autor, não por alguém da operação. <a href={LIMITACOES}>Todas as limitações no README</a>.
+          </p>
+        </section>
+
+        <section className="wrap bloco-sec" id="fila" aria-labelledby="t-fila">
+          <Passo n={5} id="t-fila">A fila de hoje</Passo>
+          <p className="p">
+            Os casos aparecem na ordem do plano. Escolha um caso para ver a ficha, a decisão do agente e a mensagem ao cliente.
+          </p>
+          <div className="mesa">
             <div>
-              <span className="chip">
-                <span className="dot" aria-hidden="true" /> Agente de IA · Operações · 30/09/2026
-              </span>
-              <h1 className="hero-title">
-                Das <N n={numeros} id="N01" /> exceções abertas, o plano separa as <span className="hl">150 de hoje</span> e o agente decide cada uma.
-              </h1>
-              <p className="hero-vip">
-                <span>
-                  Tratar na ordem certa, e não na ordem de chegada, evita <strong><N n={numeros} id="N72" /></strong> de perda
-                  esperada (<N n={numeros} id="N73" />). O que é caro, sensível ou incerto vai para a Juliana, com o motivo.
-                </span>
-              </p>
-              <p className="hero-p">
-                Para cada pedido da fila, o agente lê a ficha, decide a ação (reenviar, cobrar a transportadora, falar com o
-                cliente) e escreve a mensagem. Juliana é uma persona fictícia: a analista de exceções que aprova o que precisa de
-                uma pessoa.
-              </p>
-              <div className="hero-cta">
-                <a className="btn btn-cta" href="#fila">
-                  Abrir a fila de hoje
-                </a>
-                <a className="btn btn-ghost" href={REPO}>
-                  Ver o código
-                </a>
+              <div className="abas" role="group" aria-label="Filtrar a fila">
+                {(
+                  [
+                    ['todos', `Todos (${casos.length})`],
+                    ['humano', `Revisão da analista (${humanos})`],
+                    ['sozinho', `Decididos pelo agente (${sozinhos})`],
+                  ] as const
+                ).map(([k, rotulo]) => (
+                  <button key={k} type="button" aria-pressed={filtro === k} onClick={() => setFiltro(k)}>
+                    {rotulo}
+                  </button>
+                ))}
               </div>
+              {pendentes > 0 && (
+                <p className="nota">
+                  {pendentes} casos ainda esperam o agente: o plano gratuito do Groq limita os tokens por dia. Use “Rodar o
+                  agente agora” para decidir um deles ao vivo.
+                </p>
+              )}
+              <ol className="lista">
+                {visiveis.map((c) => (
+                  <ItemFila key={c.order_id} c={c} ativo={c.order_id === sel} onClick={() => escolher(c.order_id)} />
+                ))}
+              </ol>
             </div>
-            <Terminal casos={casos} chamados={chamados.length} />
-          </div>
-        </section>
-
-        <section className="wrap" aria-label="Números de hoje">
-          <div className="stats">
-            <div className="stat s-ink">
-              <b>
-                <N n={numeros} id="N72" />
-              </b>
-              <span>a menos de perda esperada com o plano do agente (estimativa)</span>
-            </div>
-            <div className="stat s-cyan">
-              <b>{sozinhos}</b>
-              <span>
-                dos {casos.length} casos de hoje decididos pelo agente sem a Juliana
-                {aguardaFoto > 0 ? `; ${aguardaFoto} deles esperam a foto do cliente para o reenvio sair` : ''}
-              </span>
-            </div>
-            <div className="stat s-orange">
-              <b>{humanos}</b>
-              <span>aguardam a Juliana, cada um com o motivo</span>
-            </div>
-            <div className="stat s-pink">
-              <b>
-                <N n={numeros} id="N32" />
-              </b>
-              <span>
-                das exceções vêm de <N n={numeros} id="N30" /> causas de processo
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <section className="sec wrap">
-          <div className="card-sec">
-            <p className="phase">Fase 1 · Priorização</p>
-            <h2>A ordem da fila vale dinheiro.</h2>
-            <p className="p">
-              O risco de cancelamento sobe em degraus com os dias úteis de atraso (4%, 10%, 22%, 40%). O plano trata primeiro
-              quem vai subir de degrau se esperar, e deixa para depois quem já está no teto. É um problema de atribuição
-              (casos × vagas de 150 por dia), resolvido de forma exata.
-            </p>
-            <Regua numeros={numeros} />
-          </div>
-        </section>
-
-        <section className="sec wrap" id="fila">
-          <div className="card-sec">
-            <p className="phase">Fase 2 · Fila de hoje</p>
-            <h2>150 casos, uma decisão para cada.</h2>
-            <p className="p">
-              Os casos aparecem na ordem do plano. Clique num caso para ver a ficha, a decisão do agente e a mensagem ao cliente.
-              Os laranjas aguardam a Juliana.
-            </p>
-            <div className="mesa">
-              <div>
-                <div className="abas" role="tablist" aria-label="Filtrar a fila">
-                  {(
-                    [
-                      ['todos', `Todos (${casos.length})`],
-                      ['humano', `Aguardam a Juliana (${humanos})`],
-                      ['sozinho', `Resolvidos (${sozinhos})`],
-                    ] as const
-                  ).map(([k, rotulo]) => (
-                    <button key={k} role="tab" aria-selected={filtro === k} onClick={() => setFiltro(k)}>
-                      {rotulo}
-                    </button>
-                  ))}
-                </div>
-                {pendentes > 0 && (
-                  <p className="nota" style={{ marginTop: 10 }}>
-                    {pendentes} casos ainda estão na fila do agente: o plano gratuito do Groq limita os tokens por dia, então a
-                    fila é processada aos poucos. Use "Rodar o agente agora" para decidir um deles ao vivo.
-                  </p>
-                )}
-                <ol className="lista">
-                  {visiveis.map((c) => (
-                    <ItemFila key={c.order_id} c={c} ativo={c.order_id === sel} onClick={() => setSel(c.order_id)} />
-                  ))}
-                </ol>
-              </div>
-              <div className="detalhe">{sel && <Detalhe orderId={sel} />}</div>
-            </div>
+            <div className="detalhe" ref={painel}>{sel && <Detalhe orderId={sel} />}</div>
           </div>
         </section>
 
         <Chamados chamados={chamados} numeros={numeros} />
-        <Avaliacao ev={ev} />
       </main>
 
-      <footer className="foot wrap">
-        <div className="foot-in">
-          <span>
-            <b>Mesa de exceções</b>: projeto do Levi para o Desafio AI-First do Gogroup. Não é um produto oficial do Gogroup.
-          </span>
-          <a href={REPO}>Código, SPEC e LOG no GitHub</a>
-        </div>
-        <p className="nota" style={{ marginTop: 8, maxWidth: '78ch' }}>
-          Dados sintéticos do desafio, persona fictícia e ações simuladas: nada é enviado a clientes. Passe o mouse sobre um
-          número para ver a definição; todos vêm de scripts do repositório (docs/NUMEROS.md).
+      <footer className="rodape wrap">
+        <p>
+          <b>Mesa de exceções</b> é o projeto de um candidato (Levi) para o Desafio AI-First do Gogroup. Não é um produto oficial
+          do Gogroup.
+        </p>
+        <p>
+          Passe o mouse ou toque em “Como calculamos” para ver a definição de cada número; todos vêm de scripts do repositório
+          (docs/NUMEROS.md). <a href={REPO}>Código, SPEC e LOG no GitHub</a>.
         </p>
       </footer>
     </div>
   )
 }
 
-function Terminal({ casos, chamados }: { casos: LinhaFila[]; chamados: number }) {
-  const primeiros = casos.slice(0, 6)
-  const humanos = casos.filter((c) => c.humano).length
-  return (
-    <div className="term" aria-label="Registro do agente processando a fila de hoje">
-      <div className="term-top">
-        <i style={{ background: '#ff5f57' }} />
-        <i style={{ background: '#febc2e' }} />
-        <i style={{ background: '#28c840' }} />
-        <span>mesa.run</span>
-      </div>
-      <div className="term-body">
-        <span className="y">$ mesa processar --dia 30/09/2026</span>
-        {'\n'}
-        <span className="m">› lendo 2.000 exceções abertas e o SLA de 5 transportadoras</span>
-        {'\n'}
-        <span className="c">› plano ótimo: 150 casos para hoje</span>
-        {'\n'}
-        {primeiros.map((c) => (
-          <span key={c.order_id}>
-            {c.pendente ? <span className="m">… </span> : c.humano ? <span className="p">! </span> : <span className="g">✓ </span>}
-            {c.order_id} {(TIPO[c.tipo] ?? c.tipo).toLowerCase()} → {c.pendente ? 'na fila do agente' : ACAO[c.acao].toLowerCase()}
-            {c.regra ? <span className="m"> ({c.regra})</span> : null}
-            {'\n'}
-          </span>
-        ))}
-        <span className="m">  … mais {Math.max(casos.length - primeiros.length, 0)} casos</span>
-        {'\n'}
-        <span className="c">› {chamados} chamados de causa raiz para revisar</span>
-        {'\n'}
-        <span className="y">› aguardando a Juliana em {humanos} casos</span>
-      </div>
-    </div>
-  )
-}
-
-function Regua({ numeros }: { numeros: Numeros }) {
-  const fifo = numeros.N70?.valor ?? 0
-  const otim = numeros.N71?.valor ?? 0
-  const max = Math.max(fifo, otim, 1)
-  return (
-    <figure className="regua" style={{ margin: '22px 0 0' }}>
-      <figcaption className="label" style={{ margin: 0 }}>
-        Perda esperada do estoque de hoje, 150 casos por dia útil (estimativa)
-      </figcaption>
-      <div className="regua-linha">
-        <span className="regua-rotulo">Ordem de chegada (hoje)</span>
-        <span className="trilho">
-          <span className="barra barra-fifo" style={{ width: `${(fifo / max) * 100}%` }} />
-        </span>
-        <span className="regua-valor">
-          <N n={numeros} id="N70" />
-        </span>
-      </div>
-      <div className="regua-linha">
-        <span className="regua-rotulo">Plano do agente</span>
-        <span className="trilho">
-          <span className="barra barra-otim" style={{ width: `${(otim / max) * 100}%` }} />
-        </span>
-        <span className="regua-valor">
-          <N n={numeros} id="N71" />
-        </span>
-      </div>
-      <div className="ganho">
-        <span className="grande">
-          <N n={numeros} id="N72" />
-        </span>
-        <span>
-          a menos de perda, só mudando a ordem. O plano captura <N n={numeros} id="N74" /> do que dá para evitar sem aumentar o
-          time.
-        </span>
-      </div>
-    </figure>
-  )
-}
-
 function ItemFila({ c, ativo, onClick }: { c: LinhaFila; ativo: boolean; onClick: () => void }) {
+  const estado = c.pendente ? 'Espera o agente' : c.humano ? (c.regra ? REGRA[c.regra] ?? 'Revisão' : 'Revisão') : ACAO[c.acao]
   return (
     <li>
-      <button className={`item ${ativo ? 'ativo' : ''} ${c.humano ? 'eh-humano' : ''} ${c.pendente ? 'eh-pendente' : ''}`} onClick={onClick} aria-current={ativo}>
-        <span className="num-tile">{c.prioridade}</span>
+      <button
+        type="button"
+        className={`item${ativo ? ' ativo' : ''}${c.humano ? ' eh-humano' : ''}${c.pendente ? ' eh-pendente' : ''}`}
+        onClick={onClick}
+        aria-current={ativo ? 'true' : undefined}
+      >
+        <span className="ordem mono" aria-label={`prioridade ${c.prioridade}`}>{c.prioridade}</span>
         <span className="item-corpo">
           <span className="item-tipo">{TIPO[c.tipo] ?? c.tipo}</span>
           <span className="item-meta">
-            {c.order_id} · {c.marca} · {reais(c.valor, 2)}
-            {c.padrao ? ` · ${c.padrao}` : ''}
+            {c.marca}, <span className="mono">{reais(c.valor, 2)}</span>
+            {c.padrao ? `, ${CAUSA[c.padrao] ?? 'causa que se repete'}` : ''}
           </span>
         </span>
-        <span className="selo">{c.pendente ? 'Na fila do agente' : c.humano ? 'Aguarda a Juliana' : ACAO[c.acao]}</span>
+        <span className="selo">
+          {c.humano && <span className="sr">Revisão da analista: </span>}
+          {estado}
+        </span>
       </button>
     </li>
   )
 }
 
+type Troca = { etapa: string; de?: string; para?: string; motivo?: string }
+
 function Detalhe({ orderId }: { orderId: string }) {
   const [r, setR] = useState<Resultado | null>(null)
   const [rodando, setRodando] = useState(false)
-  const [erro, setErro] = useState<string | null>(null)
+  const [aviso, setAviso] = useState<string | null>(null)
   const [decisaoHumana, setDecisaoHumana] = useState<Record<string, 'aprovado' | 'rejeitado'>>({})
   const [editando, setEditando] = useState(false)
   const [texto, setTexto] = useState('')
+  const controle = useRef<AbortController | null>(null)
 
   useEffect(() => {
     setR(null)
-    setErro(null)
+    setAviso(null)
     setEditando(false)
     carregar<Resultado>(`casos/${orderId}.json`).then((d) => {
       setR(d)
       setTexto(d?.decisao_modelo?.mensagem_cliente ?? '')
     })
+    return () => controle.current?.abort()
   }, [orderId])
 
   async function rodarAoVivo() {
+    controle.current?.abort()
+    const ac = new AbortController()
+    controle.current = ac
+    const relogio = setTimeout(() => ac.abort(), TEMPO_LIMITE_MS)
     setRodando(true)
-    setErro(null)
+    setAviso(null)
+    const gravada = 'A decisão abaixo é a gravada, de quando a fila foi processada.'
     try {
-      const resp = await fetch(`/api/processar/${orderId}`, { method: 'POST' })
-      const corpo = await resp.json()
-      if (!resp.ok) setErro(`${corpo.erro ?? 'O modelo não respondeu.'} A decisão abaixo é a gravada.`)
-      else {
+      const resp = await fetch(`/api/processar/${orderId}`, { method: 'POST', signal: ac.signal })
+      const corpo = await resp.json().catch(() => ({}))
+      if (!resp.ok || !corpo?.decisao_modelo) {
+        setAviso(`O agente não respondeu agora (${corpo?.erro ?? `a API respondeu com erro ${resp.status}`}). ${gravada}`)
+      } else {
         setR(corpo as Resultado)
         setTexto((corpo as Resultado).decisao_modelo?.mensagem_cliente ?? '')
       }
     } catch {
-      setErro('Não foi possível falar com a API. A decisão abaixo é a gravada.')
+      setAviso(
+        ac.signal.aborted
+          ? `O modelo não respondeu em ${TEMPO_LIMITE_MS / 1000} segundos. ${gravada}`
+          : `Não foi possível falar com a API. ${gravada}`,
+      )
     } finally {
+      clearTimeout(relogio)
       setRodando(false)
     }
   }
@@ -380,31 +394,37 @@ function Detalhe({ orderId }: { orderId: string }) {
   const f = r.ficha
   const d = r.decisao_modelo
   const ferramentas = r.rastro.filter((p) => p.etapa === 'ferramenta')
+  const trocas = r.rastro.filter((p) => p.etapa === 'troca_de_modelo') as Troca[]
   const estado = decisaoHumana[orderId]
+  const causa = f.padrao_causa_raiz
+  const aguardaFoto = (r.artefato as { ordem?: { situacao?: string } }).ordem?.situacao === 'aguardando a foto do cliente'
 
   return (
-    <article aria-live="polite">
+    <article aria-live="polite" aria-busy={rodando}>
       <div className="det-cabeca">
         <h3>
           {TIPO[f.excecao.tipo] ?? f.excecao.tipo}
-          <span className="det-id">{f.pedido.order_id}</span>
+          <span className="det-id mono" translate="no">{f.pedido.order_id}</span>
         </h3>
         <span className={`fonte fonte-${r.fonte}`}>{FONTE[r.fonte]}</span>
       </div>
       {d && (
-        <p className="nota" style={{ marginTop: 6 }}>
-          Modelo: {(r.modelo ?? 'openai/gpt-oss-120b').replace('openai/', '')}, prompt v{r.versao_prompt}
+        <p className="nota">
+          Decidido pelo modelo {nomeModelo(r.modelo)} (prompt v{r.versao_prompt}).
+          {trocas.map((t, i) => (
+            <span key={i}> O {nomeModelo(t.de)} não respondeu ({t.motivo}); respondeu o {nomeModelo(t.para)}.</span>
+          ))}
         </p>
       )}
 
       <dl className="ficha">
-        <div><dt>Produto</dt><dd>{f.pedido.produto} ({f.pedido.marca}), {reais(f.pedido.valor_pago, 2)}</dd></div>
+        <div><dt>Produto</dt><dd>{f.pedido.produto} ({f.pedido.marca}), <span className="mono">{reais(f.pedido.valor_pago, 2)}</span></dd></div>
         <div><dt>Situação</dt><dd>{STATUS[f.excecao.status] ?? f.excecao.status}, aberta há {f.excecao.dias_aberta} dias</dd></div>
         <div>
           <dt>Entrega</dt>
           <dd>
-            {f.entrega.transportadora} para {f.entrega.cidade}/{f.entrega.uf}. Prometido {f.entrega.data_prometida_ao_cliente};
-            pelo SLA contratado, {f.entrega.prazo_correto_pelo_sla_dias_uteis}.{' '}
+            {f.entrega.transportadora} para {f.entrega.cidade}/{f.entrega.uf}. Prometido para {f.entrega.data_prometida_ao_cliente};
+            pelo prazo contratado, {f.entrega.prazo_correto_pelo_sla_dias_uteis}.{' '}
             {f.entrega.entregue ? `Entregue em ${f.entrega.data_entrega}.` : 'Ainda não entregue.'}
           </dd>
         </div>
@@ -412,32 +432,38 @@ function Detalhe({ orderId }: { orderId: string }) {
           <dt>Risco</dt>
           <dd>
             {pct(f.risco.prob_cancelamento_hoje)} de chance de cancelar hoje, {pct(f.risco.prob_cancelamento_em_5_dias_uteis)} se
-            esperar 5 dias úteis. Esperar 1 dia custa {reais(f.risco.custo_de_esperar_1_dia_util, 2)}.
+            esperar 5 dias úteis. Esperar 1 dia custa <span className="mono">{reais(f.risco.custo_de_esperar_1_dia_util, 2)}</span>.
           </dd>
         </div>
         <div>
           <dt>Cliente</dt>
           <dd>
-            {f.cliente.n_pedidos} pedidos, {reais(f.cliente.receita_acumulada)} no total
+            {f.cliente.n_pedidos} pedidos, <span className="mono">{reais(f.cliente.receita_acumulada)}</span> no total
             {f.cliente.alto_valor_acima_1500 ? ' (cliente de alto valor)' : ''}
           </dd>
         </div>
-        {f.padrao_causa_raiz && (
-          <div><dt>Padrão</dt><dd>{f.padrao_causa_raiz.id}: {f.padrao_causa_raiz.descricao}</dd></div>
+        {causa && (
+          <div>
+            <dt>Causa</dt>
+            <dd>
+              Faz parte de uma causa que se repete: {CAUSA[causa.id] ?? causa.descricao}. O chamado está na seção 6.
+            </dd>
+          </div>
         )}
       </dl>
 
       {r.vai_para_humano ? (
         <div className="decisao decisao-humano">
-          <p className="titulo">Aguarda a Juliana</p>
+          <p className="titulo">Aguarda a Juliana: {r.regra_aplicada ? (REGRA[r.regra_aplicada] ?? 'revisão').toLowerCase() : 'revisão'}</p>
           <p>{r.motivo_humano}</p>
           {d && <p className="nota">Proposta do agente: {ACAO[d.acao].toLowerCase()}.</p>}
+          {r.regra_aplicada && <p className="regra">Regra {r.regra_aplicada} em src/agente/regras.py</p>}
         </div>
       ) : (
         <div className="decisao decisao-auto">
           <p className="titulo">{ACAO[r.acao_final]}</p>
           <p className="nota">
-            {(r.artefato as { ordem?: { situacao?: string } }).ordem?.situacao === 'aguardando a foto do cliente'
+            {aguardaFoto
               ? 'Mensagem enviada; o reenvio sai quando a foto do cliente chegar (simulado).'
               : 'Executado pelo agente (simulado).'}
           </p>
@@ -452,7 +478,7 @@ function Detalhe({ orderId }: { orderId: string }) {
             <>
               <h4>Mensagem ao cliente</h4>
               {editando ? (
-                <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={6} aria-label="Editar mensagem ao cliente" />
+                <textarea name="mensagem" autoComplete="off" value={texto} onChange={(e) => setTexto(e.target.value)} rows={6} aria-label="Editar mensagem ao cliente" />
               ) : (
                 <blockquote className="mensagem">{texto || d.mensagem_cliente}</blockquote>
               )}
@@ -460,22 +486,31 @@ function Detalhe({ orderId }: { orderId: string }) {
           )}
         </div>
       )}
-      {!d && r.erro && <p className="nota" style={{ marginTop: 12 }}>Sem decisão do modelo: {r.erro}</p>}
+      {!d && r.erro && <p className="nota">Sem decisão do modelo: {r.erro}</p>}
 
       {r.vai_para_humano && d && (
         <div className="botoes">
           {estado ? (
-            <p className="nota">{estado === 'aprovado' ? 'Aprovado' : 'Rejeitado'} pela Juliana (simulado; nada foi enviado).</p>
+            <>
+              <p className="nota">{estado === 'aprovado' ? 'Proposta aprovada' : 'Proposta rejeitada'} pela Juliana (simulado; nada foi enviado).</p>
+              <button
+                type="button"
+                className="btn btn-linha btn-p"
+                onClick={() => setDecisaoHumana(({ [orderId]: _, ...resto }) => resto)}
+              >
+                Desfazer
+              </button>
+            </>
           ) : (
             <>
-              <button className="btn btn-cta btn-sm" onClick={() => setDecisaoHumana({ ...decisaoHumana, [orderId]: 'aprovado' })}>
+              <button type="button" className="btn btn-primario btn-p" onClick={() => setDecisaoHumana({ ...decisaoHumana, [orderId]: 'aprovado' })}>
                 Aprovar proposta
               </button>
-              <button className="btn btn-ghost btn-sm" onClick={() => setEditando(!editando)}>
+              <button type="button" className="btn btn-linha btn-p" onClick={() => setEditando(!editando)}>
                 {editando ? 'Fechar edição' : 'Editar mensagem'}
               </button>
-              <button className="btn btn-ghost btn-sm" onClick={() => setDecisaoHumana({ ...decisaoHumana, [orderId]: 'rejeitado' })}>
-                Rejeitar
+              <button type="button" className="btn btn-linha btn-p" onClick={() => setDecisaoHumana({ ...decisaoHumana, [orderId]: 'rejeitado' })}>
+                Rejeitar proposta
               </button>
             </>
           )}
@@ -485,122 +520,77 @@ function Detalhe({ orderId }: { orderId: string }) {
       <details className="rastro">
         <summary>O que o agente fez neste caso</summary>
         <ol>
-          <li>Recebeu a ficha montada pelo código (prazos em dias úteis, risco, padrão).</li>
+          <li>Recebeu a ficha montada pelo código, com prazos em dias úteis, risco e causa.</li>
           {ferramentas.map((p, i) => (
             <li key={i}>
               Consultou <code>{String(p.nome)}</code> com {String(p.argumentos)}.
             </li>
           ))}
-          <li>Devolveu a decisão em JSON{d ? `, com confiança ${d.confianca}` : ''}; o esquema foi validado.</li>
+          <li>Devolveu a decisão em JSON{d ? `, com confiança ${d.confianca}` : ''}, validada contra o esquema.</li>
           <li>
             {r.regra_aplicada
-              ? `A regra ${r.regra_aplicada} do código mandou o caso para a Juliana.`
+              ? `Uma regra do código mandou o caso para a Juliana (${REGRA[r.regra_aplicada]?.toLowerCase() ?? 'revisão'}, regra ${r.regra_aplicada}).`
               : 'Nenhuma regra de revisão humana se aplicou.'}
           </li>
         </ol>
       </details>
 
       <div className="botoes">
-        <button className="btn btn-dark btn-sm" onClick={rodarAoVivo} disabled={rodando}>
+        <button type="button" className="btn btn-escuro btn-p" onClick={rodarAoVivo} disabled={rodando}>
           {rodando ? 'Rodando o agente…' : 'Rodar o agente agora'}
         </button>
-        {erro && <p className="nota erro">{erro}</p>}
+        {aviso && <p className="nota aviso" role="status">{aviso}</p>}
       </div>
     </article>
   )
 }
 
+function evidenciaLegivel(k: string, v: unknown): string {
+  const s = String(v)
+  return k === 'tipos de exceção' ? s.split(', ').map((t) => TIPO[t] ?? t).join(', ') : s
+}
+
 function Chamados({ chamados, numeros }: { chamados: Chamado[]; numeros: Numeros }) {
   if (!chamados.length) return null
   return (
-    <section className="sec wrap" id="causas">
-      <div className="card-sec">
-        <p className="phase">Fase 3 · Causa raiz</p>
-        <h2>Metade das exceções tem dono fora da fila.</h2>
-        <p className="p">
-          O código mede onde as exceções se concentram, comparando com a taxa dos demais grupos, e o agente escreve um chamado
-          para o dono do processo. A Juliana aprova antes do envio. Mudando esses processos, dá para evitar cerca de{' '}
-          <N n={numeros} id="N97" /> exceções por mês (<N n={numeros} id="N98" /> do time).
-        </p>
-        <div className="chamados">
-          {chamados.map((c) => (
-            <article key={c.padrao_id} className="chamado" style={{ ['--c' as string]: COR_DONO[c.dono] ?? 'var(--yellow)' }}>
-              <p className="dono">
-                {c.padrao_id} · {c.dono}
+    <section className="wrap bloco-sec" id="causas" aria-labelledby="t-causas">
+      <Passo n={6} id="t-causas">Causas que se repetem</Passo>
+      <p className="p">
+        O código mede onde as exceções se concentram, comparando com os demais grupos, e o agente redige um chamado para o dono
+        do processo. A Juliana aprova antes do envio. Com essas mudanças, cerca de <N n={numeros} id="N97" /> exceções por mês
+        deixam de existir (<N n={numeros} id="N98" /> do time por mês, estimativa).
+      </p>
+      <div className="chamados">
+        {chamados.map((c) => (
+          <article key={c.padrao_id} className="chamado">
+            <p className="dono">Para: {c.dono}</p>
+            <h3>{CAUSA[c.padrao_id] ?? String(c.evidencia.grupo ?? c.titulo)}</h3>
+            {c.hipotese_causa && <p>{c.hipotese_causa}</p>}
+            {c.acao_proposta && (
+              <p>
+                <b>Proposta:</b> {c.acao_proposta}
               </p>
-              <h3>{c.titulo ?? String(c.evidencia.grupo ?? c.padrao_id)}</h3>
-              {c.hipotese_causa && <p>{c.hipotese_causa}</p>}
-              {c.acao_proposta && (
-                <p>
-                  <strong>Proposta:</strong> {c.acao_proposta}
-                </p>
-              )}
-              {c.como_medir && <p className="medir">Como medir: {c.como_medir}</p>}
-              <ul className="evidencia">
-                {Object.entries(c.evidencia)
-                  .filter(([k, v]) => k !== 'grupo' && typeof v !== 'object')
-                  .sort(([a], [b]) => Number(GERAIS.has(a)) - Number(GERAIS.has(b)))
-                  .slice(0, 5)
-                  .map(([k, v]) => (
-                    <li key={k}>
-                      <span>{k.replace(/_/g, ' ')}</span>
-                      <b>{String(v)}</b>
-                    </li>
-                  ))}
-              </ul>
-              {c.pendente && <p className="medir">Chamado ainda não redigido pelo agente.</p>}
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Avaliacao({ ev }: { ev: EvalResumo | null }) {
-  if (!ev) return null
-  const s = ev.resumo
-  const frac = (x: [number, number]) => `${x[0]} de ${x[1]}`
-  return (
-    <section className="sec wrap" id="prova">
-      <div className="escuro">
-        <div>
-          <p className="phase" style={{ background: 'var(--yellow)', color: 'var(--ink)' }}>
-            Fase 4 · Como sabemos
-          </p>
-          <h2>
-            Medido em gabarito, <em>não no achismo</em>.
-          </h2>
-          <p className="p">
-            {s.n} casos dos dados com a resposta certa pela política rodam contra o mesmo código desta página (eval/eval.py,
-            prompt v{ev.versao_prompt}, {ev.modelo}). O LOG.md do repositório registra cada erro que a IA cometeu e como foi
-            corrigido.
-          </p>
-          <ul className="metricas">
-            <li><span>Ação certa pela política</span><b>{s.acao_aceitavel} de {s.n}</b></li>
-            <li className="base"><span>Automação ingênua, sem IA (ação fixa por tipo)</span><b>{s.linha_de_base_aceitavel} de {s.n}</b></li>
-            {s.tabela_politica_aceitavel !== undefined && (
-              <li className="base"><span>Tabela de política em código, sem IA (o gabarito saiu dela)</span><b>{s.tabela_politica_aceitavel} de {s.n}</b></li>
             )}
-            <li><span>Padrão de causa raiz identificado</span><b>{frac(s.padrao_certo)}</b></li>
-            {'mensagens_sem_problema' in s && (
-              <li>
-                <span>Mensagens sem problema nas checagens automáticas</span>
-                <b>{frac((s as unknown as { mensagens_sem_problema: [number, number] }).mensagens_sem_problema)}</b>
-              </li>
-            )}
-            {s.json_1a_tentativa[1] > 0 && (
-              <li><span>JSON válido na primeira tentativa</span><b>{frac(s.json_1a_tentativa)}</b></li>
-            )}
-          </ul>
-        </div>
-        <div className="destaque">
-          <span className="grande">{frac(s.recall_humano)}</span>
-          <p>casos de risco do gabarito foram para a Juliana. Esse é o erro caro: um caso de risco tratado sozinho.</p>
-          <a className="btn btn-cta" href={REPO}>
-            Ver o eval e o LOG
-          </a>
-        </div>
+            {c.como_medir && <p className="medir">Como medir: {c.como_medir}</p>}
+            <dl className="evidencia">
+              {Object.entries(c.evidencia)
+                .filter(([k, v]) => k !== 'grupo' && typeof v !== 'object')
+                .sort(([a], [b]) => Number(GERAIS.has(a)) - Number(GERAIS.has(b)))
+                .slice(0, 5)
+                .map(([k, v]) => (
+                  <div key={k}>
+                    <dt>{k.replace(/_/g, ' ')}</dt>
+                    <dd className={/^(R\$\s)?\d/.test(String(v)) ? 'mono' : undefined}>{evidenciaLegivel(k, v)}</dd>
+                  </div>
+                ))}
+            </dl>
+            <p className="autoria">
+              {c.pendente
+                ? 'Chamado ainda não redigido pelo agente.'
+                : `Texto redigido pelo agente${c.modelo ? ` (${nomeModelo(c.modelo)})` : ''}; a evidência é calculada pelo código.`}
+            </p>
+          </article>
+        ))}
       </div>
     </section>
   )

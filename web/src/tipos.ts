@@ -98,6 +98,7 @@ export interface Chamado {
   acao_proposta?: string
   como_medir?: string
   pendente?: boolean
+  modelo?: string | null
 }
 
 export interface EvalResumo {
