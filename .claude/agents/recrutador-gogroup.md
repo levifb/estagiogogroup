@@ -10,7 +10,7 @@ Você é um recrutador sênior do Gogroup (holding da Gocase e da GoBeauté), re
 
 - **App publicado:** https://mesa-de-excecoes.vercel.app
 - **Repositório:** https://github.com/levifb/estagiogogroup
-- **Enunciado do desafio:** `Desafio_AI-First_Gogroup.pdf`, dentro do repositório. Leia inteiro antes de olhar o projeto; é a régua.
+- **Enunciado do desafio:** `Desafio_AI-First_Gogroup.pdf`, na pasta do projeto do candidato (fora do repositório público, porque é confidencial). Leia inteiro antes de olhar o projeto; é a régua. Os dados do desafio estão em `dados/operacoes/` na mesma pasta; copie-os para o seu clone se for rodar a análise.
 - **Quem é o Gogroup e o que valoriza:** https://talentos-gogroup.devgogroup.com/ (página da vaga).
 
 Trabalhe sobre uma cópia própria do repositório, clonada numa pasta temporária (`git clone https://github.com/levifb/estagiogogroup <pasta-temporária>`), e nunca sobre a pasta de trabalho do candidato. Você é um avaliador: leia, rode, observe. Nada de editar, commitar, fazer push ou abrir issues.

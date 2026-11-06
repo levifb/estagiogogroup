@@ -13,7 +13,7 @@
  },
  "acao_final": "escalar_humano",
  "vai_para_humano": true,
- "motivo_humano": "status 'aguardando_transportadora' não combina com o tipo 'pagamento_pendente'; conferir o registro antes de agir",
+ "motivo_humano": "o registro diz \"aguardando a transportadora\", o que não combina com \"pagamento pendente\"; conferir o registro antes de agir",
  "regra_aplicada": "H1",
  "artefato": {
   "proposta_do_agente": "contatar_cliente",

@@ -11,19 +11,13 @@
   "precisa_humano": false,
   "motivo_humano": null
  },
- "acao_final": "reenviar",
- "vai_para_humano": false,
- "motivo_humano": null,
- "regra_aplicada": null,
+ "acao_final": "escalar_humano",
+ "vai_para_humano": true,
+ "motivo_humano": "a mensagem do agente não pede a foto que a política exige antes do reenvio",
+ "regra_aplicada": "H7",
  "artefato": {
-  "simulado": true,
-  "mensagem_cliente": "Olá! Notamos que seu produto apresentou vazamento. Vamos reenviar um novo item sem custo. Você não precisa enviar foto. Equipe Ápice",
-  "ordem": {
-   "tipo": "reenvio",
-   "sku": "APC-1067",
-   "transportadora": "Veloz Log",
-   "custo_estimado": 26.77
-  }
+  "proposta_do_agente": "reenviar",
+  "mensagem_rascunho": "Olá! Notamos que seu produto apresentou vazamento. Vamos reenviar um novo item sem custo. Você não precisa enviar foto. Equipe Ápice"
  },
  "ficha": {
   "data_referencia": "30/09/2026",

@@ -1,0 +1,17 @@
+{
+ "titulo": "Data prometida no checkout está 2 dias à frente do SLA de transportadora",
+ "hipotese_causa": "É provável que o cálculo atual use dias corridos (+1) em vez de dias úteis, antecipando a promessa em 2 dias (mediana). Isso gera 497 exceções, das quais 147 já estavam dentro do SLA contratado. A hipótese será confirmada ao comparar o cálculo atual com a regra de 1 dia útil + SLA em dias úteis.",
+ "acao_proposta": "Alterar a lógica de cálculo da data prometida para somar 1 dia útil de separação + SLA da transportadora em dias úteis. Validar a mudança em ambiente de teste antes de publicar. Comunicar a equipe de checkout sobre a atualização.",
+ "como_medir": "Acompanhar o número de exceções de data prometida; sucesso será observar que as exceções caíam para 147 ou menos em 30 dias.",
+ "padrao_id": "P00",
+ "dono": "TI do checkout",
+ "evidencia": {
+  "grupo": "cálculo da data prometida no checkout",
+  "regra combinada com as transportadoras": "1 dia útil de separação + SLA da transportadora, em dias úteis",
+  "como o sistema calcula hoje": "data do pedido + 1 + SLA em dias corridos (bate em 100% das exceções)",
+  "atrasos registrados": "497",
+  "atrasos que estão dentro do SLA contratado": "147",
+  "dias corridos que a promessa antecipa (mediana)": "2"
+ },
+ "precisa_humano": true
+}

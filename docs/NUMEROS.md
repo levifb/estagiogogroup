@@ -47,6 +47,7 @@ Todo número que aparece no README, na interface ou no LOG é citado pelo id des
 | N64 | 163 | exceções cuja perda esperada sobe se esperarem 1 dia útil (estão num degrau da tabela de cancelamento) | `analises/a04_valor_em_risco.py` | 2026-11-06 |
 | N65 | R$ 1.691 | quanto a perda esperada total sobe se nenhuma exceção for tratada amanhã (1 dia útil a mais) **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-06 |
 | N66 | R$ 10.937 | quanto a perda esperada total sobe se nenhuma exceção for tratada por 5 dias úteis **(estimativa)** | `analises/a04_valor_em_risco.py` | 2026-11-06 |
+| N68 | R$ 73 | percentil 95 do custo de reenvio (24% do valor + frete médio) nas 2.000 exceções; acima disso o reenvio vai para a analista (regra H2b) | `analises/a04_valor_em_risco.py` | 2026-11-06 |
 | N67 | 234 | atrasos já entregues: o atraso parou de crescer, então tratar hoje ou depois não muda o risco | `analises/a04_valor_em_risco.py` | 2026-11-06 |
 | N70 | R$ 118.043 | perda esperada tratando o estoque em ordem de chegada, 150/dia útil (processo atual) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-06 |
 | N71 | R$ 99.868 | perda esperada com o plano otimizado (atribuição exata casos × dias), 150/dia útil **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-06 |
@@ -72,6 +73,6 @@ Todo número que aparece no README, na interface ou no LOG é citado pelo id des
 | N97 | 430 | exceções por mês evitáveis mudando o processo: (excesso dos padrões 763 + 68 atrasos falsos fora dos padrões) × 30/58 **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-06 |
 | N98 | 86 h | horas do time por mês liberadas por N97, a 12 minutos por tratativa (parametros.md) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-06 |
 | N100 | 150 | casos da fila do dia com decisão do modelo (de 150); por modelo: gpt-oss-120b: 79, gpt-oss-20b: 71 | `analises/a06_fila_do_dia.py` | 2026-11-06 |
-| N101 | 145 | decisões da fila do dia que batem com a tabela de política do SPEC (checagem automática) | `analises/a06_fila_do_dia.py` | 2026-11-06 |
-| N102 | 3 | casos da fila do dia enviados à analista pelas regras H1–H6 | `analises/a06_fila_do_dia.py` | 2026-11-06 |
-| N103 | 148 | mensagens ao cliente da fila do dia sem problema nas checagens automáticas (de 149) | `analises/a06_fila_do_dia.py` | 2026-11-06 |
+| N101 | 144 | decisões da fila do dia que batem com a tabela de política do SPEC (checagem automática) | `analises/a06_fila_do_dia.py` | 2026-11-06 |
+| N102 | 9 | casos da fila do dia enviados à analista pelas regras H1–H7 | `analises/a06_fila_do_dia.py` | 2026-11-06 |
+| N103 | 147 | mensagens ao cliente da fila do dia sem problema nas checagens automáticas (de 149) | `analises/a06_fila_do_dia.py` | 2026-11-06 |

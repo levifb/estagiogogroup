@@ -22,7 +22,8 @@
    "tipo": "nova_producao",
    "sku": "GOC-2004",
    "evitar_maquina": "IMP-06",
-   "custo_estimado": 42.32
+   "custo_estimado": 42.32,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

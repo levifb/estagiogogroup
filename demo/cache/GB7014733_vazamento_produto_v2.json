@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "APC-1067",
    "transportadora": "Entrega Já",
-   "custo_estimado": 30.87
+   "custo_estimado": 30.87,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

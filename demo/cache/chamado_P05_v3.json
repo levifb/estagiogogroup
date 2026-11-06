@@ -1,0 +1,28 @@
+{
+ "titulo": "Alta taxa de falha de personalização na IMP-02 (48% das exceções)",
+ "hipotese_causa": "Provável que a configuração ou manutenção da IMP-02 esteja causando falhas de personalização, já que 48% das exceções do grupo são desse tipo, 4,4 vezes acima da média dos demais grupos. Confirmaria se houver registro de manutenção ou ajuste recente na máquina.",
+ "acao_proposta": "Solicitar à equipe de manutenção uma revisão completa da IMP-02, focando nos componentes de personalização, ainda esta semana. Se necessário, aplicar atualização de firmware ou calibrar novamente os parâmetros de impressão.",
+ "como_medir": "Acompanhar o total de exceções de falha_personalizacao; objetivo: reduzir de 77 para próximo da média dos demais grupos (≈11%) em 30 dias.",
+ "padrao_id": "P05",
+ "dono": "Manutenção",
+ "evidencia": {
+  "grupo": "máquina de impressão: IMP-02",
+  "tipos de exceção": "falha_personalizacao",
+  "exceções deste tipo no grupo": "77 de 162 exceções do grupo (48%)",
+  "mesma proporção nos demais grupos": "11%",
+  "vezes acima dos demais": "4,4",
+  "exceções além do esperado": "60",
+  "valor pago dos pedidos afetados": "R$ 9.689",
+  "exceções por semana do pedido": {
+   "2026-08-03": 3,
+   "2026-08-10": 3,
+   "2026-08-17": 1,
+   "2026-08-24": 11,
+   "2026-08-31": 11,
+   "2026-09-07": 16,
+   "2026-09-14": 14,
+   "2026-09-21": 18
+  }
+ },
+ "precisa_humano": true
+}

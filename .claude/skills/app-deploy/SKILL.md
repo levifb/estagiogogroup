@@ -31,7 +31,7 @@ Ordem de leitura, de cima para baixo:
 5. **Antes × depois:** perda esperada FIFO × priorizado, com um gráfico só (use a skill `dataviz`).
 6. **Como sabemos que funciona:** acerto do último eval por etapa e o link para o repositório.
 
-Para a direção visual, use as skills `frontend-design` e `web-design-guidelines`, e passe a skill `kill-ai-slop` antes de publicar. Todo texto visível passa pela skill `humanizar`. Os textos vêm da skill `negocio-operacoes`; você ajusta só o tamanho para caber na tela.
+Para a direção visual, use as skills `frontend-design` e `web-design-guidelines`, e passe a skill `kill-ai-slop` antes de publicar. Os textos vêm da skill `negocio-operacoes`; você ajusta só o tamanho para caber na tela.
 
 ## Deploy na Vercel
 

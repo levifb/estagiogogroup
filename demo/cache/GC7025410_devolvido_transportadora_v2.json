@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2001",
    "transportadora": "Postal Nacional",
-   "custo_estimado": 32.18
+   "custo_estimado": 32.18,
+   "situacao": "liberado"
   }
  },
  "ficha": {

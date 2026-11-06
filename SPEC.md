@@ -97,17 +97,21 @@ Status `aguardando_cliente`: a ação passa a ser `contatar_cliente` (lembrete),
 
 ### Humano no loop (código, `src/agente/regras.py`)
 
+Reenvios que dependem de foto ficam com a situação "aguardando a foto do cliente" e só são liberados quando ela chega.
+
 Em ordem de precedência, a primeira regra que se aplica decide:
 
 | Regra | Condição | Por quê |
 |---|---|---|
 | H1 | registro incoerente: status que não combina com o tipo (ex.: pagamento pendente aguardando transportadora) [N04], ou pedido marcado como entregue sem data de entrega ou com tipo que implica não entrega (extravio, rastreio parado, devolução) | o registro está errado; agir em cima dele pode piorar |
 | H2 | ação `reembolsar` com valor acima de R$ 228 [N13] | os 5% de pedidos mais caros; reembolso é dinheiro que não volta |
+| H2b | ação `reenviar` ou `refazer_personalizacao` com custo estimado acima de R$ 73 [N68] | os 5% de reenvios mais caros; adicionada depois de o avaliador cego apontar 52 reenvios automáticos sem teto |
 | H3 | ação `reembolsar` para cliente com receita acumulada acima de R$ 1.500 | o cliente que recompra em 70% dos casos merece uma pessoa |
 | H4 | atraso não entregue com mais de 10 dias úteis | risco no teto (40%); escolher entre reenvio e reembolso é decisão de negócio (S8) |
 | H5 | avaria, vazamento ou faltante reclamados depois de 7 dias do recebimento | fora da política |
 | H6 | confiança do agente `baixa`, ou JSON inválido duas vezes | o agente pediu ajuda ou falhou |
-| H7 | todo chamado de causa raiz | muda processo de outra área |
+| H7 | reenvio por avaria, vazamento, falta ou personalização cuja mensagem não pede a foto (ou a dispensa) | a política exige foto antes do reenvio; o caso GB7000254 mostrou o modelo dispensando a foto |
+| H8 | todo chamado de causa raiz | muda processo de outra área |
 
 O código pode transformar uma ação automática em `escalar_humano`, nunca o contrário.
 

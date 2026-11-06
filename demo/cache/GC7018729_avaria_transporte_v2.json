@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2005",
    "transportadora": "Rota Express",
-   "custo_estimado": 44.6
+   "custo_estimado": 44.6,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

@@ -3,6 +3,11 @@ import type { Chamado, EvalResumo, Fila, LinhaFila, Numero, Resultado } from './
 import { ACAO, FONTE, STATUS, TIPO, pct, reais } from './textos'
 
 const REPO = 'https://github.com/levifb/estagiogogroup'
+// Campos comuns a todo chamado; os específicos de cada padrão (ex.: brinde no CD2) aparecem primeiro.
+const GERAIS = new Set([
+  'tipos de exceção', 'exceções deste tipo no grupo', 'mesma proporção nos demais grupos',
+  'vezes acima dos demais', 'exceções além do esperado', 'valor pago dos pedidos afetados',
+])
 const COR_DONO: Record<string, string> = {
   'TI do checkout': 'var(--yellow)',
   'Gestão de transportadoras': 'var(--cyan)',
@@ -523,6 +528,18 @@ function Chamados({ chamados, numeros }: { chamados: Chamado[]; numeros: Numeros
                 </p>
               )}
               {c.como_medir && <p className="medir">Como medir: {c.como_medir}</p>}
+              <ul className="evidencia">
+                {Object.entries(c.evidencia)
+                  .filter(([k, v]) => k !== 'grupo' && typeof v !== 'object')
+                  .sort(([a], [b]) => Number(GERAIS.has(a)) - Number(GERAIS.has(b)))
+                  .slice(0, 5)
+                  .map(([k, v]) => (
+                    <li key={k}>
+                      <span>{k.replace(/_/g, ' ')}</span>
+                      <b>{String(v)}</b>
+                    </li>
+                  ))}
+              </ul>
               {c.pendente && <p className="medir">Chamado ainda não redigido pelo agente.</p>}
             </article>
           ))}
@@ -553,7 +570,10 @@ function Avaliacao({ ev }: { ev: EvalResumo | null }) {
           </p>
           <ul className="metricas">
             <li><span>Ação certa pela política</span><b>{s.acao_aceitavel} de {s.n}</b></li>
-            <li className="base"><span>Automação simples, sem IA (ação fixa por tipo)</span><b>{s.linha_de_base_aceitavel} de {s.n}</b></li>
+            <li className="base"><span>Automação ingênua, sem IA (ação fixa por tipo)</span><b>{s.linha_de_base_aceitavel} de {s.n}</b></li>
+            {s.tabela_politica_aceitavel !== undefined && (
+              <li className="base"><span>Tabela de política em código, sem IA (o gabarito saiu dela)</span><b>{s.tabela_politica_aceitavel} de {s.n}</b></li>
+            )}
             <li><span>Padrão de causa raiz identificado</span><b>{frac(s.padrao_certo)}</b></li>
             {'mensagens_sem_problema' in s && (
               <li>
@@ -561,7 +581,9 @@ function Avaliacao({ ev }: { ev: EvalResumo | null }) {
                 <b>{frac((s as unknown as { mensagens_sem_problema: [number, number] }).mensagens_sem_problema)}</b>
               </li>
             )}
-            <li><span>JSON válido na primeira tentativa</span><b>{frac(s.json_1a_tentativa)}</b></li>
+            {s.json_1a_tentativa[1] > 0 && (
+              <li><span>JSON válido na primeira tentativa</span><b>{frac(s.json_1a_tentativa)}</b></li>
+            )}
           </ul>
         </div>
         <div className="destaque">

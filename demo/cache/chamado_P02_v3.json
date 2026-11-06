@@ -1,0 +1,31 @@
+{
+ "titulo": "Alto índice de itens faltantes no CD2 (noite) – 210/456 exceções (46%)",
+ "hipotese_causa": "É provável que a separação noturna do CD2 esteja com falha de conferência, já que a taxa de itens faltantes (46%) está 10,5 vezes acima da média dos demais grupos (4%). A hipótese seria confirmada ao observar aumento de erros de conferência nas auditorias de pick.",
+ "acao_proposta": "Reforce a checagem de conferência nas últimas duas horas do turno noturno e inclua um checklist de verificação de brindes. Treine rapidamente a equipe de separação sobre a importância de validar itens com brinde, que representam 75% dos faltantes no grupo.",
+ "como_medir": "Acompanhar a proporção de exceções do tipo item_faltante no CD2; meta: reduzir de 46% para próximo da média dos demais grupos (≈4%) em 30 dias.",
+ "padrao_id": "P02",
+ "dono": "Supervisão do CD",
+ "evidencia": {
+  "grupo": "CD e turno de separação: CD2 | noite",
+  "tipos de exceção": "item_faltante",
+  "exceções deste tipo no grupo": "210 de 456 exceções do grupo (46%)",
+  "mesma proporção nos demais grupos": "4%",
+  "vezes acima dos demais": "10,5",
+  "exceções além do esperado": "190",
+  "valor pago dos pedidos afetados": "R$ 21.476",
+  "exceções por semana do pedido": {
+   "2026-07-27": 6,
+   "2026-08-03": 27,
+   "2026-08-10": 17,
+   "2026-08-17": 34,
+   "2026-08-24": 30,
+   "2026-08-31": 24,
+   "2026-09-07": 31,
+   "2026-09-14": 21,
+   "2026-09-21": 20
+  },
+  "pedidos com brinde entre os itens faltantes do grupo": "75%",
+  "pedidos com brinde entre todas as exceções": "36%"
+ },
+ "precisa_humano": true
+}

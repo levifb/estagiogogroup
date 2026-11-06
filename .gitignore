@@ -28,3 +28,5 @@ Thumbs.db
 !.env.example
 demo/lote.log
 demo/*.log
+dados/
+*.pdf

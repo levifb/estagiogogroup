@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "LSC-1085",
    "transportadora": "Veloz Log",
-   "custo_estimado": 39.83
+   "custo_estimado": 39.83,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

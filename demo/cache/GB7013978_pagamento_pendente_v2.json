@@ -93,5 +93,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

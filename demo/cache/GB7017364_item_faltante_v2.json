@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BBS-1172",
    "transportadora": "Rota Express",
-   "custo_estimado": 47.1
+   "custo_estimado": 47.1,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

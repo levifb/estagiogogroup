@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BBS-1059",
    "transportadora": "Veloz Log",
-   "custo_estimado": 69.83
+   "custo_estimado": 69.83,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {
@@ -99,5 +100,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

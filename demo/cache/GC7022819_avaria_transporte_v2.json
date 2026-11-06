@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2005",
    "transportadora": "Postal Nacional",
-   "custo_estimado": 50.38
+   "custo_estimado": 50.38,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {
@@ -99,5 +100,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

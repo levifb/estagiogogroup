@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "KSH-1033",
    "transportadora": "Postal Nacional",
-   "custo_estimado": 19.97
+   "custo_estimado": 19.97,
+   "situacao": "liberado"
   }
  },
  "ficha": {
@@ -99,5 +100,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

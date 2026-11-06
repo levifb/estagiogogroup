@@ -1,0 +1,17 @@
+{
+ "titulo": "Promessa de entrega no checkout está 2 dias antes do prazo correto",
+ "hipotese_causa": "Provável que a regra de cálculo da data prometida esteja usando dias corridos em vez de dias úteis, gerando 147 promessas fora do SLA. Confirmaria se o ajuste da fórmula para considerar dias úteis elimina essas exceções.",
+ "acao_proposta": "Altere a lógica de cálculo para: data do pedido + 1 dia útil + SLA da transportadora em dias úteis. Teste a mudança em ambiente de homologação antes de publicar.",
+ "como_medir": "Acompanhe o número de exceções de atraso; em 30 dias deve cair de 147 para próximo de zero.",
+ "padrao_id": "P00",
+ "dono": "TI do checkout",
+ "evidencia": {
+  "grupo": "cálculo da data prometida no checkout",
+  "regra combinada com as transportadoras": "1 dia útil de separação + SLA da transportadora, em dias úteis",
+  "como o sistema calcula hoje": "data do pedido + 1 + SLA em dias corridos (bate em 100% das exceções)",
+  "total de exceções de atraso (por todas as causas)": "497",
+  "atrasos causados por esta regra (dentro do SLA contratado, só passaram da data prometida)": "147",
+  "quantos dias antes do prazo correto a promessa cai (mediana, dias corridos)": "2"
+ },
+ "precisa_humano": true
+}

@@ -337,6 +337,14 @@
    "script": "analises/a04_valor_em_risco.py",
    "estimativa": true
   },
+  "N68": {
+   "id": "N68",
+   "valor": 73.20971999999999,
+   "texto": "R$ 73",
+   "definicao": "percentil 95 do custo de reenvio (24% do valor + frete médio) nas 2.000 exceções; acima disso o reenvio vai para a analista (regra H2b)",
+   "script": "analises/a04_valor_em_risco.py",
+   "estimativa": false
+  },
   "N67": {
    "id": "N67",
    "valor": 234,
@@ -539,24 +547,24 @@
   },
   "N101": {
    "id": "N101",
-   "valor": 145,
-   "texto": "145",
+   "valor": 144,
+   "texto": "144",
    "definicao": "decisões da fila do dia que batem com a tabela de política do SPEC (checagem automática)",
    "script": "analises/a06_fila_do_dia.py",
    "estimativa": false
   },
   "N102": {
    "id": "N102",
-   "valor": 3,
-   "texto": "3",
-   "definicao": "casos da fila do dia enviados à analista pelas regras H1–H6",
+   "valor": 9,
+   "texto": "9",
+   "definicao": "casos da fila do dia enviados à analista pelas regras H1–H7",
    "script": "analises/a06_fila_do_dia.py",
    "estimativa": false
   },
   "N103": {
    "id": "N103",
-   "valor": 148,
-   "texto": "148",
+   "valor": 147,
+   "texto": "147",
    "definicao": "mensagens ao cliente da fila do dia sem problema nas checagens automáticas (de 149)",
    "script": "analises/a06_fila_do_dia.py",
    "estimativa": false

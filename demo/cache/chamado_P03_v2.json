@@ -1,0 +1,31 @@
+{
+ "titulo": "Alta taxa de avarias na transportadora Carga Norte (98/340 exceções, 29%)",
+ "hipotese_causa": "É provável que o processo de manuseio da Carga Norte esteja gerando avarias, já que a taxa de 29% é 5,4 vezes maior que nos demais grupos (5%). A hipótese seria confirmada por um relatório de auditoria que mostre falhas de embalagem ou procedimentos inadequados.",
+ "acao_proposta": "Solicitar à Carga Norte um diagnóstico de rotina de manuseio e embalagem ainda esta semana. Implementar treinamento rápido para a equipe de carga focado nas causas de avaria identificadas. Ajustar as instruções de embalagem nos pedidos críticos.",
+ "como_medir": "Acompanhar o número de exceções de avaria (objetivo: reduzir as 98 ocorrências atuais e alinhar a proporção ao nível dos demais grupos, cerca de 5%). O sucesso será observar a queda das exceções além do esperado (80) nos próximos 30 dias.",
+ "padrao_id": "P03",
+ "dono": "Gestão de transportadoras",
+ "evidencia": {
+  "grupo": "transportadora: Carga Norte",
+  "tipos de exceção": "avaria_transporte",
+  "exceções deste tipo no grupo": "98 de 340 exceções do grupo (29%)",
+  "mesma proporção nos demais grupos": "5%",
+  "vezes acima dos demais": "5,4",
+  "exceções além do esperado": "80",
+  "valor pago dos pedidos afetados": "R$ 13.907",
+  "exceções por semana do pedido": {
+   "2026-07-27": 3,
+   "2026-08-03": 14,
+   "2026-08-10": 13,
+   "2026-08-17": 15,
+   "2026-08-24": 13,
+   "2026-08-31": 8,
+   "2026-09-07": 10,
+   "2026-09-14": 15,
+   "2026-09-21": 7
+  },
+  "dias úteis médios além do SLA nas entregas do grupo": "0,6",
+  "dias úteis médios além do SLA nas demais entregas": "1,3"
+ },
+ "precisa_humano": true
+}

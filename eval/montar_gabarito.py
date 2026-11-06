@@ -54,6 +54,14 @@ def rotular(f: dict) -> dict:
             "ruptura_pos_venda": ("contatar_cliente", ["reembolsar"], "ruptura: oferecer espera ou reembolso"),
         }
         a, ac, rac = tabela[tipo]
+    # H2b depende da ação: reenvio padrão com custo acima do limite vai para a analista.
+    if a in ("reenviar", "refazer_personalizacao"):
+        from src.agente.esquemas import Decisao
+        r = regra_humano(f, Decisao(acao=a, justificativa="checagem do custo do reenvio",
+                                    mensagem_cliente="Mande uma foto do produto.", confianca="alta", precisa_humano=False))
+        if r and r[0] == "H2b":
+            return dict(acao_esperada="escalar_humano", acoes_aceitaveis=["escalar_humano"], deve_ir_para_humano=True,
+                        motivo_humano_esperado="H2b", racional=f"SPEC.md, regra H2b: {r[1]}")
     return dict(acao_esperada=a, acoes_aceitaveis=sorted({a, *ac}), deve_ir_para_humano=False,
                 motivo_humano_esperado=None, racional=f"SPEC.md, política de ações: {rac}")
 

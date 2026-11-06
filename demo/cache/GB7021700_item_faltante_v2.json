@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BBS-1005",
    "transportadora": "Carga Norte",
-   "custo_estimado": 27.29
+   "custo_estimado": 27.29,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {
@@ -99,5 +100,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

@@ -1,0 +1,31 @@
+{
+ "titulo": "Alta taxa de avarias de transporte na Carga Norte (29% vs 5% dos demais)",
+ "hipotese_causa": "Provável que a Carga Norte esteja recebendo carga mal acondicionada ou com processos de manuseio inadequados, já que a taxa de avarias está 5,4 vezes acima da média. Confirmaria se houver registros de inspeção de embalagem ou falhas nos procedimentos de carga.",
+ "acao_proposta": "Revisar o checklist de acondicionamento e treinamento dos operadores da Carga Norte nesta semana. Implementar auditoria pontual nas próximas 3 remessas para validar o cumprimento.",
+ "como_medir": "Acompanhar a % de exceções avaria_transporte (objetivo: reduzir de 29% para próximo da média de 5% em 30 dias).",
+ "padrao_id": "P03",
+ "dono": "Gestão de transportadoras",
+ "evidencia": {
+  "grupo": "transportadora: Carga Norte",
+  "tipos de exceção": "avaria_transporte",
+  "exceções deste tipo no grupo": "98 de 340 exceções do grupo (29%)",
+  "mesma proporção nos demais grupos": "5%",
+  "vezes acima dos demais": "5,4",
+  "exceções além do esperado": "80",
+  "valor pago dos pedidos afetados": "R$ 13.907",
+  "exceções por semana do pedido": {
+   "2026-07-27": 3,
+   "2026-08-03": 14,
+   "2026-08-10": 13,
+   "2026-08-17": 15,
+   "2026-08-24": 13,
+   "2026-08-31": 8,
+   "2026-09-07": 10,
+   "2026-09-14": 15,
+   "2026-09-21": 7
+  },
+  "dias úteis médios além do SLA nas entregas do grupo": "0,6",
+  "dias úteis médios além do SLA nas demais entregas": "1,3"
+ },
+ "precisa_humano": true
+}

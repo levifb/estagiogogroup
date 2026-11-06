@@ -101,12 +101,14 @@ export interface Chamado {
 
 export interface EvalResumo {
   arquivo: string
+  fonte?: string
   versao_prompt: number
   modelo: string
   resumo: {
     acao_aceitavel: number
     acao_exata: number
     linha_de_base_aceitavel: number
+    tabela_politica_aceitavel?: number
     n: number
     recall_humano: [number, number]
     precisao_humano: [number, number]

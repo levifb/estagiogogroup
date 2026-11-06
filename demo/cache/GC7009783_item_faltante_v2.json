@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2007",
    "transportadora": "Veloz Log",
-   "custo_estimado": 38.3
+   "custo_estimado": 38.3,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

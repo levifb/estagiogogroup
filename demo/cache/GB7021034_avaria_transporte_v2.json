@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BBS-1121",
    "transportadora": "Carga Norte",
-   "custo_estimado": 25.3
+   "custo_estimado": 25.3,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

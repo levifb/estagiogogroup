@@ -22,7 +22,8 @@
    "tipo": "nova_producao",
    "sku": "GOC-2010",
    "evitar_maquina": "IMP-04",
-   "custo_estimado": 61.88
+   "custo_estimado": 61.88,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

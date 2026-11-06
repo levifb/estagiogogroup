@@ -1,9 +1,10 @@
 # Mesa de exceções
 
-A Mesa de exceções é um agente de IA que escolhe quais 150 pedidos com problema tratar hoje e propõe o que fazer em cada um, para que a analista de exceções do Gogroup pare de trabalhar a fila por ordem de chegada e perca menos dinheiro com cancelamentos. No estoque de 30/09/2026, o plano do agente reduz a perda esperada em R$ 18.175 [N72] (15% [N73], estimativa) e manda para uma pessoa só o que é caro, sensível ou incerto.
+A Mesa de exceções é um agente de IA que escolhe quais 150 pedidos com problema tratar hoje e propõe o que fazer em cada um, para que a analista de exceções do Gogroup pare de trabalhar a fila por ordem de chegada e perca menos dinheiro com cancelamentos. No estoque acumulado até 30/09/2026, o plano do agente reduz a perda esperada em R$ 18.175 [N72] (15% [N73], estimativa). Esse ganho é de uma vez, sobre a fila que já existe, e não mensal. Os casos caros, sensíveis ou incertos vão para uma pessoa.
 
 - App: https://mesa-de-excecoes.vercel.app (sem login)
 - Feito para o Desafio AI-First do Gogroup, case Operações, com os dados sintéticos do desafio. A persona (Juliana) é fictícia, e as ações são simuladas: nada é enviado a clientes.
+- O enunciado e os CSVs do desafio não estão neste repositório, porque o enunciado pede para não compartilhá-los. Para rodar a análise, coloque os arquivos do case Operações em `dados/operacoes/`. O repositório traz só o que a interface precisa: a fila do dia, as decisões e os números agregados.
 
 **Como usar em 30 segundos:** abra o link, leia a régua do topo (ordem de chegada contra o plano do agente), clique num caso laranja da fila ("aguarda a Juliana") para ver por que ele foi para uma pessoa, e num caso verde para ver a decisão e a mensagem que o agente escreveu. O botão "Rodar o agente agora" chama o modelo ao vivo.
 
@@ -18,15 +19,15 @@ A ordem importa porque o risco de cancelamento cresce em degraus com os dias út
 ```
 dados (CSV)  ->  ficha do caso           código: prazos em dias úteis, risco, padrão
              ->  plano do dia            código: atribuição ótima casos x dias (150/dia)
-             ->  decisão                 LLM: lê a ficha, consulta ferramentas, propõe ação + mensagem (JSON validado)
+             ->  decisão                 LLM: lê a ficha, propõe ação + mensagem (JSON validado)
              ->  regras H1-H7            código: caro, sensível ou incerto vai para a Juliana, com o motivo
-             ->  execução simulada       mensagem, reenvio, cobrança da transportadora
+             ->  execução simulada       mensagem; reenvio que depende de foto espera a foto
 padrões      ->  chamado de causa raiz   código mede, LLM redige, a Juliana aprova
 ```
 
 1. Prioriza. O custo de cada caso depende do dia em que ele é tratado. Escolher o dia de cada um minimizando a perda total é um problema de atribuição (casos × vagas de 150 por dia), resolvido de forma exata pelo algoritmo húngaro (`src/negocio/priorizacao.py`). A primeira versão usava um guloso que olha só o dia seguinte, e ele não serve: um caso com 1 dia de atraso não piora amanhã, mas salta depois de amanhã (teste `test_otimo_olha_alem_de_amanha`).
-2. Decide. Para cada caso da fila, o modelo (`openai/gpt-oss-120b` no Groq) recebe a ficha montada pelo código e devolve ação, justificativa e mensagem ao cliente num JSON validado com pydantic. Ele pode consultar duas ferramentas (`historico_cliente` e `casos_parecidos`). Os números vêm todos da ficha: o modelo interpreta e não calcula.
-3. Pede ajuda. As regras de revisão humana ficam no código, não no prompt (`src/agente/regras.py`): registro incoerente, reembolso acima de R$ 228 [N13], reembolso para cliente acima de R$ 1.500, atraso sem entrega acima de 10 dias úteis, reclamação fora do prazo da política e confiança baixa do agente. O código pode mandar um caso para a Juliana, mas nunca tira um caso dela.
+2. Decide. Para cada caso da fila, o modelo (`openai/gpt-oss-120b` no Groq) recebe a ficha montada pelo código e devolve ação, justificativa e mensagem ao cliente num JSON validado com pydantic. Os números vêm todos da ficha: o modelo interpreta e não calcula. O agente tem duas ferramentas de consulta (`historico_cliente` e `casos_parecidos`), mas em 182 decisões não chamou nenhuma: a ficha já traz o que ele precisa, inclusive o padrão de causa raiz. Deixei as ferramentas no código porque com dados reais a ficha não vai trazer tudo; hoje, na prática, a decisão é uma chamada ao modelo por caso.
+3. Pede ajuda. As regras de revisão humana ficam no código, não no prompt (`src/agente/regras.py`): registro incoerente, reembolso acima de R$ 228 [N13], reenvio acima de R$ 73 [N68], reembolso para cliente acima de R$ 1.500, atraso sem entrega acima de 10 dias úteis, reclamação fora do prazo da política, confiança baixa do agente e mensagem de reenvio que não pede a foto exigida. O código pode mandar um caso para a Juliana, mas nunca tira um caso dela.
 4. Abre chamados. O código detecta onde as exceções se concentram, comparando com a taxa dos demais grupos, e o agente escreve um chamado para o dono do processo.
 
 Dois casos reais da fila:
@@ -46,21 +47,27 @@ Dois casos reais da fila:
 
 O plano captura 93% [N74] da perda que dá para evitar mudando só a ordem. A perda soma reembolso esperado, recompra perdida e custo de reenvio; o modelo e as suposições estão no [SPEC.md](SPEC.md).
 
-**Agente** (`python -m eval.eval`, prompt v2, `openai/gpt-oss-120b`, resultado em `eval/resultados/2026-11-05_1907_v2.json`):
+**Agente** (`python -m eval.eval`, prompt v2, `openai/gpt-oss-120b`; resultado ao vivo em `eval/resultados/2026-11-05_1907_v2.json` e, com as regras atuais reaplicadas às mesmas decisões, em `eval/resultados/2026-11-06_0955_v2_demo.json`):
 
-| Medida | Resultado |
-|---|---|
-| Casos de risco que foram para a Juliana | 4 de 4 |
-| Ação certa pela política | 33 de 33 |
-| Automação simples sem IA (ação fixa por tipo, mesmas regras) | 26 de 33 |
-| Padrão de causa raiz identificado | 11 de 11, nenhum inventado em 22 casos sem padrão |
-| Mensagens sem problema nas checagens automáticas | 33 de 33 |
-| JSON válido na primeira tentativa | 33 de 33 |
-| Casos adversariais (`python -m eval.adversariais`) | 4 de 4 |
+| Medida | Resultado | Quem faz |
+|---|---|---|
+| Casos de risco que foram para a Juliana | 5 de 5 | código (regras H1, H2b e H4) |
+| Ação certa pela política | 33 de 33 | modelo, conferido pelas regras |
+| Tabela de política escrita em código (sem modelo) | 33 de 33 | código |
+| Automação ingênua (ação fixa por tipo) | 26 de 33 | código |
+| Mensagens sem problema nas checagens automáticas | 33 de 33 | modelo |
+| JSON válido na primeira tentativa | 33 de 33 | modelo |
+| Casos adversariais (`python -m eval.adversariais`) | 4 de 4 | modelo (3) e código (1) |
 
-Na fila do dia inteira, com 150 [N100] casos decididos, 145 [N101] decisões batem com a tabela de política do SPEC, 148 [N103] das 149 mensagens passam nas checagens automáticas e 3 [N102] casos foram para a Juliana. Essa conferência é automática, contra a mesma tabela que propôs o gabarito (`analises/a06_fila_do_dia.py`).
+O gabarito tem 33 casos sorteados com semente fixa, cobrindo os 11 tipos de exceção e os casos difíceis. Os rótulos foram propostos pela própria tabela de política (`eval/montar_gabarito.py`) e ainda aguardam minha revisão linha a linha. Por isso a tabela em código acerta 33 de 33 por construção, e acertar a ação não prova, sozinho, que o modelo é necessário: para os casos que a política já prevê, um `if` faz o mesmo trabalho.
 
-Leio esse 100% com cautela. O gabarito tem 33 casos sorteados com semente fixa, cobrindo os 11 tipos de exceção e os casos difíceis. Os rótulos foram propostos a partir da tabela de política do SPEC e ainda aguardam minha revisão linha a linha. A política é clara e o prompt a explica, então acertar a ação é o mínimo. Onde a IA faz diferença é nos 7 casos que a automação por tipo erra (atraso já entregue, atraso dentro do SLA, caso parado aguardando o cliente) e na mensagem ao cliente. Por isso o eval também confere a mensagem (datas e valores precisam estar na ficha, sem jargão interno, assinatura da marca certa, pedido de foto quando a política exige) e testa casos adversariais: uma instrução injetada no nome do produto, uma ficha contraditória e um tipo que a política não cobre.
+O que o modelo faz e o código não faz:
+- escreve a mensagem para o cliente de cada caso, com a data e o pedido certos (33 de 33 sem problema nas checagens);
+- lida com o que a tabela não prevê: num tipo de exceção que não existe na política, a tabela quebra e o modelo pede revisão (caso adversarial A3);
+- ignora uma instrução injetada no nome do produto (caso A1);
+- escreve a justificativa e os chamados de causa raiz em linguagem que o dono do processo entende.
+
+Na fila do dia inteira, com 150 [N100] casos decididos, 144 [N101] decisões batem com a tabela de política, 147 [N103] das 149 mensagens passam nas checagens automáticas e 9 [N102] casos foram para a Juliana. Essa conferência é automática, contra a mesma tabela (`analises/a06_fila_do_dia.py`). Uma das 6 divergências é o GB7000254: a regra H7 mandou o caso para a Juliana porque o modelo tinha dispensado a foto do cliente.
 
 ## O que está causando as exceções
 
@@ -87,10 +94,12 @@ Construí o projeto com o Claude Code. Cada etapa passa por teste, eval ou cruza
 - Os exemplos do prompt saíram com 5 fatos escritos de memória pela IA (datas, receita de cliente, marcas). Cada exemplo foi conferido contra a ficha real antes da primeira chamada ao modelo.
 - O primeiro eval deu 100%, o que levantou suspeita. A checagem automática de mensagens achou um erro do modelo (pediu "foto ou endereço" num atraso) e virou o prompt v2. Um caso adversarial mostrou que o modelo não percebia uma ficha contraditória, e essa checagem foi para o código.
 - No primeiro teste do link publicado, o erro do Groq voltava cru ao navegador, com o id da organização da conta. Agora a mensagem é genérica e o detalhe fica no log do servidor.
+- Criei um avaliador cego (`.claude/agents/recrutador-gogroup.md`): um agente que avalia só o link, o repositório e o enunciado, como a banca faria. Ele achou 3 problemas que meus testes não pegaram. As ferramentas do agente nunca eram chamadas e o README dizia o contrário. O 20b disse a um cliente que ele não precisava mandar foto, e o checador de mensagens deixou passar porque só procurava a palavra "foto". E havia 52 reenvios automáticos sem limite de valor. Viraram as regras H2b e H7 (com testes), a correção do checador e esta seção de resultados, que agora separa o que é do código e o que é do modelo.
 
 ## Como rodar
 
 ```bash
+# antes: copie os arquivos do case Operações do desafio para dados/operacoes/
 pip install -r requirements-dev.txt
 cp .env.example .env              # coloque GROQ_API_KEY
 python -m pytest                  # testes de calendário, risco, priorização, regras e esquemas
@@ -117,8 +126,9 @@ Cada número entre colchetes neste README, como [N01], está em [docs/NUMEROS.md
 ## Limitações e próximos passos
 
 - Ações simuladas: falta integrar com o envio de mensagens e com a abertura de reenvio.
-- O ganho em R$ é estimativa de modelo (tabela de cancelamento e recompra do `parametros.md`), não medição.
+- O ganho em R$ é estimativa de modelo (tabela de cancelamento e recompra do `parametros.md`), não medição. E ele é de uma vez, sobre a fila acumulada. Como abrem de 33 [N06] a 42 [N07] exceções por dia e o time trata 150, depois que o estoque zera a ordem pesa menos. O ganho recorrente viria do replanejamento diário e das mudanças de processo (430 [N97] exceções evitáveis por mês), e não foi estimado em R$.
+- O plano é escolhido e avaliado pela mesma função de perda. O ganho depende da suposição S2 (tratar o caso trava o atraso), que só um piloto mede.
 - O gabarito precisa da minha revisão e de mais casos difíceis vindos de exceções reais.
-- Os dois modelos às vezes confundem "7 dias do recebimento" com dias desde a abertura do caso e mandam para a Juliana um reenvio que poderia ser automático. O erro vai no sentido seguro. A correção é tirar essa regra do prompt, porque o código já a verifica (regra H5), e rodar o eval de novo.
+- Os dois modelos às vezes confundem "7 dias do recebimento" com dias desde a abertura do caso. Na maioria das vezes isso manda para a Juliana um reenvio que poderia ser automático; no GB7000254 levou o modelo a dispensar a foto, e quem segurou foi a regra H7. A correção é tirar essa regra do prompt, porque o código já a verifica (regra H5), e rodar o eval de novo.
 - Fila com dois modelos: o limite diário do plano gratuito acabou no meio do lote, e parte da fila foi decidida pelo `openai/gpt-oss-20b`. Antes de usá-lo, ele passou pelo mesmo eval (`eval/resultados/2026-11-05_2016_v2_gpt-oss-20b.json`): mandou para a pessoa os 4 de 4 casos de risco e acertou a ação em 31 de 33, e os 2 erros foram envios desnecessários à pessoa. A tela mostra qual modelo decidiu cada caso.
 - Próximo passo: replanejar a cada dia com as exceções novas e medir o acerto do agente contra a decisão final da analista.

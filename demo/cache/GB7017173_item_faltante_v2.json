@@ -11,19 +11,13 @@
   "precisa_humano": false,
   "motivo_humano": null
  },
- "acao_final": "reenviar",
- "vai_para_humano": false,
- "motivo_humano": null,
- "regra_aplicada": null,
+ "acao_final": "escalar_humano",
+ "vai_para_humano": true,
+ "motivo_humano": "reenvio com custo estimado de R$ 73,30, acima do limite de R$ 73,21",
+ "regra_aplicada": "H2b",
  "artefato": {
-  "simulado": true,
-  "mensagem_cliente": "Olá! Sentimos muito pelo item que faltou no seu pedido. Vamos reenviar sem custo; por favor, envie uma foto do que recebeu para confirmarmos. Assim que recebermos, faremos o envio. Equipe By Samia",
-  "ordem": {
-   "tipo": "reenvio",
-   "sku": "BSM-1027",
-   "transportadora": "Entrega Já",
-   "custo_estimado": 73.3
-  }
+  "proposta_do_agente": "reenviar",
+  "mensagem_rascunho": "Olá! Sentimos muito pelo item que faltou no seu pedido. Vamos reenviar sem custo; por favor, envie uma foto do que recebeu para confirmarmos. Assim que recebermos, faremos o envio. Equipe By Samia"
  },
  "ficha": {
   "data_referencia": "30/09/2026",
@@ -99,5 +93,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

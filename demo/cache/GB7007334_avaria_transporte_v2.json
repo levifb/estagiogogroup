@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "RTU-1090",
    "transportadora": "Carga Norte",
-   "custo_estimado": 64.29
+   "custo_estimado": 64.29,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

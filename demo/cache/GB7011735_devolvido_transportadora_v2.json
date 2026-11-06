@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "KSH-1004",
    "transportadora": "Rota Express",
-   "custo_estimado": 18.59
+   "custo_estimado": 18.59,
+   "situacao": "liberado"
   }
  },
  "ficha": {

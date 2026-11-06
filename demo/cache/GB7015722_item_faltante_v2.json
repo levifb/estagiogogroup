@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BBS-1092",
    "transportadora": "Carga Norte",
-   "custo_estimado": 47.94
+   "custo_estimado": 47.94,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

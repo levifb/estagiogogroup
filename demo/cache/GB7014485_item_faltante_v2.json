@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "LSC-1071",
    "transportadora": "Entrega Já",
-   "custo_estimado": 31.94
+   "custo_estimado": 31.94,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2003",
    "transportadora": "Carga Norte",
-   "custo_estimado": 55.52
+   "custo_estimado": 55.52,
+   "situacao": "liberado"
   }
  },
  "ficha": {

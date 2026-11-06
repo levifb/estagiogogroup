@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BBS-1181",
    "transportadora": "Entrega Já",
-   "custo_estimado": 37.08
+   "custo_estimado": 37.08,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

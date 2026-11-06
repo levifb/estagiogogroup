@@ -22,7 +22,8 @@
    "tipo": "nova_producao",
    "sku": "GOC-2002",
    "evitar_maquina": "IMP-01",
-   "custo_estimado": 42.49
+   "custo_estimado": 42.49,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

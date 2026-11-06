@@ -1,6 +1,6 @@
 # Estrutura do README
 
-O README faz o papel do pitch: a banca só vê o link, o repositório e, talvez, uma entrevista depois. Seções, nesta ordem:
+O README faz o papel do pitch: a banca só vê o link e o repositório. Seções, nesta ordem:
 
 1. **Frase de pitch** na primeira linha: "[Nome] é um agente de IA que [ação no fluxo], para que [persona] [resultado com número]".
 2. **Links:** app publicado e como usar em 30 segundos (o que clicar primeiro).
@@ -13,4 +13,4 @@ O README faz o papel do pitch: a banca só vê o link, o repositório e, talvez,
 9. **Com dados reais:** que fonte substitui cada CSV (OMS, ERP, API das transportadoras, CRM), o volume esperado, o arquivo a trocar (`src/dados/fonte.py`) e os cuidados (LGPD nos dados de cliente, permissões, limite de requisições do modelo).
 10. **Limitações e próximos passos:** o que é simulado, o que falta para produção, o que faria com mais uma semana.
 
-Regras de estilo: frases diretas, números com fonte, nada de adjetivo de vendedor. Dados sintéticos e persona fictícia aparecem declarados. Passe tudo pela skill `humanizar`.
+Regras de estilo: frases diretas, números com fonte, nada de adjetivo de vendedor. Dados sintéticos e persona fictícia aparecem declarados.

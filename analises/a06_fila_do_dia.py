@@ -41,7 +41,7 @@ def calcular() -> list[Numero]:
     return [
         Numero("N100", n, br_int(n), f"casos da fila do dia com decisão do modelo (de {len(fila)}); por modelo: {modelos}", S),
         Numero("N101", ok, br_int(ok), "decisões da fila do dia que batem com a tabela de política do SPEC (checagem automática)", S),
-        Numero("N102", humano, br_int(humano), "casos da fila do dia enviados à analista pelas regras H1–H6", S),
+        Numero("N102", humano, br_int(humano), "casos da fila do dia enviados à analista pelas regras H1–H7", S),
         Numero("N103", msg_ok, br_int(msg_ok), f"mensagens ao cliente da fila do dia sem problema nas checagens automáticas (de {com_msg})", S),
     ]
 

@@ -13,7 +13,7 @@
  },
  "acao_final": "escalar_humano",
  "vai_para_humano": true,
- "motivo_humano": "13 dias úteis de atraso sem entrega; decidir entre reenvio e reembolso",
+ "motivo_humano": "13 dias úteis de atraso sem entrega; decidir entre reenviar e reembolsar",
  "regra_aplicada": "H4",
  "artefato": {
   "proposta_do_agente": "acionar_transportadora",
@@ -98,5 +98,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

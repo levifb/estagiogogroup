@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "KSH-1016",
    "transportadora": "Postal Nacional",
-   "custo_estimado": 27.44
+   "custo_estimado": 27.44,
+   "situacao": "liberado"
   }
  },
  "ficha": {

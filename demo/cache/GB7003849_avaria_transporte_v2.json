@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "LSC-1132",
    "transportadora": "Veloz Log",
-   "custo_estimado": 44.22
+   "custo_estimado": 44.22,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

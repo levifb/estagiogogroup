@@ -20,6 +20,7 @@ def calcular() -> list[Numero]:
     tot = {k: sum(p[k] for p in p0) for k in ("reembolso", "recompra", "resolucao", "total")}
     espera1 = np.array([custo_de_espera(c, 0, 1) for c in casos])
     espera5 = np.array([custo_de_espera(c, 0, 5) for c in casos])
+    custo_reenvio_p95 = float((0.24 * df["valor"] + df["custo_medio_frete"]).quantile(0.95))
     entregue_atraso = int(((df["tipo_excecao"] == "atraso_entrega") & df["entregue"]).sum())
     return [
         Numero("N60", tot["total"], br_reais(tot["total"]),
@@ -36,6 +37,8 @@ def calcular() -> list[Numero]:
                "quanto a perda esperada total sobe se nenhuma exceção for tratada amanhã (1 dia útil a mais)", S, True),
         Numero("N66", espera5.sum(), br_reais(espera5.sum()),
                "quanto a perda esperada total sobe se nenhuma exceção for tratada por 5 dias úteis", S, True),
+        Numero("N68", custo_reenvio_p95, br_reais(custo_reenvio_p95),
+               "percentil 95 do custo de reenvio (24% do valor + frete médio) nas 2.000 exceções; acima disso o reenvio vai para a analista (regra H2b)", S),
         Numero("N67", entregue_atraso, br_int(entregue_atraso),
                "atrasos já entregues: o atraso parou de crescer, então tratar hoje ou depois não muda o risco", S),
     ]

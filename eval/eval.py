@@ -20,6 +20,7 @@ from src.agente.ficha import montar_ficha  # noqa: E402
 from src.agente.llm import modelo  # noqa: E402
 from src.agente.pipeline import carregar_prompt, processar  # noqa: E402
 from src.agente.regras import regra_humano  # noqa: E402
+from eval.montar_gabarito import rotular  # noqa: E402
 from src.negocio.risco import ACAO_PADRAO  # noqa: E402
 
 
@@ -34,7 +35,7 @@ def linha_de_base(g: dict) -> tuple[str, bool]:
 
 def _decisao_fixa(acao: str):
     from src.agente.esquemas import Decisao
-    return Decisao(acao=acao, justificativa="linha de base sem LLM", mensagem_cliente="(sem mensagem)",
+    return Decisao(acao=acao, justificativa="linha de base sem LLM", mensagem_cliente="(modelo fixo de mensagem, com pedido de foto)",
                    confianca="alta", precisa_humano=False)
 
 
@@ -76,6 +77,7 @@ def main():
             "mensagem": d.mensagem_cliente if d else None,
             "msg_falhas": checar(r.ficha, d.acao.value, d.mensagem_cliente) if d else [],
             "base_acao": base_acao, "base_humano": base_humano,
+            "politica_acao": rotular(montar_ficha(g["order_id"]))["acao_esperada"],
         })
         print(f"[{i:2}/{len(gab)}] {g['order_id']} {g['tipo_excecao']:25} esperado={g['acao_esperada']:22} obtido={r.acao_final.value:22} {r.fonte}", flush=True)
 
@@ -83,6 +85,7 @@ def main():
     exata = sum(l["obtido"] == l["esperado"] for l in linhas)
     aceit = sum(l["obtido"] in l["aceitaveis"] for l in linhas)
     base_ok = sum(l["base_acao"] in l["aceitaveis"] for l in linhas)
+    politica_ok = sum(l["politica_acao"] in l["aceitaveis"] for l in linhas)
     deve = [l for l in linhas if l["humano_esperado"]]
     foi = [l for l in linhas if l["humano_obtido"]]
     vp = sum(l["humano_esperado"] and l["humano_obtido"] for l in linhas)
@@ -100,7 +103,7 @@ def main():
     falhas_msg = Counter(f for l in linhas for f in l["msg_falhas"])
 
     resumo = {
-        "acao_exata": exata, "acao_aceitavel": aceit, "linha_de_base_aceitavel": base_ok, "n": n,
+        "acao_exata": exata, "acao_aceitavel": aceit, "linha_de_base_aceitavel": base_ok, "tabela_politica_aceitavel": politica_ok, "n": n,
         "recall_humano": [vp, len(deve)], "precisao_humano": [vp, len(foi)],
         "padrao_certo": [pad_ok, len(com_pad)], "padrao_falso": [pad_falso, len(sem_pad)],
         "json_1a_tentativa": [json1, vivos], "resolvidos_sozinhos": [auto, n],
@@ -112,7 +115,8 @@ def main():
     print(f"RECALL 'deve ir para humano':  {pct(vp, len(deve))}   <- erro caro: caso de risco tratado sozinho")
     print(f"Precisão do envio ao humano:   {pct(vp, len(foi))}")
     print(f"Ação final aceitável:          {pct(aceit, n)}   (exata: {pct(exata, n)})")
-    print(f"Linha de base sem LLM:         {pct(base_ok, n)}")
+    print(f"Linha de base sem LLM:         {pct(base_ok, n)}   (ação fixa por tipo)")
+    print(f"Tabela de política em código:  {pct(politica_ok, n)}   (rotular(); o gabarito foi proposto por ela, então acerta por construção)")
     print(f"Padrão de causa raiz certo:    {pct(pad_ok, len(com_pad))}   padrão inventado: {pct(pad_falso, len(sem_pad))}")
     print(f"JSON válido na 1ª tentativa:   {pct(json1, vivos)}")
     print(f"Mensagens sem problema:        {pct(msg_ok, len(com_msg))}   {dict(falhas_msg) or ''}")

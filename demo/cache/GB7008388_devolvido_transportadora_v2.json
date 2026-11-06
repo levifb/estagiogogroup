@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "APC-1005",
    "transportadora": "Entrega Já",
-   "custo_estimado": 38.89
+   "custo_estimado": 38.89,
+   "situacao": "liberado"
   }
  },
  "ficha": {

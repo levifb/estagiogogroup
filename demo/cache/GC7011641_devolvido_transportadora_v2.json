@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2002",
    "transportadora": "Carga Norte",
-   "custo_estimado": 40.86
+   "custo_estimado": 40.86,
+   "situacao": "liberado"
   }
  },
  "ficha": {

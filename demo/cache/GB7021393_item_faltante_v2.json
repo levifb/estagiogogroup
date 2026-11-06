@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BSM-1019",
    "transportadora": "Veloz Log",
-   "custo_estimado": 19.86
+   "custo_estimado": 19.86,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

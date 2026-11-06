@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2009",
    "transportadora": "Entrega Já",
-   "custo_estimado": 83.57
+   "custo_estimado": 83.57,
+   "situacao": "liberado"
   }
  },
  "ficha": {
@@ -99,5 +100,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

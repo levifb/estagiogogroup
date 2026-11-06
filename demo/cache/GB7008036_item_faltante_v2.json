@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "RTU-1070",
    "transportadora": "Rota Express",
-   "custo_estimado": 24.6
+   "custo_estimado": 24.6,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

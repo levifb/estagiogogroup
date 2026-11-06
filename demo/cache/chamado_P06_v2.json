@@ -1,0 +1,28 @@
+{
+ "titulo": "Alta taxa de rupturas pós‑venda na marca Kokeshi (23% das exceções)",
+ "hipotese_causa": "É provável que o planejamento de compras da Kokeshi esteja subdimensionado, já que a taxa de rupturas pós‑venda está 6,5 vezes acima dos demais grupos. Poderia ser confirmado ao comparar o estoque de segurança planejado com o consumo real dos SKUs afetados.",
+ "acao_proposta": "Revisar o estoque de segurança dos SKUs da Kokeshi e ajustar o pedido mínimo para cobrir a demanda atual. Priorizar a negociação com fornecedores para acelerar reposição dos itens com maior número de rupturas. Atualizar o forecast de demanda com os últimos 8 semanas de exceções para melhorar a acurácia.",
+ "como_medir": "Acompanhar a quantidade de exceções de ruptura pós‑venda da Kokeshi por semana; sucesso será reduzir de 59 exceções (23% do total) para menos de 30 exceções em 30 dias, mantendo o valor pago dos pedidos afetados abaixo de R$ 4.233.",
+ "padrao_id": "P06",
+ "dono": "Compras / planejamento",
+ "evidencia": {
+  "grupo": "marca: Kokeshi",
+  "tipos de exceção": "ruptura_pos_venda",
+  "exceções deste tipo no grupo": "59 de 257 exceções do grupo (23%)",
+  "mesma proporção nos demais grupos": "4%",
+  "vezes acima dos demais": "6,5",
+  "exceções além do esperado": "50",
+  "valor pago dos pedidos afetados": "R$ 4.233",
+  "exceções por semana do pedido": {
+   "2026-08-03": 12,
+   "2026-08-10": 7,
+   "2026-08-17": 9,
+   "2026-08-24": 6,
+   "2026-08-31": 8,
+   "2026-09-07": 6,
+   "2026-09-14": 4,
+   "2026-09-21": 7
+  }
+ },
+ "precisa_humano": true
+}

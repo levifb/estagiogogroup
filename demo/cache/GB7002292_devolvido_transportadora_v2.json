@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "LSC-1078",
    "transportadora": "Veloz Log",
-   "custo_estimado": 72.49
+   "custo_estimado": 72.49,
+   "situacao": "liberado"
   }
  },
  "ficha": {

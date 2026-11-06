@@ -1,12 +1,12 @@
 # CLAUDE.md: Mesa de Exceções (Desafio AI-First Gogroup, case Operações)
 
-Projeto do Levi (estudante de CC na UFC) para a etapa 3 do processo seletivo de estágio em IA do Gogroup. Enunciado em `Desafio_AI-First_Gogroup.pdf`; dados em `dados/operacoes/`. Os outros dois cases do desafio foram tirados do projeto de propósito; não os procure.
+Projeto do Levi (estudante de CC na UFC) para a etapa 3 do processo seletivo de estágio em IA do Gogroup. Enunciado em `Desafio_AI-First_Gogroup.pdf` e dados em `dados/operacoes/`, ambos só locais. Os outros dois cases do desafio foram tirados do projeto de propósito; não os procure.
 
 ## Decisões já tomadas
 
 - **Case:** Operações. **Recorte:** mesa de exceções do dia. O código prioriza a fila dentro da capacidade de 150 tratativas/dia; um agente de IA investiga cada caso da fila, propõe a ação e redige a mensagem; um investigador de causa raiz agrupa exceções com a mesma origem e redige o chamado para o dono do processo. Uma pessoa aprova o que é caro, arriscado ou incerto.
 - **Prazo:** 10/11/2026. Hoje é o que `date` disser; converta datas relativas em absolutas em todo registro.
-- **Dados no repositório:** o Levi decidiu versionar os CSVs sintéticos. Não reabra essa discussão.
+- **Dados fora do repositório:** o enunciado pede para não compartilhar o PDF nem os dados. Eles ficam em `dados/operacoes/` só localmente (no `.gitignore`); o repositório traz apenas os derivados que a interface usa.
 - **Modelo:** Groq gratuito (Llama), chave em `GROQ_API_KEY` no `.env` (no `.gitignore`). Nenhuma chave no código nem no front.
 - **Entrega:** link público sem login (Vercel) + repositório público no GitHub.
 - **Stack:** núcleo em Python 3.12 (pandas, pydantic, SDK `groq`), API FastAPI como função Python da Vercel em `api/`, front React + TypeScript (Vite) em `web/`. Trocar de stack exige ok do Levi.
@@ -74,6 +74,6 @@ Etapas do agente: **ficha do caso** (código) → **investigação** (LLM com fe
 
 - Português, respostas curtas. Antes de uma mudança grande, mostre o plano em poucas linhas e espere o ok; mudança pequena, faça e mostre.
 - Ao fechar uma etapa: 2 ou 3 linhas com o que mudou, como foi verificado e o próximo passo.
-- Explique decisões técnicas de forma que ele consiga repetir numa entrevista; ele precisa entender tudo o que está no repositório.
-- Todo texto que a banca lê (README, textos da interface, SPEC.md) passa pela skill `humanizar` antes de entrar no repositório. Estilo: frases diretas, fatos e números do projeto, episódios reais do LOG.md.
+- Toda decisão técnica vem com o porquê e a alternativa descartada. O Levi revisa e decide; nada entra no repositório sem ele entender e concordar.
+- Textos para a banca (README, interface, SPEC.md): frases diretas, fatos e números do projeto e episódios reais do LOG.md, sem adjetivo de vendedor.
 - Se ele pedir algo que tira pontos (número sem fonte, troca de stack tarde, funcionalidade fora da demo perto do prazo), avise em uma frase e deixe ele decidir.

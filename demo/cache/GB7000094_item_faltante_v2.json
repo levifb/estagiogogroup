@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BBS-1120",
    "transportadora": "Veloz Log",
-   "custo_estimado": 55.76
+   "custo_estimado": 55.76,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

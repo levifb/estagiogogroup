@@ -73,10 +73,12 @@ def main():
     shutil.copy(RAIZ / "docs" / "numeros.json", WEB / "numeros.json")
     resultados = sorted((RAIZ / "eval" / "resultados").glob("*_v*.json"))
     # Eval principal: o do modelo padrão (arquivos de outros modelos levam o nome do modelo no fim, ex.: _gpt-oss-20b).
-    vivos = [r for r in resultados if "_demo" not in r.name and r.stem.split("_")[-1].startswith("v")]
+    # O mais recente do modelo principal: ao vivo, ou "demo" (decisões gravadas com as regras reaplicadas).
+    vivos = [r for r in resultados if r.stem.replace("_demo", "").split("_")[-1].startswith("v")]
     if vivos:
         ult = json.loads(vivos[-1].read_text(encoding="utf-8"))
         _grava(WEB / "eval.json", {"arquivo": vivos[-1].name, "versao_prompt": ult["versao_prompt"],
+                                   "fonte": "decisões gravadas, regras reaplicadas" if "_demo" in vivos[-1].name else "ao vivo",
                                    "modelo": ult["modelo"], "resumo": ult["resumo"]})
 
     _grava(API / "fichas.json", fichas)

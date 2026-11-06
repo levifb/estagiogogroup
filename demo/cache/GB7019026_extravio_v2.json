@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "LSC-1010",
    "transportadora": "Carga Norte",
-   "custo_estimado": 30.46
+   "custo_estimado": 30.46,
+   "situacao": "liberado"
   }
  },
  "ficha": {
@@ -99,5 +100,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

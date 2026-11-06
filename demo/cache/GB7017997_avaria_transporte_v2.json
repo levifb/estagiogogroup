@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "LSC-1085",
    "transportadora": "Carga Norte",
-   "custo_estimado": 42.08
+   "custo_estimado": 42.08,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2007",
    "transportadora": "Postal Nacional",
-   "custo_estimado": 51.28
+   "custo_estimado": 51.28,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

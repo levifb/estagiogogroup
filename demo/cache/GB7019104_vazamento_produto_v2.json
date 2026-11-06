@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "APC-1067",
    "transportadora": "Veloz Log",
-   "custo_estimado": 69.71
+   "custo_estimado": 69.71,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

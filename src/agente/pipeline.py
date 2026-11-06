@@ -47,12 +47,15 @@ def _artefato(acao: Acao, ficha: dict, d: Decisao) -> dict:
     """Execução simulada: o que o sistema faria de verdade, marcado como simulado."""
     ped, ent, custos = ficha["pedido"], ficha["entrega"], ficha["custos_acoes"]
     base = {"simulado": True, "mensagem_cliente": d.mensagem_cliente}
+    # Política: avaria, vazamento, faltante e personalização só são refeitos depois da foto do cliente.
+    aguarda_foto = ficha["excecao"]["tipo"] in regras.EXIGE_FOTO
     if acao == Acao.reenviar:
         base["ordem"] = {"tipo": "reenvio", "sku": ped["sku"], "transportadora": ent["transportadora"],
-                         "custo_estimado": custos["reenviar"]}
+                         "custo_estimado": custos["reenviar"],
+                         "situacao": "aguardando a foto do cliente" if aguarda_foto else "liberado"}
     elif acao == Acao.refazer_personalizacao:
         base["ordem"] = {"tipo": "nova_producao", "sku": ped["sku"], "evitar_maquina": ped["maquina"],
-                         "custo_estimado": custos["refazer_personalizacao"]}
+                         "custo_estimado": custos["refazer_personalizacao"], "situacao": "aguardando a foto do cliente"}
     elif acao == Acao.reembolsar:
         base["ordem"] = {"tipo": "reembolso", "valor": ped["valor_pago"]}
     elif acao == Acao.acionar_transportadora:
@@ -75,6 +78,12 @@ def _montar(order_id: str, ficha: dict, decisao, rastro, fonte, versao, erro=Non
                      decisao_modelo=decisao, acao_final=acao_final, vai_para_humano=humano,
                      motivo_humano=motivo, regra_aplicada=regra[0] if regra else None,
                      artefato=artefato, ficha=ficha, rastro=rastro, versao_prompt=versao, erro=erro)
+
+
+def reaplicar_regras(r: Resultado) -> Resultado:
+    """Recalcula regras e execução de um resultado gravado, sem chamar o modelo."""
+    novo = _montar(r.order_id, r.ficha, r.decisao_modelo, r.rastro, r.fonte, r.versao_prompt, erro=r.erro)
+    return novo.model_copy(update={"modelo": r.modelo or "openai/gpt-oss-120b"})
 
 
 def processar(order_id: str, modo: Literal["ao_vivo", "demo"] = "demo", gravar: bool = True) -> Resultado:

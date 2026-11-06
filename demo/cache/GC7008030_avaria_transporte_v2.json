@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2010",
    "transportadora": "Veloz Log",
-   "custo_estimado": 47.1
+   "custo_estimado": 47.1,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

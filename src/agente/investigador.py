@@ -20,33 +20,52 @@ _DESCRICAO_DIM = {
 }
 
 
+def _pct(x: float) -> str:
+    return f"{100 * x:.0f}%"
+
+
+def _reais(v: float) -> str:
+    return "R$ " + f"{v:,.0f}".replace(",", ".")
+
+
 def evidencias() -> list[dict]:
     """Evidência de cada padrão, toda calculada pelo código (src/dados/padroes.py)."""
     df = base_trabalho()
     out = []
     for p in padroes():
         semanas = {k.split("/")[0]: v for k, v in p.semanas.items()}
-        out.append({
-            "padrao_id": p.id, "dono": DONOS.get(p.dimensao, "Operações"),
-            "evidencia": {
-                "grupo": f"{_DESCRICAO_DIM.get(p.dimensao, p.dimensao)}: {p.valor}",
-                "tipos_de_excecao": p.tipos, "excecoes_do_padrao": p.casos, "excecoes_no_grupo": p.exc_no_grupo,
-                "proporcao_no_grupo": round(p.taxa_grupo, 3), "proporcao_nos_demais": round(p.taxa_base, 3),
-                "vezes_acima_da_base": round(p.razao, 1), "excecoes_acima_do_esperado": round(p.excesso),
-                "valor_pago_dos_pedidos": round(p.valor_total, 2),
-                "excecoes_por_semana_do_pedido": semanas,
-            },
-        })
+        linhas = df[df["order_id"].isin(p.order_ids)]
+        ev = {
+            "grupo": f"{_DESCRICAO_DIM.get(p.dimensao, p.dimensao)}: {p.valor}",
+            "tipos de exceção": ", ".join(p.tipos),
+            "exceções deste tipo no grupo": f"{p.casos} de {p.exc_no_grupo} exceções do grupo ({_pct(p.taxa_grupo)})",
+            "mesma proporção nos demais grupos": _pct(p.taxa_base),
+            "vezes acima dos demais": f"{p.razao:.1f}".replace(".", ","),
+            "exceções além do esperado": str(round(p.excesso)),
+            "valor pago dos pedidos afetados": _reais(p.valor_total),
+            "exceções por semana do pedido": semanas,
+        }
+        # Evidência específica de cada tipo de padrão: é o que aponta a causa provável.
+        if p.dimensao in ("cd", "turno", "cd+turno") and "item_faltante" in p.tipos:
+            ev["pedidos com brinde entre os itens faltantes do grupo"] = _pct(linhas["brinde_no_pedido"].mean())
+            ev["pedidos com brinde entre todas as exceções"] = _pct(df["brinde_no_pedido"].mean())
+        if p.dimensao.startswith("transportadora"):
+            ent = df[df["entregue"]]
+            grupo = ent[ent["order_id"].isin(p.order_ids)]
+            if len(grupo):
+                ev["dias úteis médios além do SLA nas entregas do grupo"] = f"{grupo['atraso_du_sla'].mean():.1f}".replace(".", ",")
+                ev["dias úteis médios além do SLA nas demais entregas"] = f"{ent[~ent['order_id'].isin(p.order_ids)]['atraso_du_sla'].mean():.1f}".replace(".", ",")
+        out.append({"padrao_id": p.id, "dono": DONOS.get(p.dimensao, "Operações"), "evidencia": ev})
     atraso = df[df["tipo_excecao"] == "atraso_entrega"]
     out.append({
         "padrao_id": "P00", "dono": "TI do checkout",
         "evidencia": {
             "grupo": "cálculo da data prometida no checkout",
-            "regra_do_parametro": "1 dia útil de separação + SLA da transportadora, em dias úteis",
-            "como_o_sistema_calcula": "data do pedido + 1 + SLA em dias corridos (bate em 100% das exceções)",
-            "atrasos_registrados": int(len(atraso)),
-            "atrasos_dentro_do_sla_contratado": int((atraso["atraso_du_sla"] == 0).sum()),
-            "mediana_de_dias_que_a_promessa_antecipa": int((df["prazo_correto"] - df["data_prometida"]).dt.days.median()),
+            "regra combinada com as transportadoras": "1 dia útil de separação + SLA da transportadora, em dias úteis",
+            "como o sistema calcula hoje": "data do pedido + 1 + SLA em dias corridos (bate em 100% das exceções)",
+            "total de exceções de atraso (por todas as causas)": str(int(len(atraso))),
+            "atrasos causados por esta regra (dentro do SLA contratado, só passaram da data prometida)": str(int((atraso["atraso_du_sla"] == 0).sum())),
+            "quantos dias antes do prazo correto a promessa cai (mediana, dias corridos)": str(int((df["prazo_correto"] - df["data_prometida"]).dt.days.median())),
         },
     })
     return out

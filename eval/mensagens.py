@@ -5,6 +5,8 @@ Cada checagem devolve o nome da regra quebrada. Lista vazia = mensagem sem probl
 
 import re
 
+from src.agente.regras import mensagem_pede_foto
+
 JARGAO = re.compile(r"\bSLA\b|\bP0\d\b|padr[aã]o de causa|dias [úu]teis de atraso|probabilidade|perda esperada|"
                     r"custo de esperar|\bficha\b|escalar|\bH\d\b", re.I)
 DATA = re.compile(r"\b(\d{2}/\d{2})(?:/\d{4})?\b")
@@ -54,8 +56,8 @@ def checar(ficha: dict, acao: str, mensagem: str | None) -> list[str]:
     if any(_num(v) not in valores for v in REAIS.findall(msg)):
         falhas.append("valor_fora_da_ficha")
     tipo = ficha["excecao"]["tipo"]
-    if tipo in PEDE_FOTO and acao in ("reenviar", "refazer_personalizacao") and not re.search(r"\bfoto", msg, re.I):
-        falhas.append("nao_pediu_foto")
+    if tipo in PEDE_FOTO and acao in ("reenviar", "refazer_personalizacao") and not mensagem_pede_foto(msg):
+        falhas.append("nao_pediu_foto")  # inclui "não precisa enviar foto"
     ent = ficha["entrega"]
     if tipo == "atraso_entrega" and not ent["entregue"] and ent["dentro_do_sla_contratado"]:
         prazo = ent["prazo_correto_pelo_sla_dias_uteis"][:5]

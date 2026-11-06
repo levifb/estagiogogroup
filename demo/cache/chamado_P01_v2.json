@@ -1,0 +1,31 @@
+{
+ "titulo": "Atrasos e rastreio parado com Rota Express no Nordeste (83% das exceções)",
+ "hipotese_causa": "É provável que a transportadora Rota Express esteja apresentando desempenho abaixo do esperado, gerando 4,7 vezes mais exceções que os demais grupos. Isso se reflete em 3,6 dias úteis médios além do SLA, comparado a 0,8 nos demais. A confirmação virá ao validar os relatórios de cumprimento de SLA da transportadora.",
+ "acao_proposta": "Agendar reunião com a Rota Express ainda esta semana para discutir o alto índice de atrasos e rastreio parado. Exigir um plano de ação com metas de redução de exceções e prazos de entrega. Implantar monitoramento diário das exceções por semana.",
+ "como_medir": "Acompanhar o número de exceções semanais (ex.: de 75 para ≤40) e a média de dias úteis além do SLA, buscando reduzir para ≤1 dia em 30 dias.",
+ "padrao_id": "P01",
+ "dono": "Gestão de transportadoras",
+ "evidencia": {
+  "grupo": "transportadora e região de destino: Rota Express | Nordeste",
+  "tipos de exceção": "atraso_entrega, rastreio_parado",
+  "exceções deste tipo no grupo": "396 de 477 exceções do grupo (83%)",
+  "mesma proporção nos demais grupos": "18%",
+  "vezes acima dos demais": "4,7",
+  "exceções além do esperado": "311",
+  "valor pago dos pedidos afetados": "R$ 44.164",
+  "exceções por semana do pedido": {
+   "2026-07-27": 5,
+   "2026-08-03": 35,
+   "2026-08-10": 33,
+   "2026-08-17": 26,
+   "2026-08-24": 40,
+   "2026-08-31": 75,
+   "2026-09-07": 66,
+   "2026-09-14": 60,
+   "2026-09-21": 56
+  },
+  "dias úteis médios além do SLA nas entregas do grupo": "3,6",
+  "dias úteis médios além do SLA nas demais entregas": "0,8"
+ },
+ "precisa_humano": true
+}

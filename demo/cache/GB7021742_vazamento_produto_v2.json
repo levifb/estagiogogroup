@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "BSM-1038",
    "transportadora": "Postal Nacional",
-   "custo_estimado": 70.07
+   "custo_estimado": 70.07,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "YNZ-1028",
    "transportadora": "Veloz Log",
-   "custo_estimado": 22.87
+   "custo_estimado": 22.87,
+   "situacao": "liberado"
   }
  },
  "ficha": {

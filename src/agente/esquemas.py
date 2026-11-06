@@ -48,7 +48,7 @@ class Chamado(ChamadoTexto):
     padrao_id: str
     dono: str
     evidencia: dict[str, Any]
-    precisa_humano: bool = True  # H7: todo chamado passa por uma pessoa
+    precisa_humano: bool = True  # H8: todo chamado passa por uma pessoa
 
 
 class Resultado(BaseModel):

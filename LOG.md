@@ -115,3 +115,13 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 ## 2026-11-06 09:23: erro da IA (monitor dos lotes)
 - O que aconteceu: o monitor do lote declarou "lotes encerrados" quando eles ainda estavam rodando. No Git Bash do Windows, `ps` não mostra os argumentos do processo, então a checagem pelo nome do módulo falhava.
 - O que mudou: o fim do lote passou a ser detectado pela linha final do log.
+
+## 2026-11-06 10:01: feedback (avaliador cego)
+- O avaliador cego (`.claude/agents/recrutador-gogroup.md`), que só via o link, o repositório e o enunciado, deu 7,2/10 e "avançaria para entrevista com ressalvas". As três críticas mais graves foram conferidas e procedem.
+- Ferramentas só declaradas: 0 chamadas em 182 decisões. O README passou a dizer isso e por quê (a ficha já traz o que o modelo precisa).
+- Régua circular: o gabarito foi proposto pela própria tabela de política, que acerta 33/33 sem modelo. O eval agora mostra essa linha de base ao lado da ação fixa por tipo (26/33), e o README separa o que é do código (casos de risco, padrões) do que é do modelo (mensagem, casos fora da tabela, injeção).
+- Erro do modelo que o checador deixou passar: no GB7000254 o gpt-oss-20b escreveu "Você não precisa enviar foto" e o reenvio saiu automático. O checador só procurava a palavra "foto". O que mudou: o checador detecta a dispensa da foto; a nova regra H7 manda para a analista todo reenvio cuja mensagem não pede a foto; e o reenvio que depende de foto fica "aguardando a foto do cliente". Antes → depois: N103 148 → 147 de 149.
+- Reenvio sem teto: 52 reenvios automáticos no dia. Nova regra H2b: reenvio acima do percentil 95 do custo (R$ 73,21, N68) vai para a analista. A primeira versão pegava por engano uma devolução, cujo custo é só o frete (S5), e foi corrigida. Efeito na fila: 5 casos para a analista por H2b e 1 por H7; N102 3 → 9. No gabarito, o GB7022256 passou a "deve ir para humano" (H2b); recall humano 5/5.
+- O ganho de R$ 18.175 é de uma vez, sobre o estoque acumulado; o README agora diz isso e o que seria o ganho recorrente.
+- Chamados de causa raiz: a evidência passou a ir ao modelo com nomes legíveis e com o dado específico de cada padrão (brinde no CD2, dias além do SLA na transportadora). Prompt v2 → v3. O modelo errou no P00 (chamou de "geradas pela regra" as 497 exceções de atraso, quando são 147) e inventou uma meta no P02. O v3 pede só a direção da meta e proíbe mudar o sentido dos números. No v3 o P02 deixou de citar o brinde, então a interface mostra a evidência calculada pelo código em cada chamado.
+- Enunciado e dados: tirados do repositório e do histórico (ver próxima entrada).

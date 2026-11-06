@@ -11,19 +11,13 @@
   "precisa_humano": false,
   "motivo_humano": null
  },
- "acao_final": "reenviar",
- "vai_para_humano": false,
- "motivo_humano": null,
- "regra_aplicada": null,
+ "acao_final": "escalar_humano",
+ "vai_para_humano": true,
+ "motivo_humano": "reenvio com custo estimado de R$ 109,07, acima do limite de R$ 73,21",
+ "regra_aplicada": "H2b",
  "artefato": {
-  "simulado": true,
-  "mensagem_cliente": "Olá! Sentimos muito pelo dano no seu pedido. Vamos reenviar o produto sem custo; por favor, envie uma foto do item avariado. Assim que recebermos, faremos o novo envio. Equipe Lescent",
-  "ordem": {
-   "tipo": "reenvio",
-   "sku": "LSC-1005",
-   "transportadora": "Carga Norte",
-   "custo_estimado": 109.07
-  }
+  "proposta_do_agente": "reenviar",
+  "mensagem_rascunho": "Olá! Sentimos muito pelo dano no seu pedido. Vamos reenviar o produto sem custo; por favor, envie uma foto do item avariado. Assim que recebermos, faremos o novo envio. Equipe Lescent"
  },
  "ficha": {
   "data_referencia": "30/09/2026",
@@ -104,5 +98,6 @@
   }
  ],
  "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-120b",
  "erro": null
 }

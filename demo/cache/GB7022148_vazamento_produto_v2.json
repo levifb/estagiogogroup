@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "APC-1067",
    "transportadora": "Carga Norte",
-   "custo_estimado": 26.09
+   "custo_estimado": 26.09,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

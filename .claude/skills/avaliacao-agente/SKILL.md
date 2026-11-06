@@ -53,7 +53,7 @@ Formato de cada entrada:
 - Antes → depois: (ex.: ação 21/30 → 26/30; recall humano 5/8 → 8/8)
 ```
 
-Entram: erro do modelo do produto, erro do Claude Code que o Levi ou um teste pegou, abordagem abandonada e o motivo, ajuste no gabarito. Use a data e a hora reais (`date`). Escreva no momento em que acontece, porque é daqui que saem o README e as respostas da entrevista.
+Entram: erro do modelo do produto, erro do Claude Code que o Levi ou um teste pegou, abordagem abandonada e o motivo, ajuste no gabarito. Use a data e a hora reais (`date`). Escreva no momento em que acontece, porque é daqui que sai a seção do README sobre como a IA foi conferida.
 
 ## Critérios de qualidade
 

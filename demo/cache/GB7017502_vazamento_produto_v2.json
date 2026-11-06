@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "KSH-1036",
    "transportadora": "Rota Express",
-   "custo_estimado": 43.07
+   "custo_estimado": 43.07,
+   "situacao": "aguardando a foto do cliente"
   }
  },
  "ficha": {

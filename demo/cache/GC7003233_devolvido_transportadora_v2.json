@@ -22,7 +22,8 @@
    "tipo": "reenvio",
    "sku": "GOC-2007",
    "transportadora": "Carga Norte",
-   "custo_estimado": 32.39
+   "custo_estimado": 32.39,
+   "situacao": "liberado"
   }
  },
  "ficha": {

@@ -15,6 +15,7 @@ FICHA = {
     "excecao": {"tipo": "avaria_transporte", "status": "aberta", "status_incoerente_com_tipo": False},
     "entrega": {"entregue": True, "data_entrega": "10/09/2026", "dias_uteis_atraso_vs_prometido": 3, "dias_entre_recebimento_e_reclamacao": 1},
     "cliente": {"alto_valor_acima_1500": False},
+    "custos_acoes": {"reenviar": 40.0, "refazer_personalizacao": 40.0},
 }
 
 
@@ -26,7 +27,7 @@ def ficha(**mudancas):
     return f
 
 
-def dec(acao="reenviar", confianca="alta", precisa_humano=False, motivo=None, msg="Olá! Vamos reenviar. Equipe X"):
+def dec(acao="reenviar", confianca="alta", precisa_humano=False, motivo=None, msg="Olá! Vamos reenviar. Mande uma foto do produto. Equipe X"):
     return Decisao(acao=acao, justificativa="justificativa de teste com dados", mensagem_cliente=msg,
                    confianca=confianca, precisa_humano=precisa_humano, motivo_humano=motivo)
 
@@ -93,3 +94,18 @@ def test_modo_demo_sem_cache_nao_quebra():
     versao, exemplos, _ = carregar_prompt("decisao")
     r = processar(exemplos[0], modo="demo")  # exemplos do prompt nunca são processados em lote
     assert r.vai_para_humano and r.fonte in ("sem_modelo", "cache")
+
+
+def test_h2b_reenvio_acima_do_limite():
+    assert regras.regra_humano(ficha(custos_acoes__reenviar=73.22), dec())[0] == "H2b"
+    assert regras.regra_humano(ficha(custos_acoes__reenviar=73.21), dec()) is None
+
+
+def test_h7_reenvio_sem_pedir_foto():
+    sem_foto = "Olá! Vamos reenviar sem custo. Equipe X"
+    nega_foto = "Olá! Vamos reenviar. Você não precisa enviar foto. Equipe X"  # caso real GB7000254
+    assert regras.regra_humano(ficha(), dec(msg=sem_foto))[0] == "H7"
+    assert regras.regra_humano(ficha(), dec(msg=nega_foto))[0] == "H7"
+    assert regras.regra_humano(ficha(), dec()) is None
+    f = ficha(excecao__tipo="extravio", entrega__entregue=False, entrega__data_entrega=None)
+    assert regras.regra_humano(f, dec(msg=sem_foto)) is None  # extravio não exige foto
