@@ -13,6 +13,9 @@ RAIZ = Path(__file__).resolve().parents[1]
 DADOS = Path(__file__).resolve().parent / "_dados"
 sys.path.insert(0, str(RAIZ))
 os.environ.setdefault("FERRAMENTAS_PRECALC", str(DADOS / "ferramentas.json"))
+# A tela desiste em 25 s: aqui não vale esperar a cota liberar; cada modelo tem 10 s antes do próximo.
+os.environ.setdefault("GROQ_ESPERA_MAX_S", "0")
+os.environ.setdefault("GROQ_TIMEOUT_S", "10")
 
 from fastapi import FastAPI  # noqa: E402
 from fastapi.responses import JSONResponse  # noqa: E402
@@ -33,7 +36,7 @@ def fichas() -> dict:
 
 @app.get("/api/saude")
 def saude():
-    return {"ok": True, "modelo": llm.modelo(), "chave_configurada": llm.disponivel(), "casos_na_fila": len(fichas())}
+    return {"ok": True, "modelo": llm.modelo(), "modelos_reserva": llm.cadeia()[1:], "chave_configurada": llm.disponivel(), "casos_na_fila": len(fichas())}
 
 
 @app.post("/api/processar/{order_id}")

@@ -143,3 +143,14 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 
 ## 2026-11-06 10:38: decisão (gabarito)
 - O Levi conferiu os 33 rótulos depois da revisão do Claude Code e confirmou todos. `anotado_por` passou de `claude_revisado` para `claude_revisado_por_levi`, e o README foi atualizado.
+
+## 2026-11-06 11:05: decisão (modelo de reserva)
+- Contexto: o link precisa continuar funcionando nas próximas semanas, e o Groq pode remover um modelo ou a cota do dia pode acabar.
+- O que mudou: `src/agente/llm.py` tenta `openai/gpt-oss-120b` → `openai/gpt-oss-20b` → `qwen/qwen3.8-27b`. Passa ao próximo em limite de uso (429), modelo fora do ar (5xx), modelo removido ou inexistente (400/403/404 que citam o modelo) e tempo esgotado duas vezes. Erro do próprio pedido ou chave inválida não troca de modelo, porque outro modelo falharia igual. Depois de uma troca, a decisão inteira fica no mesmo modelo. O rastro registra a troca e o resultado grava o modelo que respondeu; a API publicada espera no máximo 10 s por modelo e não espera a cota liberar.
+- Conferido antes: a listagem de modelos da conta (que não gasta cota) mostra os três. O qwen recebe os mesmos parâmetros menos o `reasoning_effort`, que é da família gpt-oss, e um bloco `<think>` na resposta é descartado antes de validar o JSON.
+- O qwen não passou pelo eval. Se ele responder, a tela mostra o nome do modelo.
+- Verificação: 11 testes novos em `tests/test_llm.py` simulam os erros do SDK sem rede; `python -m pytest`: 55 passed antes, 66 depois.
+
+## 2026-11-06 11:05: números novos
+- N104: 142 casos da fila do dia decididos sem a analista (N100 − N102). N105: 28,4 h de trabalho do time por dia que viram revisão (N104 × 12 min ÷ 60, estimativa: supõe que conferir é bem mais rápido que decidir, e isso não foi medido). N99: 7 mudanças de processo com dono (6 padrões + prazo do checkout). Entram no novo bloco de impacto da página.
+- Erro meu no caminho: a primeira definição do N105 falava em horas "da analista"; 28,4 h por dia só existem somadas no time (150 × 12 min = 30 h).

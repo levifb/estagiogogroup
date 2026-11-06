@@ -72,7 +72,10 @@ Todo número que aparece no README, na interface ou no LOG é citado pelo id des
 | N96 | R$ 389 | perda esperada por mês desses atrasos (perda média hoje R$ 5) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-06 |
 | N97 | 430 | exceções por mês evitáveis mudando o processo: (excesso dos padrões 763 + 68 atrasos falsos fora dos padrões) × 30/58 **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-06 |
 | N98 | 86 h | horas do time por mês liberadas por N97, a 12 minutos por tratativa (parametros.md) **(estimativa)** | `analises/a05_simulacao.py` | 2026-11-06 |
+| N99 | 7 | mudanças de processo propostas, cada uma com um dono: 6 padrões de causa raiz (N30) + calcular o prazo prometido em dias úteis no checkout | `analises/a05_simulacao.py` | 2026-11-06 |
 | N100 | 150 | casos da fila do dia com decisão do modelo (de 150); por modelo: gpt-oss-120b: 76, gpt-oss-20b: 74 | `analises/a06_fila_do_dia.py` | 2026-11-06 |
 | N101 | 144 | decisões da fila do dia que batem com a tabela de política do SPEC (checagem automática) | `analises/a06_fila_do_dia.py` | 2026-11-06 |
 | N102 | 8 | casos da fila do dia enviados à analista pelas regras H1–H7 | `analises/a06_fila_do_dia.py` | 2026-11-06 |
 | N103 | 147 | mensagens ao cliente da fila do dia sem problema nas checagens automáticas (de 149) | `analises/a06_fila_do_dia.py` | 2026-11-06 |
+| N104 | 142 | casos da fila do dia decididos sem a analista = N100 − N102 (150 − 8); 41 deles são reenvios que esperam a foto do cliente para sair | `analises/a06_fila_do_dia.py` | 2026-11-06 |
+| N105 | 28,4 h | horas de trabalho do time por dia que deixam de ser decisão e viram revisão: N104 × 12 min por tratativa (parametros.md) ÷ 60 = 142 × 12 ÷ 60. Supõe que conferir uma decisão pronta é bem mais rápido que decidir; não foi medido **(estimativa)** | `analises/a06_fila_do_dia.py` | 2026-11-06 |

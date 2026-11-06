@@ -62,6 +62,10 @@ def calcular() -> list[Numero]:
                       f"exceções por mês evitáveis mudando o processo: (excesso dos padrões {excesso_total:.0f} + {falsos_fora} atrasos falsos fora dos padrões) × 30/{periodo}", S, True))
     out.append(Numero("N98", evitaveis * 12 / 60, br_int(evitaveis * 12 / 60) + " h",
                       "horas do time por mês liberadas por N97, a 12 minutos por tratativa (parametros.md)", S, True))
+    mudancas = len(padroes) + 1  # um chamado por padrão + o prazo prometido em dias úteis (TI do checkout)
+    out.append(Numero("N99", mudancas, br_int(mudancas),
+                      f"mudanças de processo propostas, cada uma com um dono: {len(padroes)} padrões de causa raiz (N30) "
+                      "+ calcular o prazo prometido em dias úteis no checkout", S))
     return out
 
 

@@ -91,7 +91,7 @@ def gerar_chamado(ev: dict) -> tuple[Chamado | None, list]:
     if texto is None:
         return None, rastro
     return Chamado(**texto.model_dump(), padrao_id=ev["padrao_id"], dono=ev["dono"], evidencia=ev["evidencia"],
-                   modelo=llm.modelo()), rastro
+                   modelo=llm.modelo_usado(rastro) or llm.modelo()), rastro
 
 
 def chamados_em_cache() -> list[Chamado]:
