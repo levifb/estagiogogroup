@@ -1,0 +1,33 @@
+{
+ "titulo": "Alta taxa de avarias na transportadora Carga Norte",
+ "hipotese_causa": "É provável que o manuseio da carga na transportadora esteja inadequado, já que a proporção de avarias (0.288) está 5.4 vezes acima da base e muito acima da média dos demais (0.053). Essa hipótese seria confirmada por auditoria dos procedimentos de carga e inspeção dos veículos. Também pode ser que a falta de treinamento da equipe esteja contribuindo para as 80 exceções acima do esperado.",
+ "acao_proposta": "Revisar e atualizar o checklist de manuseio de carga da Carga Norte nesta semana. Realizar um treinamento rápido com a equipe de carregamento focado nas causas de avaria. Solicitar à transportadora um relatório detalhado das ocorrências das últimas 4 semanas.",
+ "como_medir": "Acompanhar a redução das exceções acima do esperado, que eram 80, visando menos de 40 em 30 dias, e observar a queda da proporção no grupo de 0.288 para próximo de 0.053.",
+ "padrao_id": "P03",
+ "dono": "Gestão de transportadoras",
+ "evidencia": {
+  "grupo": "transportadora: Carga Norte",
+  "tipos_de_excecao": [
+   "avaria_transporte"
+  ],
+  "excecoes_do_padrao": 98,
+  "excecoes_no_grupo": 340,
+  "proporcao_no_grupo": 0.288,
+  "proporcao_nos_demais": 0.053,
+  "vezes_acima_da_base": 5.4,
+  "excecoes_acima_do_esperado": 80,
+  "valor_pago_dos_pedidos": 13906.58,
+  "excecoes_por_semana_do_pedido": {
+   "2026-07-27": 3,
+   "2026-08-03": 14,
+   "2026-08-10": 13,
+   "2026-08-17": 15,
+   "2026-08-24": 13,
+   "2026-08-31": 8,
+   "2026-09-07": 10,
+   "2026-09-14": 15,
+   "2026-09-21": 7
+  }
+ },
+ "precisa_humano": true
+}

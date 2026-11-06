@@ -1,0 +1,103 @@
+{
+ "order_id": "GC7015083",
+ "tipo_excecao": "rastreio_parado",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O rastreio está parado e o pedido ainda não foi entregue. Conforme política, devemos acionar a transportadora para investigar a situação.",
+  "mensagem_cliente": "Olá! Detectamos que o rastreio do seu pedido está parado. Estamos entrando em contato com a transportadora Veloz Log para resolver o problema o mais rápido possível. Assim que tivermos novidades, avisaremos. Equipe Gocase",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "acionar_transportadora",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Detectamos que o rastreio do seu pedido está parado. Estamos entrando em contato com a transportadora Veloz Log para resolver o problema o mais rápido possível. Assim que tivermos novidades, avisaremos. Equipe Gocase",
+  "ordem": {
+   "tipo": "chamado_transportadora",
+   "transportadora": "Veloz Log",
+   "sla_contratado_dias_uteis": 3,
+   "dias_uteis_alem_do_sla": 4
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7015083",
+   "marca": "Gocase",
+   "produto": "Porta-Cartão Personalizado Iniciais",
+   "sku": "GOC-2007",
+   "valor_pago": 95.35,
+   "qtd_itens": 1,
+   "brinde_no_pedido": true,
+   "data_pedido": "19/09/2026",
+   "cd": "CD1",
+   "turno": "noite",
+   "maquina": "IMP-02",
+   "lote_produto": "L2606-A"
+  },
+  "excecao": {
+   "tipo": "rastreio_parado",
+   "status": "aguardando_transportadora",
+   "aberta_em": "26/09/2026",
+   "dias_aberta": 4,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Veloz Log",
+   "uf": "SP",
+   "cidade": "Guarulhos",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "23/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "24/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 5,
+   "dias_uteis_atraso_vs_sla_contratado": 4,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL308596",
+   "n_pedidos": 4,
+   "receita_acumulada": 397.85,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.1,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 10.93,
+   "custo_de_esperar_1_dia_util": 13.11,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 36.88,
+   "refazer_personalizacao": 36.88,
+   "reembolsar": 95.35,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 0.83,
+   "tokens": 2975,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "erro": null
+}

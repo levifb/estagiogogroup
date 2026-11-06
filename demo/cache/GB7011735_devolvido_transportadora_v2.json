@@ -1,0 +1,104 @@
+{
+ "order_id": "GB7011735",
+ "tipo_excecao": "devolvido_transportadora",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "reenviar",
+  "justificativa": "O item foi devolvido pela transportadora e o pedido está aguardando reenvio. A política exige reenviar o produto sem custo ao cliente, confirmando o endereço.",
+  "mensagem_cliente": "Olá! Seu produto foi devolvido pela transportadora e será reenviado para o endereço que você forneceu. Assim que o envio for confirmado, entraremos em contato. Equipe Kokeshi",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "reenviar",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu produto foi devolvido pela transportadora e será reenviado para o endereço que você forneceu. Assim que o envio for confirmado, entraremos em contato. Equipe Kokeshi",
+  "ordem": {
+   "tipo": "reenvio",
+   "sku": "KSH-1004",
+   "transportadora": "Rota Express",
+   "custo_estimado": 18.59
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7011735",
+   "marca": "Kokeshi",
+   "produto": "Creme Gel Facial Gota De Colageno 45G",
+   "sku": "KSH-1004",
+   "valor_pago": 27.3,
+   "qtd_itens": 1,
+   "brinde_no_pedido": true,
+   "data_pedido": "12/09/2026",
+   "cd": "CD2",
+   "turno": "tarde",
+   "maquina": null,
+   "lote_produto": "L2607-A"
+  },
+  "excecao": {
+   "tipo": "devolvido_transportadora",
+   "status": "aguardando_transportadora",
+   "aberta_em": "17/09/2026",
+   "dias_aberta": 13,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "SP",
+   "cidade": "Campinas",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "16/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "17/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 10,
+   "dias_uteis_atraso_vs_sla_contratado": 9,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL310521",
+   "n_pedidos": 35,
+   "receita_acumulada": 2192.73,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 3
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.22,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 20.22,
+   "custo_de_esperar_1_dia_util": 6.69,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 18.59,
+   "refazer_personalizacao": 18.59,
+   "reembolsar": 27.3,
+   "acao_padrao_do_tipo": "reenviar",
+   "custo_acao_padrao": 12.04
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.36,
+   "tokens": 2926,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

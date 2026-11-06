@@ -1,0 +1,103 @@
+{
+ "order_id": "GC7001713",
+ "tipo_excecao": "falha_personalizacao",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "refazer_personalizacao",
+  "justificativa": "Falha de personalização: a política é refazer o item sem custo, solicitando foto do produto. O pedido está aberto há 33 dias e ainda não foi entregue.",
+  "mensagem_cliente": "Olá! Sentimos muito pela personalização com problema. Vamos produzir seu item de novo, sem custo. Você pode responder com uma foto do produto que recebeu? Assim que recebermos, iniciaremos a produção. Equipe Gocase",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "refazer_personalizacao",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Sentimos muito pela personalização com problema. Vamos produzir seu item de novo, sem custo. Você pode responder com uma foto do produto que recebeu? Assim que recebermos, iniciaremos a produção. Equipe Gocase",
+  "ordem": {
+   "tipo": "nova_producao",
+   "sku": "GOC-2010",
+   "evitar_maquina": "IMP-01",
+   "custo_estimado": 56.09
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7001713",
+   "marca": "Gocase",
+   "produto": "Case Personalizado iPad 10ª Geração Nome",
+   "sku": "GOC-2010",
+   "valor_pago": 162.44,
+   "qtd_itens": 1,
+   "brinde_no_pedido": false,
+   "data_pedido": "25/08/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": "IMP-01",
+   "lote_produto": "L2606-A"
+  },
+  "excecao": {
+   "tipo": "falha_personalizacao",
+   "status": "aberta",
+   "aberta_em": "28/08/2026",
+   "dias_aberta": 33,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Postal Nacional",
+   "uf": "MT",
+   "cidade": "Cuiabá",
+   "sla_contratado_dias_uteis": 7,
+   "data_prometida_ao_cliente": "02/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "04/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 19,
+   "dias_uteis_atraso_vs_sla_contratado": 17,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL312512",
+   "n_pedidos": 14,
+   "receita_acumulada": 1451.98,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 2
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 104.44,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 8
+  },
+  "custos_acoes": {
+   "reenviar": 56.09,
+   "refazer_personalizacao": 56.09,
+   "reembolsar": 162.44,
+   "acao_padrao_do_tipo": "refazer_personalizacao",
+   "custo_acao_padrao": 56.09
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 17.86,
+   "tokens": 2941,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "erro": null
+}

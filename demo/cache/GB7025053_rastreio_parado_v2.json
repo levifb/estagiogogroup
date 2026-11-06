@@ -1,0 +1,104 @@
+{
+ "order_id": "GB7025053",
+ "tipo_excecao": "rastreio_parado",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O rastreio do pedido está parado há 6 dias e a transportadora Postal Nacional não atualizou o status. A política exige acionar a transportadora para resolver a situação.",
+  "mensagem_cliente": "Olá! Notamos que o rastreio do seu pedido está parado. Já acionamos a Postal Nacional para esclarecer a situação e garantir a entrega. Se houver qualquer novidade, entraremos em contato. Equipe Ápice",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "acionar_transportadora",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Notamos que o rastreio do seu pedido está parado. Já acionamos a Postal Nacional para esclarecer a situação e garantir a entrega. Se houver qualquer novidade, entraremos em contato. Equipe Ápice",
+  "ordem": {
+   "tipo": "chamado_transportadora",
+   "transportadora": "Postal Nacional",
+   "sla_contratado_dias_uteis": 7,
+   "dias_uteis_alem_do_sla": 3
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7025053",
+   "marca": "Ápice",
+   "produto": "Cond Oleo Ph Control 60Ml",
+   "sku": "APC-1140",
+   "valor_pago": 69.4,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "15/09/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": null,
+   "lote_produto": "L2606-C"
+  },
+  "excecao": {
+   "tipo": "rastreio_parado",
+   "status": "aguardando_transportadora",
+   "aberta_em": "24/09/2026",
+   "dias_aberta": 6,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Postal Nacional",
+   "uf": "GO",
+   "cidade": "Goiânia",
+   "sla_contratado_dias_uteis": 7,
+   "data_prometida_ao_cliente": "23/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "25/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 5,
+   "dias_uteis_atraso_vs_sla_contratado": 3,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL305544",
+   "n_pedidos": 4,
+   "receita_acumulada": 381.77,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.1,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 8.28,
+   "custo_de_esperar_1_dia_util": 9.93,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 33.76,
+   "refazer_personalizacao": 33.76,
+   "reembolsar": 69.4,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 22.32,
+   "tokens": 2917,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

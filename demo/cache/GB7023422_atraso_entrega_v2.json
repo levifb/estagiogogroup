@@ -1,0 +1,97 @@
+{
+ "order_id": "GB7023422",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido está com 2 dias úteis de atraso, mas dentro do SLA contratado com a Veloz Log, cujo prazo correto é 30/09/2026. O status está aguardando cliente, portanto precisamos apenas informar a situação. Não há custo adicional.",
+  "mensagem_cliente": "Olá! Seu pedido está a caminho e a previsão de entrega é até 30/09/2026. Pedimos desculpas pela data mostrada inicialmente. Se houver qualquer problema, responda esta mensagem. Equipe Ápice",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido está a caminho e a previsão de entrega é até 30/09/2026. Pedimos desculpas pela data mostrada inicialmente. Se houver qualquer problema, responda esta mensagem. Equipe Ápice"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7023422",
+   "marca": "Ápice",
+   "produto": "Cond Cch Nutritivo 300Ml",
+   "sku": "APC-1039",
+   "valor_pago": 67.08,
+   "qtd_itens": 3,
+   "brinde_no_pedido": false,
+   "data_pedido": "24/09/2026",
+   "cd": "CD1",
+   "turno": "tarde",
+   "maquina": null,
+   "lote_produto": "L2608-A"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aguardando_cliente",
+   "aberta_em": "30/09/2026",
+   "dias_aberta": 0,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Veloz Log",
+   "uf": "SP",
+   "cidade": "Campinas",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "28/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "30/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 2,
+   "dias_uteis_atraso_vs_sla_contratado": 0,
+   "dentro_do_sla_contratado": true,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL311662",
+   "n_pedidos": 3,
+   "receita_acumulada": 291.55,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.04,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 3.23,
+   "custo_de_esperar_1_dia_util": 4.84,
+   "dia_no_plano_otimizado": 3
+  },
+  "custos_acoes": {
+   "reenviar": 30.1,
+   "refazer_personalizacao": 30.1,
+   "reembolsar": 67.08,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 6.61,
+   "tokens": 3016,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "erro": null
+}

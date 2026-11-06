@@ -1,0 +1,103 @@
+{
+ "order_id": "GB7005020",
+ "tipo_excecao": "extravio",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "reenviar",
+  "justificativa": "Extravio detectado: o cliente pagou R$ 76,41 e não recebeu o produto. A política determina reenviar sem custo, usando o custo padrão de R$ 30,38.",
+  "mensagem_cliente": "Olá! Identificamos que seu pedido foi extraviado e vamos reenviá‑lo sem custo. Em breve você receberá a nova entrega. Pedimos desculpas pelo transtorno. Equipe Lescent",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "reenviar",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Identificamos que seu pedido foi extraviado e vamos reenviá‑lo sem custo. Em breve você receberá a nova entrega. Pedimos desculpas pelo transtorno. Equipe Lescent",
+  "ordem": {
+   "tipo": "reenvio",
+   "sku": "LSC-1029",
+   "transportadora": "Rota Express",
+   "custo_estimado": 30.38
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7005020",
+   "marca": "Lescent",
+   "produto": "Deo Colonia No 10 - 25Ml",
+   "sku": "LSC-1029",
+   "valor_pago": 76.41,
+   "qtd_itens": 1,
+   "brinde_no_pedido": true,
+   "data_pedido": "23/09/2026",
+   "cd": "CD1",
+   "turno": "manhã",
+   "maquina": null,
+   "lote_produto": "L2606-C"
+  },
+  "excecao": {
+   "tipo": "extravio",
+   "status": "aberta",
+   "aberta_em": "30/09/2026",
+   "dias_aberta": 0,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "MG",
+   "cidade": "Belo Horizonte",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "27/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "29/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 3,
+   "dias_uteis_atraso_vs_sla_contratado": 1,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL312778",
+   "n_pedidos": 16,
+   "receita_acumulada": 2811.33,
+   "alto_valor_acima_1500": true,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.1,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 41.13,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 2
+  },
+  "custos_acoes": {
+   "reenviar": 30.38,
+   "refazer_personalizacao": 30.38,
+   "reembolsar": 76.41,
+   "acao_padrao_do_tipo": "reenviar",
+   "custo_acao_padrao": 30.38
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 6.48,
+   "tokens": 2955,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "erro": null
+}

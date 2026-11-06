@@ -1,0 +1,103 @@
+{
+ "order_id": "GB7021867",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido está atrasado 2 dias úteis, mas ainda dentro do SLA contratado com a Rota Express, que prevê entrega até 30/09/2026. A data prometida foi calculada em dias corridos, portanto não há custo a assumir. O caso segue o padrão P01.",
+  "mensagem_cliente": "Olá! Seu pedido está a caminho e a previsão de entrega é até 30/09/2026. Pedimos desculpas: a data que mostramos na compra estava errada. Se não chegar até lá, é só responder esta mensagem que resolvemos. Equipe Kokeshi",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido está a caminho e a previsão de entrega é até 30/09/2026. Pedimos desculpas: a data que mostramos na compra estava errada. Se não chegar até lá, é só responder esta mensagem que resolvemos. Equipe Kokeshi"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7021867",
+   "marca": "Kokeshi",
+   "produto": "Hidratante Facial Pele De Porcelana Com Fps20 30G",
+   "sku": "KSH-1054",
+   "valor_pago": 152.97,
+   "qtd_itens": 3,
+   "brinde_no_pedido": false,
+   "data_pedido": "21/09/2026",
+   "cd": "CD2",
+   "turno": "tarde",
+   "maquina": null,
+   "lote_produto": "L2607-A"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "em_analise",
+   "aberta_em": "30/09/2026",
+   "dias_aberta": 0,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "PB",
+   "cidade": "João Pessoa",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "28/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "30/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 2,
+   "dias_uteis_atraso_vs_sla_contratado": 0,
+   "dentro_do_sla_contratado": true,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL310416",
+   "n_pedidos": 6,
+   "receita_acumulada": 705.25,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 1
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.04,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 6.78,
+   "custo_de_esperar_1_dia_util": 10.17,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 56.49,
+   "refazer_personalizacao": 56.49,
+   "reembolsar": 152.97,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 22.45,
+   "tokens": 3036,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

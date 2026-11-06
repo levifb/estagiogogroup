@@ -1,0 +1,104 @@
+{
+ "order_id": "GC7005343",
+ "tipo_excecao": "devolvido_transportadora",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "reenviar",
+  "justificativa": "O item foi devolvido pela transportadora e o pedido está aguardando a ação de reenviar. A política exige reenviar o produto e confirmar o endereço com o cliente.",
+  "mensagem_cliente": "Olá! Seu pedido foi devolvido pela transportadora e precisamos reenviá‑lo. Por favor, confirme se o endereço de entrega está correto: Rua Exemplo, 123, Brasília, DF. Assim que recebermos sua confirmação, enviamos o produto imediatamente. Equipe Gocase",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "reenviar",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido foi devolvido pela transportadora e precisamos reenviá‑lo. Por favor, confirme se o endereço de entrega está correto: Rua Exemplo, 123, Brasília, DF. Assim que recebermos sua confirmação, enviamos o produto imediatamente. Equipe Gocase",
+  "ordem": {
+   "tipo": "reenvio",
+   "sku": "GOC-2003",
+   "transportadora": "Carga Norte",
+   "custo_estimado": 47.17
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7005343",
+   "marca": "Gocase",
+   "produto": "Case Personalizado Galaxy S24 Iniciais",
+   "sku": "GOC-2003",
+   "valor_pago": 121.33,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "16/09/2026",
+   "cd": "CD2",
+   "turno": "tarde",
+   "maquina": "IMP-04",
+   "lote_produto": "L2606-B"
+  },
+  "excecao": {
+   "tipo": "devolvido_transportadora",
+   "status": "aguardando_transportadora",
+   "aberta_em": "24/09/2026",
+   "dias_aberta": 6,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Carga Norte",
+   "uf": "DF",
+   "cidade": "Brasília",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "23/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "25/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 5,
+   "dias_uteis_atraso_vs_sla_contratado": 3,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL307917",
+   "n_pedidos": 6,
+   "receita_acumulada": 470.93,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.1,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 29.48,
+   "custo_de_esperar_1_dia_util": 13.71,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 47.17,
+   "refazer_personalizacao": 47.17,
+   "reembolsar": 121.33,
+   "acao_padrao_do_tipo": "reenviar",
+   "custo_acao_padrao": 18.05
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.34,
+   "tokens": 2973,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

@@ -1,0 +1,97 @@
+{
+ "order_id": "GB7005077",
+ "tipo_excecao": "pagamento_pendente",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido está com pagamento pendente e o cliente ainda não efetuou a quitação. Não há custo adicional e precisamos que o cliente regularize o pagamento para prosseguir com a entrega.",
+  "mensagem_cliente": "Olá! Identificamos que o pagamento do seu pedido ainda está pendente. Por favor, regularize o pagamento para que possamos dar continuidade à entrega. Qualquer dúvida, estamos à disposição. Equipe Barbour's",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "escalar_humano",
+ "vai_para_humano": true,
+ "motivo_humano": "status 'aguardando_transportadora' não combina com o tipo 'pagamento_pendente'; conferir o registro antes de agir",
+ "regra_aplicada": "H1",
+ "artefato": {
+  "proposta_do_agente": "contatar_cliente",
+  "mensagem_rascunho": "Olá! Identificamos que o pagamento do seu pedido ainda está pendente. Por favor, regularize o pagamento para que possamos dar continuidade à entrega. Qualquer dúvida, estamos à disposição. Equipe Barbour's"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7005077",
+   "marca": "Barbour's",
+   "produto": "Cond Pfm Fin Alt Ego",
+   "sku": "BBS-1150",
+   "valor_pago": 97.45,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "12/09/2026",
+   "cd": "CD2",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2608-C"
+  },
+  "excecao": {
+   "tipo": "pagamento_pendente",
+   "status": "aguardando_transportadora",
+   "aberta_em": "13/09/2026",
+   "dias_aberta": 17,
+   "status_incoerente_com_tipo": true,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "RJ",
+   "cidade": "Niterói",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "16/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "17/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 10,
+   "dias_uteis_atraso_vs_sla_contratado": 9,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL308771",
+   "n_pedidos": 5,
+   "receita_acumulada": 574.53,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.22,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 24.98,
+   "custo_de_esperar_1_dia_util": 20.44,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 35.43,
+   "refazer_personalizacao": 35.43,
+   "reembolsar": 97.45,
+   "acao_padrao_do_tipo": "contatar_cliente",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 8.72,
+   "tokens": 2990,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "erro": null
+}

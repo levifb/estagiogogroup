@@ -1,0 +1,32 @@
+{
+ "titulo": "Alto número de rupturas pós‑venda na marca Kokeshi",
+ "hipotese_causa": "É provável que o planejamento de compras esteja subdimensionado para a demanda da Kokeshi, gerando rupturas. Pode ser que a reposição não esteja alinhada ao volume de pedidos (valor pago dos pedidos R$ 4.233,46). A hipótese seria confirmada ao analisar o estoque disponível versus o consumo semanal.",
+ "acao_proposta": "Revisar o forecast da Kokeshi e ajustar o pedido mínimo para cobrir a demanda dos próximos 2‑3 semanas. Priorizar a compra de SKUs que apresentaram mais rupturas nas últimas semanas. Atualizar o fornecedor sobre a necessidade de entrega mais rápida para esses itens.",
+ "como_medir": "Acompanhar o número de exceções por semana; sucesso será reduzir a proporção de exceções no grupo para ≤0,036 ou manter as exceções semanais abaixo de 6 nos próximos 30 dias.",
+ "padrao_id": "P06",
+ "dono": "Compras / planejamento",
+ "evidencia": {
+  "grupo": "marca: Kokeshi",
+  "tipos_de_excecao": [
+   "ruptura_pos_venda"
+  ],
+  "excecoes_do_padrao": 59,
+  "excecoes_no_grupo": 257,
+  "proporcao_no_grupo": 0.23,
+  "proporcao_nos_demais": 0.036,
+  "vezes_acima_da_base": 6.5,
+  "excecoes_acima_do_esperado": 50,
+  "valor_pago_dos_pedidos": 4233.46,
+  "excecoes_por_semana_do_pedido": {
+   "2026-08-03": 12,
+   "2026-08-10": 7,
+   "2026-08-17": 9,
+   "2026-08-24": 6,
+   "2026-08-31": 8,
+   "2026-09-07": 6,
+   "2026-09-14": 4,
+   "2026-09-21": 7
+  }
+ },
+ "precisa_humano": true
+}

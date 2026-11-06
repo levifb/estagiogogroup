@@ -1,0 +1,33 @@
+{
+ "titulo": "Alta taxa de exceções de item faltante no CD2 (turno noite)",
+ "hipotese_causa": "É provável que a falta de itens esteja relacionada a falhas no processo de separação no turno noite, já que a proporção de exceções no grupo (0.461) está 10.5 vezes acima da base. Pode ser que o estoque não esteja sendo atualizado corretamente ou que a equipe esteja com treinamento insuficiente. A confirmação viria da verificação de registros de estoque versus itens separados nas últimas semanas.",
+ "acao_proposta": "Revisar o procedimento de conferência de estoque no CD2 durante o turno noite esta semana. Realizar um treinamento rápido com a equipe de separação focado em conferência de itens. Ajustar o sistema de atualização de estoque para garantir que as baixas ocorram no momento da separação.",
+ "como_medir": "Acompanhar a métrica excecoes_acima_do_esperado (atualmente 190) e a proporção no grupo, buscando reduzi‑la para próximo da proporção nos demais grupos (0.044) dentro de 30 dias.",
+ "padrao_id": "P02",
+ "dono": "Supervisão do CD",
+ "evidencia": {
+  "grupo": "CD e turno de separação: CD2 | noite",
+  "tipos_de_excecao": [
+   "item_faltante"
+  ],
+  "excecoes_do_padrao": 210,
+  "excecoes_no_grupo": 456,
+  "proporcao_no_grupo": 0.461,
+  "proporcao_nos_demais": 0.044,
+  "vezes_acima_da_base": 10.5,
+  "excecoes_acima_do_esperado": 190,
+  "valor_pago_dos_pedidos": 21476.06,
+  "excecoes_por_semana_do_pedido": {
+   "2026-07-27": 6,
+   "2026-08-03": 27,
+   "2026-08-10": 17,
+   "2026-08-17": 34,
+   "2026-08-24": 30,
+   "2026-08-31": 24,
+   "2026-09-07": 31,
+   "2026-09-14": 21,
+   "2026-09-21": 20
+  }
+ },
+ "precisa_humano": true
+}

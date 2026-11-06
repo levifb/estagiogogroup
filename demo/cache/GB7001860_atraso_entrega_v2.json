@@ -1,0 +1,97 @@
+{
+ "order_id": "GB7001860",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O pedido está com 13 dias úteis de atraso e está fora do SLA contratado (3 dias úteis). A transportadora será acionada para investigar a entrega.",
+  "mensagem_cliente": "Olá! Seu pedido está atrasado e estamos acionando a transportadora para resolver a situação. Assim que tivermos uma atualização, entraremos em contato. Equipe Ápice",
+  "pertence_a_padrao": null,
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "escalar_humano",
+ "vai_para_humano": true,
+ "motivo_humano": "13 dias úteis de atraso sem entrega; decidir entre reenvio e reembolso",
+ "regra_aplicada": "H4",
+ "artefato": {
+  "proposta_do_agente": "acionar_transportadora",
+  "mensagem_rascunho": "Olá! Seu pedido está atrasado e estamos acionando a transportadora para resolver a situação. Assim que tivermos uma atualização, entraremos em contato. Equipe Ápice"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7001860",
+   "marca": "Ápice",
+   "produto": "Shampoo Af Ba 300 Ml",
+   "sku": "APC-1183",
+   "valor_pago": 78.51,
+   "qtd_itens": 3,
+   "brinde_no_pedido": false,
+   "data_pedido": "07/09/2026",
+   "cd": "CD1",
+   "turno": "manhã",
+   "maquina": null,
+   "lote_produto": "L2608-A"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aberta",
+   "aberta_em": "14/09/2026",
+   "dias_aberta": 16,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Entrega Já",
+   "uf": "SP",
+   "cidade": "Campinas",
+   "sla_contratado_dias_uteis": 3,
+   "data_prometida_ao_cliente": "11/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "11/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 13,
+   "dias_uteis_atraso_vs_sla_contratado": 13,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL303416",
+   "n_pedidos": 5,
+   "receita_acumulada": 544.36,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 3
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.4,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 37.5,
+   "custo_de_esperar_1_dia_util": 0.0,
+   "dia_no_plano_otimizado": 12
+  },
+  "custos_acoes": {
+   "reenviar": 34.94,
+   "refazer_personalizacao": 34.94,
+   "reembolsar": 78.51,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": null
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 8.07,
+   "tokens": 3048,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "erro": null
+}

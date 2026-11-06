@@ -1,0 +1,120 @@
+{
+ "order_id": "GB7017758",
+ "tipo_excecao": "rastreio_parado",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "acionar_transportadora",
+  "justificativa": "O rastreio do pedido está parado há 6 dias e a transportadora Rota Express não atualizou o status. A política exige acionar a transportadora para resolver a situação. Padrão P01.",
+  "mensagem_cliente": "Olá! Notamos que o rastreio do seu pedido está parado. Já acionamos a transportadora para obter mais informações e resolver o problema. Se precisar de mais alguma coisa, estamos à disposição. Equipe Ápice",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "acionar_transportadora",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Notamos que o rastreio do seu pedido está parado. Já acionamos a transportadora para obter mais informações e resolver o problema. Se precisar de mais alguma coisa, estamos à disposição. Equipe Ápice",
+  "ordem": {
+   "tipo": "chamado_transportadora",
+   "transportadora": "Rota Express",
+   "sla_contratado_dias_uteis": 6,
+   "dias_uteis_alem_do_sla": 3
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7017758",
+   "marca": "Ápice",
+   "produto": "Cond Nutri Waves 300Ml",
+   "sku": "APC-1089",
+   "valor_pago": 77.56,
+   "qtd_itens": 3,
+   "brinde_no_pedido": false,
+   "data_pedido": "16/09/2026",
+   "cd": "CD1",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2606-B"
+  },
+  "excecao": {
+   "tipo": "rastreio_parado",
+   "status": "aberta",
+   "aberta_em": "24/09/2026",
+   "dias_aberta": 6,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "BA",
+   "cidade": "Feira de Santana",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "23/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "25/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 5,
+   "dias_uteis_atraso_vs_sla_contratado": 3,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL308036",
+   "n_pedidos": 2,
+   "receita_acumulada": 138.58,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.1,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 8.73,
+   "custo_de_esperar_1_dia_util": 10.47,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 38.39,
+   "refazer_personalizacao": 38.39,
+   "reembolsar": 77.56,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 21.23,
+   "tokens": 2933,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_invalido",
+   "tentativa": 1,
+   "erro": "1 validation error for Decisao\n  Value error, acao acionar_transportadora exige mensagem_cliente [type=value_error, input_value={'acao': 'acionar_transpo..., 'motivo_humano': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error",
+   "bruto": "{\"acao\":\"acionar_transportadora\",\"justificativa\":\"O rastreio do pedido está parado há 6 dias e a transportadora Rota Express não atualizou o status. A política exige acionar a transportadora para resolver a situação. Padrão P01.\",\"mensagem_cliente\":null,\"pertence_a_padrao\":\"P01\",\"confianca\":\"alta\",\"precisa_humano\":false,\"motivo_humano\":null}"
+  },
+  {
+   "etapa": "modelo_json",
+   "segundos": 22.17,
+   "tokens": 3036
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 2
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

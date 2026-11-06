@@ -1,0 +1,109 @@
+{
+ "order_id": "GC7024770",
+ "tipo_excecao": "falha_personalizacao",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "refazer_personalizacao",
+  "justificativa": "Falha de personalização detectada na máquina IMP-02, que tem histórico de 77 ocorrências (padrão P05). O pedido ainda não foi entregue e está fora do SLA, mas a política exige refazer a personalização sem custo ao cliente.",
+  "mensagem_cliente": "Olá! Sentimos muito pela falha na personalização do seu case. Vamos produzir seu item de novo, sem custo. Por favor, envie uma foto do produto que recebeu para que possamos confirmar o problema. Equipe Gocase",
+  "pertence_a_padrao": "P05",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "refazer_personalizacao",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Sentimos muito pela falha na personalização do seu case. Vamos produzir seu item de novo, sem custo. Por favor, envie uma foto do produto que recebeu para que possamos confirmar o problema. Equipe Gocase",
+  "ordem": {
+   "tipo": "nova_producao",
+   "sku": "GOC-2002",
+   "evitar_maquina": "IMP-02",
+   "custo_estimado": 42.06
+  }
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GC7024770",
+   "marca": "Gocase",
+   "produto": "Case Personalizado iPhone 16 Magsafe Foto",
+   "sku": "GOC-2002",
+   "valor_pago": 119.83,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "18/09/2026",
+   "cd": "CD1",
+   "turno": "manhã",
+   "maquina": "IMP-02",
+   "lote_produto": "L2607-C"
+  },
+  "excecao": {
+   "tipo": "falha_personalizacao",
+   "status": "em_analise",
+   "aberta_em": "21/09/2026",
+   "dias_aberta": 9,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Carga Norte",
+   "uf": "SP",
+   "cidade": "São Paulo",
+   "sla_contratado_dias_uteis": 4,
+   "data_prometida_ao_cliente": "23/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "25/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 5,
+   "dias_uteis_atraso_vs_sla_contratado": 3,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL312687",
+   "n_pedidos": 1,
+   "receita_acumulada": 119.83,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 0
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.1,
+   "prob_cancelamento_em_5_dias_uteis": 0.22,
+   "perda_esperada_hoje": 51.51,
+   "custo_de_esperar_1_dia_util": 11.35,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 42.06,
+   "refazer_personalizacao": 42.06,
+   "reembolsar": 119.83,
+   "acao_padrao_do_tipo": "refazer_personalizacao",
+   "custo_acao_padrao": 42.06
+  },
+  "padrao_causa_raiz": {
+   "id": "P05",
+   "descricao": "maquina = IMP-02 (falha_personalizacao)",
+   "casos": 77,
+   "dono": "Manutenção"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 7.82,
+   "tokens": 2992,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "modelo": "openai/gpt-oss-20b",
+ "erro": null
+}

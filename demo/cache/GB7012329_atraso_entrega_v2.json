@@ -1,0 +1,102 @@
+{
+ "order_id": "GB7012329",
+ "tipo_excecao": "atraso_entrega",
+ "fonte": "ao_vivo",
+ "decisao_modelo": {
+  "acao": "contatar_cliente",
+  "justificativa": "O pedido está com 10 dias úteis de atraso em relação à data prometida e está fora do SLA contratado. O prazo correto, segundo o SLA, é até 18/09/2026. O caso segue o padrão de causa raiz P01.",
+  "mensagem_cliente": "Olá! Seu pedido está atrasado e a nova previsão de entrega é até 18/09/2026. Pedimos desculpas pelo transtorno. Se não chegar até lá, responda esta mensagem que resolveremos. Equipe Barbour's",
+  "pertence_a_padrao": "P01",
+  "confianca": "alta",
+  "precisa_humano": false,
+  "motivo_humano": null
+ },
+ "acao_final": "contatar_cliente",
+ "vai_para_humano": false,
+ "motivo_humano": null,
+ "regra_aplicada": null,
+ "artefato": {
+  "simulado": true,
+  "mensagem_cliente": "Olá! Seu pedido está atrasado e a nova previsão de entrega é até 18/09/2026. Pedimos desculpas pelo transtorno. Se não chegar até lá, responda esta mensagem que resolveremos. Equipe Barbour's"
+ },
+ "ficha": {
+  "data_referencia": "30/09/2026",
+  "pedido": {
+   "order_id": "GB7012329",
+   "marca": "Barbour's",
+   "produto": "Deo Bd Spl Moonlight Shimmer 200Ml",
+   "sku": "BBS-1120",
+   "valor_pago": 97.88,
+   "qtd_itens": 2,
+   "brinde_no_pedido": false,
+   "data_pedido": "09/09/2026",
+   "cd": "CD2",
+   "turno": "noite",
+   "maquina": null,
+   "lote_produto": "L2606-B"
+  },
+  "excecao": {
+   "tipo": "atraso_entrega",
+   "status": "aguardando_cliente",
+   "aberta_em": "19/09/2026",
+   "dias_aberta": 11,
+   "status_incoerente_com_tipo": false,
+   "registro_duplicado_com_status_diferente": false
+  },
+  "entrega": {
+   "transportadora": "Rota Express",
+   "uf": "CE",
+   "cidade": "Caucaia",
+   "sla_contratado_dias_uteis": 6,
+   "data_prometida_ao_cliente": "16/09/2026",
+   "prazo_correto_pelo_sla_dias_uteis": "18/09/2026",
+   "entregue": false,
+   "data_entrega": null,
+   "dias_uteis_atraso_vs_prometido": 10,
+   "dias_uteis_atraso_vs_sla_contratado": 8,
+   "dentro_do_sla_contratado": false,
+   "dias_entre_recebimento_e_reclamacao": null
+  },
+  "cliente": {
+   "customer_id": "CL303570",
+   "n_pedidos": 4,
+   "receita_acumulada": 1199.45,
+   "alto_valor_acima_1500": false,
+   "contatos_atendimento_12m": 3
+  },
+  "risco": {
+   "prob_cancelamento_hoje": 0.22,
+   "prob_cancelamento_em_5_dias_uteis": 0.4,
+   "perda_esperada_hoje": 30.77,
+   "custo_de_esperar_1_dia_util": 25.17,
+   "dia_no_plano_otimizado": 0
+  },
+  "custos_acoes": {
+   "reenviar": 43.27,
+   "refazer_personalizacao": 43.27,
+   "reembolsar": 97.88,
+   "acao_padrao_do_tipo": "acionar_transportadora",
+   "custo_acao_padrao": 0.0
+  },
+  "padrao_causa_raiz": {
+   "id": "P01",
+   "descricao": "transportadora+regiao = Rota Express | Nordeste (atraso_entrega, rastreio_parado)",
+   "casos": 396,
+   "dono": "Gestão de transportadoras"
+  }
+ },
+ "rastro": [
+  {
+   "etapa": "modelo",
+   "segundos": 7.9,
+   "tokens": 3200,
+   "chamou_ferramentas": false
+  },
+  {
+   "etapa": "json_valido",
+   "tentativa": 1
+  }
+ ],
+ "versao_prompt": 2,
+ "erro": null
+}
