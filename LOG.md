@@ -9,6 +9,7 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 
 ## 2026-11-05: decisão
 - Os CSVs sintéticos vão para o repositório público (decisão do Levi). Os dados dos outros dois cases ficaram fora do projeto.
+- Revista em 2026-11-06: o enunciado pede para não compartilhar os dados, então o PDF e os CSVs saíram do repositório e de todo o histórico. Ver a entrada "2026-11-06 10:01: decisão (enunciado e dados fora do repositório)".
 
 ## 2026-11-05 18:37: erro da IA (detector de padrões)
 - O que aconteceu: a primeira versão de `src/dados/padroes.py` (escrita pelo Claude Code) apontou grupos amplos demais ("CD2", "marca Ápice") em vez do recorte que tem dono ("CD2 no turno da noite", "lote L2607-B do APC-1067"). Também comparou a taxa da IMP-02 com pedidos que nem passam por máquina, o que deu base de 3% em vez de 11%.
