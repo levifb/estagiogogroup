@@ -140,3 +140,6 @@ Erros da IA (do Claude Code e do modelo do produto) e as correções, mudanças 
 - O título dizia que o agente escolhe as 150 de hoje; quem escolhe é o algoritmo de otimização. Título e frase de abertura do README corrigidos. CLAUDE.md dizia "Llama"; agora diz gpt-oss.
 - Gabarito: revisado caso a caso pelo Claude Code contra o texto do SPEC (marcado `claude_revisado`, não como revisão do Levi). Concordou com os 33 e apontou uma lacuna da política (rastreio parado há mais de 30 dias úteis).
 - Não corrigido (fora do escopo pedido) e agora documentado no README: o furo da H7 com paráfrases e a linha de base "mais novo primeiro", que já chega perto do plano ótimo.
+
+## 2026-11-06 10:38: decisão (gabarito)
+- O Levi conferiu os 33 rótulos depois da revisão do Claude Code e confirmou todos. `anotado_por` passou de `claude_revisado` para `claude_revisado_por_levi`, e o README foi atualizado.
