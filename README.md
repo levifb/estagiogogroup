@@ -6,7 +6,7 @@ A Mesa de exceções separa, com um algoritmo de otimização, os 150 pedidos co
 - Feito para o Desafio AI-First do Gogroup, case Operações, com os dados sintéticos do desafio. A persona (Juliana) é fictícia, e as ações são simuladas: nada é enviado a clientes.
 - O enunciado e os CSVs do desafio não estão neste repositório, porque o enunciado pede para não compartilhá-los. Para rodar a análise, coloque os arquivos do case Operações em `dados/operacoes/`. O repositório traz só o que a interface precisa: a fila do dia, as decisões e os números agregados.
 
-**Como usar em 30 segundos:** abra o link, leia a régua do topo (ordem de chegada contra o plano do agente), clique num caso laranja da fila ("aguarda a Juliana") para ver por que ele foi para uma pessoa, e num caso verde para ver a decisão e a mensagem que o agente escreveu. O botão "Rodar o agente agora" chama o modelo ao vivo.
+**Como usar em 30 segundos:** abra o link e leia o topo (o problema e os quatro números de impacto; "Como calculamos" mostra a conta de cada um). Na fila de hoje, filtre "Revisão da analista" e abra um caso para ver por que ele foi para uma pessoa; abra um caso decidido pelo agente para ver a decisão e a mensagem ao cliente. O botão "Rodar o agente agora" chama o modelo ao vivo.
 
 ## O problema
 
@@ -133,4 +133,17 @@ Cada número entre colchetes neste README, como [N01], está em [docs/NUMEROS.md
 - O gabarito foi revisado por mim, e não por alguém da operação, e precisa de casos difíceis vindos de exceções reais. A revisão também achou uma lacuna na política: rastreio parado há mais de 30 dias úteis deveria virar extravio (reenvio) ou ir para a analista.
 - Os dois modelos às vezes confundem "7 dias do recebimento" com dias desde a abertura do caso. Na maioria das vezes isso manda para a Juliana um reenvio que poderia ser automático; no GB7000254 levou o modelo a dispensar a foto, e quem segurou foi a regra H7. A correção é tirar essa regra do prompt, porque o código já a verifica (regra H5), e rodar o eval de novo.
 - Fila com dois modelos: o limite diário do plano gratuito acabou no meio do lote, e parte da fila foi decidida pelo `openai/gpt-oss-20b`. Antes de usá-lo, ele passou pelo mesmo eval (`eval/resultados/2026-11-05_2016_v2_gpt-oss-20b.json`): mandou para a pessoa os 4 de 4 casos de risco e acertou a ação em 31 de 33, e os 2 erros foram envios desnecessários à pessoa. A tela mostra qual modelo decidiu cada caso.
+- Modelo de reserva: se o `openai/gpt-oss-120b` bater no limite, ficar fora do ar ou for removido, a chamada passa para o `openai/gpt-oss-20b` e depois para o `qwen/qwen3.8-27b` (`src/agente/llm.py`, testes em `tests/test_llm.py`). O qwen não passou pelo eval; quando ele responde, a tela mostra o nome do modelo.
 - Próximo passo: replanejar a cada dia com as exceções novas e medir o acerto do agente contra a decisão final da analista.
+
+## Se o link parar de funcionar
+
+Quase toda a página é estática (`web/public/data`): a fila, as decisões gravadas, os números e os chamados aparecem mesmo sem o modelo. Só o botão "Rodar o agente agora" chama a API. Se ela falhar ou demorar mais de 25 segundos, a tela avisa e mostra a decisão gravada.
+
+Se o botão parar de responder:
+
+1. Confira `https://mesa-de-excecoes.vercel.app/api/saude`. `chave_configurada: false` quer dizer que falta a chave.
+2. Gere uma chave nova em console.groq.com e troque a variável `GROQ_API_KEY` no projeto da Vercel (Settings → Environment Variables, ambiente Production).
+3. Publique de novo, na raiz do repositório: `npx vercel deploy --prod --yes`.
+
+Se o Groq remover um dos modelos, o código passa sozinho para o próximo da lista em `src/agente/llm.py`. Para trocar a lista, edite `MODELOS` nesse arquivo e publique de novo.
